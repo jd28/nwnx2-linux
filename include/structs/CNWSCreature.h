@@ -87,7 +87,7 @@ struct CNWSCreature_s {
     CExoArrayList_uint32        cre_subarea_list;       /* 02F8 */
 
     nwn_objid_t                 cre_blocked_id;         /* 0304 */
-    Vector                     *cre_blocked_pos;        /* 0308 */
+    CPathfindInformation       *cre_blocked_pos;        /* 0308 */
 
     uint32_t                    field_30C;
 
@@ -410,7 +410,7 @@ struct CNWSCreature_s {
 
     uint32_t                    cre_activity_locked;    /* 0B1C */
 
-    uint32_t                    field_B20;
+    float                       cre_move_rate;          /* 0B20 */
 
     float                       cre_drivemode_factor;   /* 0B24 */
 
@@ -427,7 +427,8 @@ struct CNWSCreature_s {
 
     CExoArrayList_uint32       *cre_associates;         /* 0B38 */
 
-    uint32_t                    cre_associate_type;     /* 0B3C */   /* 3 = familiar; 7 or 8 = dm */
+    uint16_t                    cre_associate_type;     /* 0B3C */   /* 3 = familiar; 7 or 8 = dm */
+    uint16_t                    field_0B3E;             /* 0B3E */
     uint32_t                    cre_associate_command;  /* 0B40 */
 
     uint32_t                    cre_summoned_acomp;     /* 0B44 */
@@ -441,7 +442,7 @@ struct CNWSCreature_s {
     CExoArrayList_uint32       *cre_reputation_personal;/* 0B5C */
     CExoArrayList_uint32       *cre_reputation;         /* 0B60 */
 
-    CExoArrayList_uint32       *cre_pvp;                /* 0B64 */
+    CNWSPVPEntryList           *cre_pvp;                /* 0B64 */ /* CNWSPVPEntry */
 
     nwn_objid_t                 cre_encounter_obj;      /* 0B68 */
     uint32_t                    cre_encounter_already;  /* 0B6C */
@@ -460,32 +461,14 @@ struct CNWSCreature_s {
     uint32_t                    cre_last_pickup_failed; /* 0B8C */
     uint32_t                    cre_total_weight;       /* 0B90 */
 
-    uint32_t                    field_B94;
-    uint32_t                    field_B98;
-    uint32_t                    field_B9C;
-    uint32_t                    field_BA0;
-    uint32_t                    field_BA4;
-    uint32_t                    field_BA8;
-    uint32_t                    field_BAC;
-    uint32_t                    field_BB0;
-    uint32_t                    field_BB4;
-    uint32_t                    field_BB8;
-    uint32_t                    field_BBC;
-    uint32_t                    field_BC0;
-    uint32_t                    field_BC4;
-    uint32_t                    field_BC8;
-    uint32_t                    field_BCC;
-    uint32_t                    field_BD0;
-    uint32_t                    field_BD4;
-    uint32_t                    field_BD8;
-
+    uint32_t                    cre_poly_item_id[18];
     char                        cre_poly_portrait[16];  /* 0BDC */
-    uint16_t                    cre_poly_unknown_1;     /* 0BEC */
+    uint16_t                    cre_poly_portrait_id;   /* 0BEC */
     uint16_t                    cre_poly_unknown_2;     /* 0BEE */
 
     uint32_t                    cre_is_poly;            /* 0BF0 */
 
-    uint16_t                    cre_poly_unknown_3;     /* 0BF4 */
+    uint16_t                    cre_poly_appearance;    /* 0BF4 */
 
     uint8_t                     cre_poly_pre_str;       /* 0BF6 */
     uint8_t                     cre_poly_pre_con;       /* 0BF7 */
@@ -513,25 +496,9 @@ struct CNWSCreature_s {
     uint32_t                    cre_is_polymorphing;    /* 0C20 */
     uint32_t                    cre_poly_locked;        /* 0C24 */
 
-    uint32_t                    cre_appearance;         /* 0C28 */
+    CNWSCreatureAppearanceInfo  cre_appearance_info;
 
-    uint32_t                    field_C2C;
-    uint32_t                    field_C30;
-    uint32_t                    field_C34;
-    uint32_t                    field_C38;
-    uint32_t                    field_C3C;
-    uint32_t                    field_C40;
-    uint32_t                    field_C44;
-    uint32_t                    field_C48;
-    uint32_t                    field_C4C;
-    uint32_t                    field_C50;
-    uint32_t                    field_C54;
-    uint32_t                    field_C58;
-    uint32_t                    field_C5C;
-    uint32_t                    field_C60;
-    uint32_t                    field_C64;
-
-    CNWSCreatureStats          *cre_stats;              /* 0C68 */
+    CNWSCreatureStats           *cre_stats;             /* 0C68 */
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSCREATURE_ */

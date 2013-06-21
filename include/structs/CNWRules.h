@@ -37,7 +37,7 @@ struct CNWRules_s {
 
     CNWSpellArray      *ru_spells;
 
-    u_int32_t           field_C0;
+    CNWFeat            *ru_feats;
     u_int32_t           field_C4;
     u_int32_t           field_C8;
     u_int32_t           field_CC;

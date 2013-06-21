@@ -25,7 +25,49 @@
 #define _NX_NWN_STRUCT_CCOMBATINFORMATION_
 
 struct CCombatInformation_s {
-    void               *unknown;
+    uint8_t           ci_num_attacks;
+    uint8_t           ci_onhand_attack_mod;
+    uint8_t           ci_onhand_damage_mod;
+    uint8_t           ci_offhand_attack_mod;
+    uint8_t           ci_offhand_damage_mod;
+    uint8_t           ci_spell_resistance;
+    uint8_t           ci_arcane_spell_failure;
+    uint8_t           ci_armor_check_penalty;
+    uint8_t           ci_unarmed_damage_dice;
+    uint8_t           ci_unarmed_damage_die;
+    uint8_t           field_0A;  // Creature attack dice...
+    uint8_t           field_0B;
+    uint8_t           field_0C;
+    uint8_t           field_0D;
+    uint8_t           field_0E;
+    uint8_t           field_0F;
+    uint8_t           field_10;
+    uint8_t           field_11;
+    uint8_t           field_12;
+    uint8_t           ci_onhand_crit_range;
+    uint8_t           ci_onhand_crit_mult;
+    uint8_t           field_15;
+    uint8_t           field_16;
+    uint8_t           field_17;
+    uint8_t           ci_offhand_weapon_equipped;
+    uint8_t           field_19;
+    uint8_t           field_1A;
+    uint8_t           field_1B;
+    uint8_t           ci_offhand_crit_range;
+    uint8_t           ci_offhand_crit_mult;
+    uint8_t           field_1E;
+    uint8_t           field_1F;
+    CExoArrayList_ptr ci_atk_mod_list; // CCombatInformationNode
+    CExoArrayList_ptr ci_dmg_mod_list; // CCombatInformationNode
+    nwn_objid_t       ci_right_equip;
+    nwn_objid_t       ci_left_equip;
+    CExoString        ci_right_string;
+    CExoString        ci_left_string;
+    uint8_t           ci_damage_dice;
+    uint8_t           ci_damage_die;
+    uint8_t           field_52;
+    uint8_t           field_53;
+    uint8_t           field_54;
 };
 
 #endif /* _NX_NWN_STRUCT_CCOMBATINFORMATION_ */

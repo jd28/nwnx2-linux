@@ -63,28 +63,29 @@ struct CNWSPlaceable_s {
     uint8_t                     field_232;
     uint8_t                     field_233;
 
-    uint32_t                    plc_trap_creator;       /* 0234 */
+    uint32_t                    trap_creator;           /* 0234 */
 
-    uint8_t                     plc_detect_dc;          /* 0238 */
+    uint8_t                     trap_detect_dc;          /* 0238 */
     uint8_t                     field_239;
     uint8_t                     field_23A;
     uint8_t                     field_23B;
 
     uint32_t                    plc_trapped;            /* 023C */
-    uint32_t                    plc_disarm_dc;          /* 0240 */
-    uint32_t                    plc_disarmable;         /* 0244 */
-    uint32_t                    field_248;              /* 0248 */
-    uint32_t                    plc_oneshot;            /* 024C */
-    uint32_t                    plc_recoverable;        /* 0250 */
-    uint32_t                    plc_flagged;            /* 0254 */
+    uint32_t                    trap_disarm_dc;         /* 0240 */
+    uint32_t                    trap_disarmable;        /* 0244 */
+    uint32_t                    trap_detectable;        /* 0248 */
+    uint32_t                    trap_oneshot;           /* 024C */
+    uint32_t                    trap_recoverable;       /* 0250 */
+    uint32_t                    trap_flagged;           /* 0254 */
 
-    uint8_t                     plc_basetype;           /* 0258 */
+    uint8_t                     trap_basetype;          /* 0258 */
     uint8_t                     field_259;
     uint8_t                     field_25A;
     uint8_t                     field_25B;
 
-    uint32_t                    plc_active;             /* 025C */
-    uint32_t                    plc_trap_faction;       /* 0260 */
+    uint32_t                    trap_active;            /* 025C */
+    uint32_t                    trap_faction;           /* 0260 */
+
     uint32_t                    plc_event_scripts;      /* 0264 */
     uint32_t                    field_268;              /* 0268 */
     uint32_t                    field_26C;              /* 026C */

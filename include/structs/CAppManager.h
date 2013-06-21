@@ -27,7 +27,20 @@
 struct CAppManager_s {
     u_int32_t                   field_00;
 
-    CServerExoApp              *app_server;             /* 0004 */
+    CServerExoApp              *app_server;                 /* 0004 */
+    CNWTileSetManager          *app_tileset_man;            /* 0008 */
+    uint32_t                    field_0C;                   /* 000C */
+    CObjectTableManager        *app_objtable_man;           /* 0010 */
+    uint32_t                    field_14;                   /* 0014 */
+    uint32_t                    field_18;                   /* 0018 */
+    uint32_t                    app_tickcount;              /* 001C */
+    uint32_t                    field_20;                   /* 0020 */
+    uint32_t                    field_24;                   /* 0030 */
+    uint32_t                    field_28;                   /* 0028 */
+    uint32_t                    field_2C;                   /* 0030 */
+    uint32_t                    field_30;                   /* 0030 */
+    uint32_t                    field_34;                   /* 0034 */
+    uint32_t                    field_38;                   /* 0038 */
 };
 
 #endif /* _NX_NWN_STRUCT_CAPPMANAGER_ */

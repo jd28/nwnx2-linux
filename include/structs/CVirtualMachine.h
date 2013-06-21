@@ -1,6 +1,5 @@
 /*
- *  NWNeXalt - Empty File
- *  (c) 2007 Doug Swarin (zac@intertex.net)
+ *  (c) 2007
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,11 +20,38 @@
  *
  */
 
+/* jmd: Ported from NWNX v2.8 api. */
+
 #ifndef _NX_NWN_STRUCT_CVIRTUALMACHINE_
 #define _NX_NWN_STRUCT_CVIRTUALMACHINE_
 
 struct CVirtualMachine_s {
-    void                       *unknown;
+    uint32_t                   field_0;
+    void                      *vm_return_value;
+    uint32_t                   vm_instruction_executed;
+    uint32_t                   vm_recursion_level;
+    CVirtualMachineScript      vm_script[8];
+    uint32_t                   vm_valid_obj[8];
+    nwn_objid_t                vm_object_id[8];
+    CVirtualMachineStack       vm_stack;
+    uint32_t                   vm_instruction_ptr_level;
+    uint32_t                   vm_runtime_instruction_ptr[128];
+    uint32_t                   vm_stack_size_to_save;
+    uint32_t                   vm_base_stack_size_to_save;
+    CNWVirtualMachineCommands *vm_implementer;
+    uint32_t                   vm_debug_gui_required;
+    uint32_t                   vm_debugger_spawned;
+    CVirtualMachineFile        vm_file;
+    uint32_t                   vm_cache;
+    uint32_t                   field_3C4;
+    uint32_t                   vm_script_log;
+    uint32_t                   field_3CC;
+    uint32_t                   field_3D0;
+    uint32_t                   vm_enable_logging;
+    uint32_t                   vm_enable_profiling;
+    uint32_t                   field_3DC;
+    uint32_t                   field_3E0;
+    uint32_t                   field_3E4;
 };
 
 #endif /* _NX_NWN_STRUCT_CVIRTUALMACHINE_ */

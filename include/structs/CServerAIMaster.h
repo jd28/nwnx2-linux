@@ -21,13 +21,34 @@
  *
  */
 
+/* vim: set sw=4: */
 #ifndef _NX_NWN_STRUCT_CSERVERAIMASTER_
 #define _NX_NWN_STRUCT_CSERVERAIMASTER_
 
 struct CServerAIMaster_s {
-    void               *unknown;
+	uint32_t                    field_00;                /* 00 */
+	uint32_t                    field_04;                /* 04 */
+	uint32_t                    field_08;                /* 08 */
+	uint32_t                    field_0C;                /* 0C */
+	uint32_t                    field_10;                /* 10 */
+	uint32_t                    field_14;                /* 14 */
+	uint32_t                    field_18;                /* 18 */
+	uint32_t                    field_1C;                /* 1C */
+	uint32_t                    field_20;                /* 20 */
+	uint32_t                    field_24;                /* 24 */
+	uint32_t                    field_28;                /* 28 */
+	uint32_t                    field_2C;                /* 2C */
+	uint32_t                    field_30;                /* 30 */
+	uint32_t                    field_34;                /* 34 */
+	uint32_t                    field_38;                /* 38 */
+	uint32_t                    field_3C;                /* 3C */
+	uint32_t                    field_40;                /* 40 */
+	uint32_t                    field_44;                /* 44 */
+	uint32_t                    field_48;                /* 48 */
+	uint32_t                    field_4C;                /* 4C */
+	uint32_t                    field_50;                /* 50 */
+	uint32_t                    field_54;                /* 54 */
+	CNWSEffectListHandler       *saim_eff_list_handler;  /* 58 */
 };
 
 #endif /* _NX_NWN_STRUCT_CSERVERAIMASTER_ */
-
-/* vim: set sw=4: */

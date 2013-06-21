@@ -21,14 +21,15 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSPELLARRAY_
-#define _NX_NWN_STRUCT_CNWSPELLARRAY_
+#ifndef _NX_NWN_STRUCT_CNWSPVPENTRYLIST_
+#define _NX_NWN_STRUCT_CNWSPVPENTRYLIST_
 
-struct CNWSpellArray_s {
-    uint32_t            spa_len;
-    CNWSpell           *spa_spells;
+struct CNWSPVPEntryList_s {
+    CNWSPVPEntry   *data;
+    uint32_t        len;
+    uint32_t        alloc;
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */
+#endif /* _NX_NWN_STRUCT_CNWSPVPENTRYLIST_ */
 
 /* vim: set sw=4: */

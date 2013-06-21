@@ -25,13 +25,23 @@
 #define _NX_NWN_STRUCT_CNWITEMPROPERTY_
 
 struct CNWItemProperty_s {
-    u_int16_t           ip_type;                /* 0000 */
-    u_int16_t           ip_subtype;             /* 0002 */
-    u_int8_t            ip_chance;              /* 0004 */
-    u_int8_t            ip_cost_table;          /* 0005 */
-    u_int16_t           ip_cost_value;          /* 0006 */
-    u_int8_t            ip_param_table;         /* 0008 */
-    u_int8_t            ip_param_value;         /* 0009 */
+    uint16_t           ip_type;                /* 0000 */
+    uint16_t           ip_subtype;             /* 0002 */
+    uint8_t            ip_cost_table;          /* 0004 */
+    uint8_t            field_5;                /* 0005 */
+    uint16_t           ip_cost_value;          /* 0006 */
+    uint8_t            ip_param_table;         /* 0008 */
+    uint8_t            ip_param_value;         /* 0009 */
+    uint8_t            ip_chance;              /* 000A */
+    int8_t             field_B;                /* 000B */
+    uint8_t            ip_useable;             /* 000C */
+    uint8_t            field_D;                /* 000D */
+    uint8_t            field_E;                /* 000E */
+    uint8_t            field_F;                /* 000F */
+    uint8_t            ip_uses_daily;          /* 0010 */
+    uint8_t            ip_dur_type;            /* 0011 */
+    uint8_t            field_12;               /* 0012 */
+    uint8_t            field_13;               /* 0013 */
 };
 
 #endif /* _NX_NWN_STRUCT_CNWITEMPROPERTY_ */

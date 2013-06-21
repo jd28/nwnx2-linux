@@ -378,6 +378,7 @@
                                       DAMAGE_TYPE_NEGATIVE | \
                                        DAMAGE_TYPE_POSITIVE)
 
+#define AC_VS_DAMAGE_TYPE_ALL                          4103
 
 #define IMMUNITY_TYPE_NONE                                0
 #define IMMUNITY_TYPE_MIND_SPELLS                         1
@@ -412,7 +413,7 @@
 #define IMMUNITY_TYPE_SNEAK_ATTACK                        30
 #define IMMUNITY_TYPE_CRITICAL_HIT                        31
 #define IMMUNITY_TYPE_DEATH                               32
-
+#define IMMUNITY_TYPE_NUM                                 33
 
 #define SKILL_ANIMAL_EMPATHY                               0    /* SKILL_00 */
 #define SKILL_CONCENTRATION                                1    /* SKILL_01 */
@@ -585,10 +586,108 @@
 #define ITEM_APPR_ARMOR_MODEL_LHAND                       17
 #define ITEM_APPR_ARMOR_MODEL_ROBE                        18
 
+#define EVENT_TIMED_EVENT                                 1
+#define EVENT_ENTERED_TRIGGER                             2
+#define EVENT_LEFT_TRIGGER                                3
+#define EVENT_REMOVE_FROM_AREA                            4
+#define EVENT_APPLY_EFFECT                                5
+#define EVENT_CLOSE_OBJECT                                6
+#define EVENT_OPEN_OBJECT                                 7
+#define EVENT_SPELL_IMPACT                                8
+#define EVENT_PLAY_ANIMATION                              9
+#define EVENT_SIGNAL_EVENT                                10
+#define EVENT_DESTROY_OBJECT                              11
+#define EVENT_UNLOCK_OBJECT                               12
+#define EVENT_LOCK_OBJECT                                 13
+#define EVENT_REMOVE_EFFECT                               14
+#define EVENT_ON_MELEE_ATTACKED                           15
+#define EVENT_DECREMENT_STACKSIZE                         16
+#define EVENT_SPAWN_BODY_BAG                              17
+#define EVENT_FORCED_ACTION                               18
+#define EVENT_ITEM_ON_HIT_SPELL_IMPACT                    19
+#define EVENT_BROADCAST_AOO                               20
+#define EVENT_BROADCAST_SAFE_PROJECTILE                   21
+#define EVENT_FEEDBACK_MESSAGE                            22
+#define EVENT_ABILITY_EFFECT_APPLIED                      23
+#define EVENT_SUMMON_CREATURE                             24
+#define EVENT_ACQUIRE_ITEM                                25
+#define EVENT_WHIRLWIND_ATTACK                            26
+#define EVENT_BOOT_PC                                     27
+
+#define ATTACK_TYPE_MISC                                  0
+#define ATTACK_TYPE_ONHAND                                1
+#define ATTACK_TYPE_OFFHAND                               2
+#define ATTACK_TYPE_CWEAPON1                              3
+#define ATTACK_TYPE_CWEAPON2                              4
+#define ATTACK_TYPE_CWEAPON3                              5
+#define ATTACK_TYPE_EXTRA1                                6
+#define ATTACK_TYPE_UNARMED                               7
+#define ATTACK_TYPE_EXTRA2                                8
+
+#define MISS_CHANCE_TYPE_NORMAL                           0
+#define MISS_CHANCE_TYPE_VS_RANGED                        1
+#define MISS_CHANCE_TYPE_VS_MELEE                         2
+
+#define MISS_CHANCE_TRUETYPE_NORMAL                       0
+#define MISS_CHANCE_TRUETYPE_DARKNESS                     1
+#define MISS_CHANCE_TRUETYPE_RANGED                       2
+#define MISS_CHANCE_TRUETYPE_MELEE                        3
+
+#define DAMAGE_POWER_NORMAL                               0
+#define DAMAGE_POWER_PLUS_ONE                             1
+#define DAMAGE_POWER_PLUS_TWO                             2
+#define DAMAGE_POWER_PLUS_THREE                           3
+#define DAMAGE_POWER_PLUS_FOUR                            4
+#define DAMAGE_POWER_PLUS_FIVE                            5
+#define DAMAGE_POWER_ENERGY                               6
+#define DAMAGE_POWER_PLUS_SIX                             7
+#define DAMAGE_POWER_PLUS_SEVEN                           8
+#define DAMAGE_POWER_PLUS_EIGHT                           9
+#define DAMAGE_POWER_PLUS_NINE                            10
+#define DAMAGE_POWER_PLUS_TEN                             11
+#define DAMAGE_POWER_PLUS_ELEVEN                          12
+#define DAMAGE_POWER_PLUS_TWELVE                          13
+#define DAMAGE_POWER_PLUS_THIRTEEN                        14
+#define DAMAGE_POWER_PLUS_FOURTEEN                        15
+#define DAMAGE_POWER_PLUS_FIFTEEN                         16
+#define DAMAGE_POWER_PLUS_SIXTEEN                         17
+#define DAMAGE_POWER_PLUS_SEVENTEEN                       18
+#define DAMAGE_POWER_PLUS_EIGHTEEN                        19
+#define DAMAGE_POWER_PLUS_NINTEEN                         20
+#define DAMAGE_POWER_PLUS_TWENTY                          21
+
+#define DAMAGE_INDEX_BLUDGEONING                           0
+#define DAMAGE_INDEX_PIERCING                              1
+#define DAMAGE_INDEX_SLASHING                              2
+#define DAMAGE_INDEX_MAGICAL                               3
+#define DAMAGE_INDEX_ACID                                  4
+#define DAMAGE_INDEX_COLD                                  5
+#define DAMAGE_INDEX_DIVINE                                6
+#define DAMAGE_INDEX_ELECTRICAL                            7
+#define DAMAGE_INDEX_FIRE                                  8
+#define DAMAGE_INDEX_NEGATIVE                              9
+#define DAMAGE_INDEX_POSITIVE                             10
+#define DAMAGE_INDEX_SONIC                                11
+#define DAMAGE_INDEX_BASE_WEAPON                          12
+
+// Combat Mode Defines
+#define COMBAT_MODE_INVALID                  0
+#define COMBAT_MODE_PARRY                    1
+#define COMBAT_MODE_POWER_ATTACK             2
+#define COMBAT_MODE_IMPROVED_POWER_ATTACK    3
+#define COMBAT_MODE_COUNTER_SPELL            4
+#define COMBAT_MODE_FLURRY_OF_BLOWS          5
+#define COMBAT_MODE_RAPID_SHOT               6
+#define COMBAT_MODE_EXPERTISE                7
+#define COMBAT_MODE_IMPROVED_EXPERTISE       8
+#define COMBAT_MODE_DEFENSIVE_CASTING        9
+#define COMBAT_MODE_DIRTY_FIGHTING           10
+#define COMBAT_MODE_DEFENSIVE_STANCE         11
 
 #include "nwn_const_feats.h"
 #include "nwn_const_spells.h"
 #include "nwn_const_vfx.h"
+#include "nwn_const_itemprop.h"
 
 #endif /* _NX_NWN_CONST_H_ */
 

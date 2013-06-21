@@ -1,6 +1,5 @@
 /*
  *  NWNeXalt - Empty File
- *  (c) 2007 Doug Swarin (zac@intertex.net)
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,14 +20,16 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSPELLARRAY_
-#define _NX_NWN_STRUCT_CNWSPELLARRAY_
+#ifndef _NX_NWN_CVIRTUALMACHINEFILE_
+#define _NX_NWN_CVIRTUALMACHINEFILE_
 
-struct CNWSpellArray_s {
-    uint32_t            spa_len;
-    CNWSpell           *spa_spells;
+struct CVirtualMachineFile_s {
+	uint32_t   vmf_auto_request;
+	CResNCS   *vmf_ncs_res;
+	CResRef    vmf_resref;
+	void      *vmf_vtable;
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */
+#endif /* _NX_NWN_STRUCT_CVIRTUALMACHINEFILE_ */
 
 /* vim: set sw=4: */

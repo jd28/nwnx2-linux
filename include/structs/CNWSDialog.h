@@ -29,7 +29,7 @@ struct CNWSDialog_s {
     CDialogSpeak       *entries;
 
     int32_t             replies_len;
-    CDialogReply   *replies;
+    CDialogReply       *replies;
 
     int32_t             starts_len;
     CDialogNode        *starts;
@@ -44,7 +44,7 @@ struct CNWSDialog_s {
 
     uint32_t            current_node;
 
-    uint32_t            field_48;
+    uint32_t            selected_node;
 
     uint32_t            lang;
     uint32_t            oid_with;

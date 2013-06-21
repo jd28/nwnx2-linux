@@ -25,7 +25,7 @@
 #define _NX_NWN_STRUCT_CNWSAREA_
 
 struct CNWSArea_s {
-    uint32_t                    field_00;
+    uint32_t                    area_type;
     uint32_t                    field_04;
     uint32_t                    field_08;
     uint32_t                    field_0C;
@@ -51,21 +51,33 @@ struct CNWSArea_s {
     uint32_t                    field_5C;
     uint32_t                    field_60;
     uint32_t                    field_64;
-    uint32_t                    field_68;
-    uint32_t                    field_6C;
+    uint32_t                    area_moonfog_color;
+    uint8_t                     area_moonfog_amount;
+    uint8_t                     field_6D;
+    uint8_t                     field_6E;
+    uint8_t                     field_6F;
     uint32_t                    field_70;
     uint32_t                    field_74;
     uint32_t                    field_78;
-    uint32_t                    field_7C;
-    uint32_t                    field_80;
+    uint32_t                    area_sunfog_color;
+    uint8_t                     area_sunfog_amount;
+    uint8_t                     field_81;
+    uint8_t                     field_82;
+    uint8_t                     field_83;
     uint32_t                    field_84;
-    uint32_t                    field_88;
+    uint32_t                    area_use_daynight_cycle;
     uint32_t                    field_8C;
-    uint32_t                    field_90;
+    uint8_t                     area_skybox;
+    uint8_t                     field_91;
+    uint8_t                     field_92;
+    uint8_t                     field_93;
     uint32_t                    field_94;
-    uint32_t                    field_98;
-    uint32_t                    field_9C;
-    uint32_t                    field_A0;
+    uint32_t                    area_no_rest;
+    uint8_t                     area_shadow_opacity;
+    uint8_t                     field_9D;
+    uint8_t                     field_9E;
+    uint8_t                     field_9F;
+    float                       area_fogclip_distance;
     uint32_t                    field_A4;
     uint32_t                    field_A8;
     uint32_t                    field_AC;
@@ -75,10 +87,10 @@ struct CNWSArea_s {
     uint32_t                    field_BC;
     uint32_t                    field_C0;
     uint32_t                    field_C4;
-    uint32_t                    field_C8;
+    uint32_t                    area_obj_id;
     uint32_t                    field_CC;
     uint32_t                    field_D0;
-    uint32_t                    field_D4;
+    uint32_t                    area_num_players;
     uint32_t                    field_D8;
     uint32_t                    field_DC;
     uint32_t                    field_E0;
@@ -88,10 +100,8 @@ struct CNWSArea_s {
     uint32_t                    field_F0;
     uint32_t                    field_F4;
     uint32_t                    field_F8;
-    uint32_t                    field_FC;
-    uint32_t                    field_100;
-    uint32_t                    field_104;
-    uint32_t                    field_108;
+    CExoLocString               area_name;
+    CExoString                  area_tag;
     uint32_t                    field_10C;
     uint32_t                    field_110;
     uint32_t                    field_114;
@@ -127,7 +137,7 @@ struct CNWSArea_s {
     uint32_t                    field_18C;
     uint32_t                    field_190;
     uint32_t                    field_194;
-    uint32_t                    field_198;
+    CPathfindInformation *      area_pathfind_info;
     uint32_t                    field_19C;
     uint32_t                    field_1A0;
     uint32_t                    field_1A4;
@@ -147,6 +157,16 @@ struct CNWSArea_s {
     CNWSScriptVarTable          area_vartable;
 
     uint32_t                    field_1E0;
+    uint32_t                    field_1E4;
+    uint32_t                    area_ambient_sound;
+    uint32_t                    field_1EC;
+    uint32_t                    field_1F0;
+    uint32_t                    field_1F4;
+    uint32_t                    field_1FC;
+    uint8_t                     field_200;
+    uint8_t                     field_201;
+    uint8_t                     field_202;
+    uint8_t                     area_pvp_setting;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSAREA_ */

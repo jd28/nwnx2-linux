@@ -27,7 +27,7 @@
 struct CGameObject_VTable_s {
     void                       *unknown_1;                                                              /* 00 */
     void                       *unknown_2;                                                              /* 04 */
-    void                       *destructor;                                                             /* 08 */
+    void                      (*destructor)(void *, uint32_t);                                          /* 08 */
     int                       (*SetId)(void *, uint32_t);                                               /* 0C */
     int                       (*ResetUpdateTimes)(void *, uint32_t, uint32_t);                          /* 10 */
     void *                    (*AsNWCObject)(void *);                                                   /* 14 */
@@ -74,6 +74,18 @@ struct CGameObject_VTable_s {
     int                       (*DoDamageImmunity)(void *, void *, int, uint16_t, int, int);             /* B8 */
     int                       (*GetDamageImmunity)(void *, uint8_t);                                    /* BC */
     int                       (*GetDamageImmunityByFlags)(void *, uint16_t);                            /* C0 */
+    int                       (*GetEffectSpellId)(void *);
+	void                      (*SetEffectSpellId)(void *, uint32_t);
+	int                       (*SetLockOrientationToObject)(void *, uint32_t);
+    uint32_t                  (*GetLockOrientationToObject)(void *);
+	void *                    (*GetPortrait)(void *, void *);
+	void *                    (*SetPortrait)(void *);
+	int16_t                   (*GetPortraitId)(void *);
+	void                      (*SetPortraitId)(void *, uint16_t);
+	void                      (*BroadcastFloatyData)(void *, CNWCCMessageData*);
+	void                      (*BroadcastFloatyDataSTRREF)(void *, uint32_t);
+	void                      (*UpdateEffectPtrs)(void *);
+	void                      (*UpdateAttributesOnEffect)(void *, CGameEffect*, int32_t);
 };
 
 #endif /* _NX_NWN_STRUCT_CGAMEOBJECT_VTABLE_ */

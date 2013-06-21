@@ -152,7 +152,7 @@ static int local_DMActivity_CreateItem_OnArea()
     CNWSPlayer *pDM = (CNWSPlayer *)buffer_DMActivity_DM;
     dword pDMObj;
     if (pDM != NULL && pItem != NULL && pArea != NULL && (pDMObj = (nwn_objid_t)CNWSPlayer__GetPCObject(pDM)) != 0) {
-        dmactions.oTarget1 = pArea->field_C8;
+        dmactions.oTarget1 = pArea->area_obj_id;
         dmactions.oTarget2 = pItem->obj.obj_id;
         dmactions.vPos.x = vPos->x;
         dmactions.vPos.y = vPos->y;
@@ -402,7 +402,7 @@ static int local_DMActivity_CreatePlaceable()
     dword pDMObj;
     if (pDM != NULL && pPlaceable != NULL && pArea != NULL && (pDMObj = (nwn_objid_t)CNWSPlayer__GetPCObject(pDM)) != 0) {
         dmactions.oTarget1 = pPlaceable->obj.obj_id;
-        dmactions.oTarget2 = pArea->field_C8;
+        dmactions.oTarget2 = pArea->area_obj_id;
         dmactions.vPos.x = vPos->x;
         dmactions.vPos.y = vPos->y;
         dmactions.vPos.z = vPos->z;
@@ -452,7 +452,7 @@ static int local_DMActivity_SpawnCreature()
     dword pDMObj;
     if (pDM != NULL && pCreature != NULL && pArea != NULL && (pDMObj = (nwn_objid_t)CNWSPlayer__GetPCObject(pDM)) != 0) {
         dmactions.oTarget1 = pCreature->obj.obj_id;
-        dmactions.oTarget2 = pArea->field_C8;
+        dmactions.oTarget2 = pArea->area_obj_id;
         dmactions.vPos.x = vPos->x;
         dmactions.vPos.y = vPos->y;
         dmactions.vPos.z = vPos->z;
