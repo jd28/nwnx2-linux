@@ -21,14 +21,15 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSPELLARRAY_
-#define _NX_NWN_STRUCT_CNWSPELLARRAY_
+#ifndef _NX_NWN_STRUCT_CFEATUSELISTENTRY_
+#define _NX_NWN_STRUCT_CFEATUSELISTENTRY_
 
-struct CNWSpellArray_s {
-    uint32_t            spa_len;
-    CNWSpell           *spa_spells;
+struct CFeatUseListEntry_s {
+    uint16_t        feat;
+    uint8_t         uses;
+    uint8_t         field_03;
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */
+#endif /* _NX_NWN_STRUCT_CFEATUSELISTENTRY_ */
 
 /* vim: set sw=4: */

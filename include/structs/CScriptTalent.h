@@ -21,14 +21,27 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSPELLARRAY_
-#define _NX_NWN_STRUCT_CNWSPELLARRAY_
+#ifndef _NX_NWN_STRUCT_CSCRIPTTALENT_
+#define _NX_NWN_STRUCT_CSCRIPTTALENT_
 
-struct CNWSpellArray_s {
-    uint32_t            spa_len;
-    CNWSpell           *spa_spells;
+struct CScriptTalent_s {
+    int32_t         type;
+    int32_t         id;
+    uint8_t         multiclass;
+    uint8_t         field_09;
+    uint8_t         field_0A;
+    uint8_t         field_0B;
+    uint32_t        itemprop_index;
+    uint8_t         casterlevel;
+    uint8_t         field_11;
+    uint8_t         field_12;
+    uint8_t         field_13;
+    uint8_t         metatype;
+    uint8_t         field_15;
+    uint8_t         field_16;
+    uint8_t         field_17;
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */
+#endif /* _NX_NWN_STRUCT_CSCRIPTEVENT_ */
 
 /* vim: set sw=4: */

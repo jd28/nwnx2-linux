@@ -25,7 +25,7 @@
 #define _NX_NWN_STRUCT_CNWSINVENTORY_
 
 struct CNWSInventory_s {
-    void               *unknown;
+    uint32_t                        equips[18];
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSINVENTORY_ */

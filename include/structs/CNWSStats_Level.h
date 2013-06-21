@@ -26,20 +26,23 @@
 
 struct CNWSStats_Level_s {
     CExoArrayList_uint32        ls_spells_known[10];
-
-    uint32_t                    unknown_1[30];
-
+    CExoArrayList_uint32        ls_spells_removed[10];
     CExoArrayList_uint16        ls_featlist;
 
     uint8_t                    *ls_skilllist;
-    uint8_t                     ls_skillpoints;
-
-    uint8_t                     unknown_2;
+    uint16_t                    ls_skillpoints;              /* 0100 */
 
     uint8_t                     ls_ability;
     uint8_t                     ls_hp;
     
-    uint8_t                     ls_class;
+    uint8_t                     ls_class;                    /* 0104 */
+    uint8_t                     unknown_3;                   /* 0105 */
+    uint8_t                     unknown_4;                   /* 0106 */
+    uint8_t                     unknown_5;                   /* 0107 */
+    uint8_t                     ls_epic_level;               /* 0108 */
+    uint8_t                     field_0109;                  /* 0109 */
+    uint8_t                     field_010A;                  /* 010A */
+    uint8_t                     field_010B;                  /* 010B */
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSSTATS_LEVEL_ */

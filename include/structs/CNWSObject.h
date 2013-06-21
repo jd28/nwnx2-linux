@@ -55,7 +55,7 @@ struct CNWSObject_s {
     uint32_t            obj_conv_object_1;              /* 0038 */
     uint16_t            obj_portrait_id;                /* 003C */
     uint16_t            field_3E;
-    uint32_t            obj_conv_object_2;              /* 0040 */
+    CNWSDialog          *obj_current_dlg;               /* 0040 */
     uint32_t            field_44;
     uint32_t            field_48;
     uint32_t            field_4C;

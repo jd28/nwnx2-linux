@@ -25,7 +25,9 @@
 #define _NX_NWN_STRUCT_CEXOSTRINGLIST_
 
 struct CExoStringList_s {
-    void               *unknown;
+    CExoString     *data;
+    uint32_t        len;
+    uint32_t        alloc;
 };
 
 #endif /* _NX_NWN_STRUCT_CEXOSTRINGLIST_ */

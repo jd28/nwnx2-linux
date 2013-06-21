@@ -46,17 +46,15 @@ struct CNWSItem_s {
     uint8_t                     field_1E7;
 
     uint32_t                    field_1E8;              /* 01E8 */
-    uint32_t                    field_1EC;              /* 01EC */
-    uint32_t                    field_1F0;              /* 01F0 */
-    uint32_t                    field_1F4;              /* 01F4 */
-    uint32_t                    field_1F8;              /* 01F8 */
-    uint32_t                    field_1FC;              /* 01FC */
-    uint32_t                    field_200;              /* 0200 */
+    CNWItemProperty            *it_active_ip;           /* 01EC */
+    uint32_t                    it_active_ip_len;
+    uint32_t                    it_active_ip_alloc;
+    CNWItemProperty            *it_passive_ip;           /* 01F8 */
+    uint32_t                    it_passive_ip_len;
+    uint32_t                    it_passive_ip_alloc;
+    
 
-    uint8_t                     it_charges;             /* 0204 */
-    uint8_t                     field_205;
-    uint8_t                     field_206;
-    uint8_t                     field_207;
+    uint32_t                    it_charges;             /* 0204 */
 
     uint32_t                    it_cost_ided;           /* 0208 */
     uint32_t                    it_cost_unided;         /* 020C */
@@ -75,17 +73,13 @@ struct CNWSItem_s {
     uint32_t                    field_238;              /* 0238 */
     uint32_t                    field_23C;              /* 023C */
     uint32_t                    field_240;              /* 0240 */
-    uint32_t                    field_244;              /* 0244 */
+    uint32_t                    it_possessor;           /* 0244 */
     uint32_t                    field_248;              /* 0248 */
     uint32_t                    field_24C;              /* 024C */
-    uint32_t                    field_250;              /* 0250 */
-    uint32_t                    field_254;              /* 0254 */
-    uint32_t                    field_258;              /* 0258 */
-    uint32_t                    field_25C;              /* 025C */
-    uint32_t                    field_260;              /* 0260 */
-    uint32_t                    field_264;              /* 0264 */
-    uint32_t                    field_268;              /* 0268 */
-    uint32_t                    field_26C;              /* 026C */
+    CExoLocString               it_desc_id;             /* 0250 */
+    CExoLocString               it_desc_unid;           /* 0258 */
+    CExoString                  it_desc_id_over;        /* 0260 */
+    CExoString                  it_desc_unid_over;      /* 0268 */
     uint32_t                    field_270;              /* 0270 */
     uint32_t                    field_274;              /* 0274 */
     uint32_t                    field_278;              /* 0278 */
@@ -98,14 +92,11 @@ struct CNWSItem_s {
     uint8_t                     field_28A;
     uint8_t                     field_28B;
 
-    uint32_t                    field_28C;              /* 028C */
+    uint32_t                    it_pickpocketable;      /* 028C */
 
-    uint8_t                     it_pickpocketable;      /* 0290 */
-    uint8_t                     field_290;
-    uint8_t                     field_291;
-    uint8_t                     field_292;
+    uint32_t                    it_cursed;              /* 0290 */
 
-    uint32_t                    field_294;              /* 0294 */
+    uint32_t                    it_stacksize;           /* 0294 */
 
     uint8_t                     it_stolen;              /* 0298 */
     uint8_t                     field_299;
@@ -114,6 +105,9 @@ struct CNWSItem_s {
 
     uint32_t                    it_weight;              /* 029C */
 
+    uint8_t                     field_2A0;              /* 02A0 */
+    uint8_t                     field_2A1;              /* 02A0 */
+    uint8_t                     it_wpn_vfx;             /* 02A2 */
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSITEM_ */

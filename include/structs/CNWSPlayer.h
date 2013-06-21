@@ -25,43 +25,25 @@
 #define _NX_NWN_STRUCT_CNWSPLAYER_
 
 struct CNWSPlayer_s {
-    uint32_t            pl_id;
+    /* CNWSClient */
+    uint32_t            pl_id;              /* 0x0000 */
+    uint32_t            cl_lang;            /* 0x0004 */
+    uint32_t            vftable;            /* 0x0008 */
+    /* end CNWSClient */
 
-    uint32_t            field_04;
-    uint32_t            field_08;
-    uint32_t            field_0C;
-    uint32_t            field_10;
-    uint32_t            field_14;
-    uint32_t            field_18;
-    uint32_t            field_1C;
-    uint32_t            field_20;
-    uint32_t            field_24;
-    uint32_t            field_28;
-    uint32_t            field_2C;
-    uint32_t            field_30;
-    uint32_t            field_34;
-    uint32_t            field_38;
-    uint32_t            field_3C;
-    uint32_t            field_40;
-    uint32_t            field_44;
-    uint32_t            field_48;
-    uint32_t            field_4C;
-    uint32_t            field_50;
-    uint32_t            field_54;
-    uint32_t            field_58;
-    uint32_t            field_5C;
-    uint32_t            field_60;
-    uint32_t            field_64;
-    uint32_t            field_68;
-    uint32_t            field_6C;
-    uint32_t            field_70;
-
-    uint8_t             field_74;
-    char                pl_bicfile[19];
-
-    uint32_t            field_88;
+    uint32_t            field_0C;           /* 0x000C */
+    uint32_t            field_10;           /* 0x0010 */
+    uint32_t            field_14;           /* 0x0014 */
+    uint32_t            field_18;           /* 0x0018 */
+    uint32_t            field_1C;           /* 0x001C */
+    uint32_t            field_20;           /* 0x0020 */
+    uint32_t            field_24;           /* 0x0024 */
+    uint32_t            field_28;           /* 0x0028 */
+    uint32_t            field_2C;           /* 0x002C */
+    uint32_t            obj_id;             /* 0x0030 */
+    
+    uint8_t             spacer1[65];                    /* 0x0034 */
+    char                pl_bicfile[19];                 /* 0x0075 */ 
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPLAYER_ */
-
-/* vim: set sw=4: */
+#endif // _NX_NWN_STRUCT_CNWSPLAYER_

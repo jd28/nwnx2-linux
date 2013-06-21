@@ -24,8 +24,13 @@
 #ifndef _NX_NWN_STRUCT_CNWVIRTUALMACHINECOMMANDS_
 #define _NX_NWN_STRUCT_CNWVIRTUALMACHINECOMMANDS_
 
+/* jmd: ported from NWNX v2.8 api. */
+
 struct CNWVirtualMachineCommands_s {
-    void               *unknown;
+	uint32_t        field_0;
+	nwn_objid_t     vmc_object_id;
+	void           *vmc_vtbl;
+	void           *vmc_commands_array;
 };
 
 #endif /* _NX_NWN_STRUCT_CNWVIRTUALMACHINECOMMANDS_ */

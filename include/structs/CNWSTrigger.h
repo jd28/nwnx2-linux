@@ -64,17 +64,20 @@ struct CNWSTrigger_s {
     uint32_t                    field_24C;           /* 024C 024C */
     uint32_t                    field_250;           /* 0250 0250 */
     uint32_t                    field_254;           /* 0254 0254 */
-    uint32_t                    field_258;           /* 0258 0258 */
-    uint32_t                    field_25C;           /* 025C 025C */
-    uint32_t                    field_260;           /* 0260 0260 */
-    uint32_t                    field_264;           /* 0264 0264 */
+    uint32_t                    tr_is_trap;          /* 0258 0258 */
+    uint32_t                    trap_detectable;     /* 025C 025C */
+    uint32_t                    trap_disarmable;     /* 0260 0260 */
+    uint32_t                    trap_flagged;        /* 0264 0264 */
     uint32_t                    field_268;           /* 0268 0268 */
-    uint32_t                    field_26C;           /* 026C 026C */
-    uint32_t                    field_270;           /* 0270 0270 */
-    uint32_t                    field_274;           /* 0274 0274 */
-    uint32_t                    field_278;           /* 0278 0278 */
-    uint32_t                    field_27C;           /* 027C 027C */
-    uint32_t                    field_280;           /* 0280 0280 */
+    uint32_t                    trap_oneshot;        /* 026C 026C */
+    uint8_t                     trap_basetype;       /* 0270 0270 */
+    uint8_t                     field_271;           /* 0271 0271 */
+    uint8_t                     field_272;           /* 0272 0272 */
+    uint8_t                     field_273;           /* 0273 0273 */
+    uint32_t                    trap_detect_dc;      /* 0274 0274 */
+    uint32_t                    trap_disarm_dc;      /* 0278 0278 */
+    uint32_t                    trap_recoverable;    /* 027C 027C */
+    uint32_t                    trap_active;         /* 0280 0280 */
 
     uint32_t                    field_284;           /* 0284 0284 */
     uint32_t                    field_288;           /* 0288 0288 */

@@ -1,6 +1,6 @@
 /*
  *  NWNeXalt - Empty File
- *  (c) 2007 Doug Swarin (zac@intertex.net)
+ *  (c) 2013 jmd
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -21,14 +21,16 @@
  *
  */
 
-#ifndef _NX_NWN_STRUCT_CNWSPELLARRAY_
-#define _NX_NWN_STRUCT_CNWSPELLARRAY_
+#ifndef _NX_NWN_STRUCT_CNWSPVPENTRY_
+#define _NX_NWN_STRUCT_CNWSPVPENTRY_
 
-struct CNWSpellArray_s {
-    uint32_t            spa_len;
-    CNWSpell           *spa_spells;
+struct CNWSPVPEntry_s {
+    nwn_objid_t         pvp_obj_id;
+    uint32_t            field_0004;
+    int32_t             pvp_like;
+
 };
 
-#endif /* _NX_NWN_STRUCT_CNWSPELLARRAY_ */
+#endif /* _NX_NWN_STRUCT_CNWSPVPENTRY_ */
 
 /* vim: set sw=4: */

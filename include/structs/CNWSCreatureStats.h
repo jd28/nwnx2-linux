@@ -74,7 +74,8 @@ struct CNWSCreatureStats_s {
 
     uint16_t                    cs_race;                /* 03EC */
     uint16_t                    field_3EE;
-    CExoString                  cs_subrace;             /* 03F0 */
+    char                        *cs_subrace;             /* 03F0 */
+    uint32_t                    cs_subrace_len;
 
     uint8_t                     cs_str;                 /* 03F8 */
     int8_t                      cs_str_mod;             /* 03F9 */
@@ -105,7 +106,7 @@ struct CNWSCreatureStats_s {
 
     uint8_t                     cs_override_bab;        /* 0411 */
 
-    uint8_t                     field_40A;
+    uint8_t                     cs_override_atks;       /* 0412 */
     uint8_t                     field_40B;
     uint32_t                    field_40C;
     uint32_t                    field_410;
@@ -118,24 +119,40 @@ struct CNWSCreatureStats_s {
     uint32_t                    field_424;
     uint32_t                    field_428;
     uint32_t                    field_42C;
-    uint32_t                    field_430;
+    uint8_t                     cs_sr_eff_inc;
+    uint8_t                     cs_sr_eff_dec;
+    uint8_t                     field_432;
+    uint8_t                     field_433;
 
     void                       *cs_specabil;            /* 043C */
 
-    uint32_t                    field_438;
-    uint32_t                    field_43C;
-    uint32_t                    field_440;
-    uint32_t                    field_444;
-    uint32_t                    field_448;
-    uint32_t                    field_44C;
-    uint32_t                    field_450;
-    uint32_t                    field_454;
-    uint32_t                    field_458;
-    uint32_t                    field_45C;
-    uint32_t                    field_460;
-    uint32_t                    field_464;
-    uint32_t                    field_468;
-    uint16_t                    field_46C;
+    uint16_t                    cs_first_temphp_eff;
+    uint16_t                    cs_first_ac_eff;
+    uint16_t                    cs_first_ab_effect;
+    uint16_t                    cs_first_dmgred_eff;
+    uint16_t                    cs_first_dmgresist_eff;
+    uint16_t                    cs_first_damage_eff;
+    uint16_t                    cs_first_aistate_eff;
+    uint16_t                    cs_first_icon_eff;
+    uint16_t                    cs_first_sanctuary_eff;
+    uint16_t                    cs_first_invis_eff;
+    uint16_t                    cs_first_spellresist_eff;
+    uint16_t                    cs_first_ability_eff;
+    uint16_t                    cs_first_seeinvis_eff;
+    uint16_t                    cs_first_ultravision_eff;
+    uint16_t                    cs_first_misschance_eff;
+    uint16_t                    cs_first_conceal_eff;
+    uint16_t                    cs_first_blindess_eff;
+    uint16_t                    cs_first_walkanim_eff;
+    uint16_t                    cs_first_spellabsorb_eff;
+    uint16_t                    cs_first_spellimm_eff;
+    uint16_t                    cs_first_dmgshield_eff;
+    uint16_t                    cs_first_skill_eff;
+    uint16_t                    cs_first_save_eff;
+    uint16_t                    cs_first_haste_eff;
+    uint16_t                    cs_first_imm_eff;
+    uint16_t                    cs_first_limitspeed_eff;
+    uint16_t                    cs_first_speeddec_eff;
 
     uint16_t                    cs_skill_points;        /* 0476 */
     uint8_t                    *cs_skills;              /* 0478 */

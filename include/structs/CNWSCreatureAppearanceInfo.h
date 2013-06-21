@@ -25,7 +25,31 @@
 #define _NX_NWN_STRUCT_CNWSCREATUREAPPEARANCEINFO_
 
 struct CNWSCreatureAppearanceInfo_s {
-    void               *unknown;
+    uint32_t                    cai_lefthand_obj_id;    /* 0000 */  /* 0C28 in CNWSCreatureStats */
+    uint32_t                    cai_righthand_obj_id;   /* 0004 */  /* 0C2C in CNWSCreatureStats */
+    uint8_t                     cai_righthand_wpn_vfx;  /* 0008 */  /* 0C30 in CNWSCreatureStats */
+    uint8_t                     cai_lefthand_wpn_vfx;   /* 0009 */  /* 0C31 in CNWSCreatureStats */
+    uint8_t                     field_A;                /* 000A */  /* 0C32 in CNWSCreatureStats */
+    uint8_t                     field_B;                /* 000B */  /* 0C33 in CNWSCreatureStats */
+    uint32_t                    cai_chest_obj_id;       /* 000C */  /* 0C34 in CNWSCreatureStats */
+    uint32_t                    cai_head_obj_id;        /* 0010 */  /* 0C38 in CNWSCreatureStats */ 
+    uint16_t                    cai_appearance;         /* 0014 */  /* 0C3C in CNWSCreatureStats */ 
+    uint8_t                     field_16;
+    uint8_t                     field_17;
+    uint8_t                     field_18;
+    uint8_t                     field_19;
+    uint8_t                     field_1A;
+    uint8_t                     field_1B;
+    uint8_t                     field_1C[12];
+    uint32_t                    field_28;
+    uint8_t                     field_2C;
+    uint8_t                     field_2D;
+    uint8_t                     field_2E;
+    uint8_t                     field_2F;
+    uint32_t                    field_30;
+    uint32_t                    field_34;
+    uint32_t                    field_38;
+    uint32_t                    cai_cloak_obj_id;        /* 003C */
 };
 
 #endif /* _NX_NWN_STRUCT_CNWSCREATUREAPPEARANCEINFO_ */

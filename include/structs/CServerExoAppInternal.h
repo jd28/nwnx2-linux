@@ -31,7 +31,7 @@ struct CServerExoAppInternal_s {
 
     u_int32_t                   field_10004;            /* 10004 */
     u_int32_t                   field_10008;            /* 10008 */
-    u_int32_t                   field_1000C;            /* 1000C */
+    CServerInfo                 *srv_info;              /* 1000C */
     u_int32_t                   field_10010;            /* 10010 */
     u_int32_t                   field_10014;            /* 10014 */
 
@@ -112,9 +112,9 @@ struct CServerExoAppInternal_s {
 
     CExoArrayList_uint32       *field_100F0;            /* 100F0 */
 
-    CExoArrayList_ptr          *field_100FC;            /* 100FC (CExoString) */
-    CExoArrayList_ptr          *field_10108;            /* 10108 (CExoString) */
-    CExoArrayList_ptr          *field_10114;            /* 10114 (CExoString) */
+    CExoArrayList_ptr          *srv_banned_ips;         /* 100FC (CExoString) */
+    CExoArrayList_ptr          *srv_banned_cdkeys;      /* 10108 (CExoString) */
+    CExoArrayList_ptr          *srv_banned_names;       /* 10114 (CExoString) */
 
     u_int32_t                   field_10120;            /* 10120 */
     u_int32_t                   field_10124;            /* 10124 */
