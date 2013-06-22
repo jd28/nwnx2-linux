@@ -35,7 +35,7 @@ void hook_ExamineCR_NPC_Only()
     asm("movl %eax, pCreature");
     asm("pop %eax");
 
-    if (*((uint8_t*)(*NWN_AppManager)->app_server->srv_internal->field_1000C + 0x114) == 0 || (pCreature == NULL || pCreature->cre_is_pc)) {
+    if (*((uint8_t*)(*NWN_AppManager)->app_server->srv_internal->srv_info->field_114) == 0 || (pCreature == NULL || pCreature->cre_is_pc)) {
         // Supress CR
         asm("push $0x8073d7c");
     } else {
@@ -44,9 +44,6 @@ void hook_ExamineCR_NPC_Only()
 
     asm("ret");
 }
-
-int (*C2DA__GetINTEntry)(C2DA *, int, int, int *);
-int (*C2DA__GetCExoStringEntry)(C2DA *, int, int, CExoString *);
 
 volatile CExoString *GMPCR_pString;
 volatile C2DA *GMPCR_p2DA;
@@ -59,7 +56,7 @@ static uint8_t Local_GetMeetsPrestigeClassRequirements()
         return 1;
     } else if (strncmp(GMPCR_pString->text, "SPECIALIST", 10) == 0) {
         int spec;
-        if (C2DA__GetINTEntry((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &spec)) {
+        if (C2DA__GetINTEntry2((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &spec)) {
             int i;
             for (i = 0; i < pCreatureStats->cs_classes_len; i++) {
                 if (pCreatureStats->cs_classes[i].cl_class == CLASS_TYPE_WIZARD) {
@@ -73,7 +70,7 @@ static uint8_t Local_GetMeetsPrestigeClassRequirements()
         }
     } else if (strncmp(GMPCR_pString->text, "DIVSPELL", 8) == 0) {
         int lvl;
-        if (C2DA__GetINTEntry((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &lvl)) {
+        if (C2DA__GetINTEntry2((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &lvl)) {
             int i;
             for (i = 0; i < pCreatureStats->cs_classes_len; i++) {
                 if (pCreatureStats->cs_classes[i].cl_class == CLASS_TYPE_DRUID ||
@@ -96,7 +93,7 @@ static uint8_t Local_GetMeetsPrestigeClassRequirements()
         }
     } else if (strncmp(GMPCR_pString->text, "RACENOT", 7) == 0) {
         int race;
-        if (C2DA__GetINTEntry((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &race)) {
+        if (C2DA__GetINTEntry2((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, &race)) {
             if (race == pCreatureStats->cs_race) {
                 return 3;
             }
@@ -107,7 +104,7 @@ static uint8_t Local_GetMeetsPrestigeClassRequirements()
         script->text = NULL;
         script->len = 0;
         if (script != NULL) {
-            if (C2DA__GetCExoStringEntry((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, script)) {
+            if (C2DA__GetCExoStringEntry2((C2DA *)GMPCR_p2DA, GMPCR_row, GMPCR_p1, script)) {
                 extend.ScriptResult = 0;
                 nwn_ExecuteScript(script->text, pCreatureStats->cs_original->obj.obj_id);
                 if (extend.ScriptResult) {
@@ -259,7 +256,7 @@ static int Local_GetDEXMod_ipMaxDexBonusMod()
         if (pItem_1 != NULL) {
             if (CNWSItem__GetPropertyByTypeExists(pItem_1, confMaxDexterityBonus_ip, 0)) {
                 CNWItemProperty *IP;
-                for (size_t i = 0; i < pItem_1->field_1FC; i++) {
+                for (size_t i = 0; i < pItem_1->it_passive_ip_len; i++) {
                     IP = CNWSItem__GetPassiveProperty(pItem_1, i);
                     if (IP != NULL && IP->ip_type == confMaxDexterityBonus_ip) {
                         if (IP->ip_cost_value != 9) {
@@ -326,8 +323,8 @@ int InitHooks()
     *(unsigned long*)&CNWMessage__WriteSHORT = 0x80c3ddc;
     *(unsigned long*)&CNWSMessage__WriteOBJECTIDServer = 0x8052434;
     *(unsigned long*)&CNWSPlayer__GetGameObject = 0x0805e8b8;
-    *(unsigned long*)&C2DA__GetINTEntry = 0x082bd77c;
-    *(unsigned long*)&C2DA__GetCExoStringEntry = 0x082bedbc;
+    *(unsigned long*)&C2DA__GetINTEntry2 = 0x082bd77c;
+    *(unsigned long*)&C2DA__GetCExoStringEntry2 = 0x082bedbc;
 
     *(unsigned long*)&CNWSItem__GetPropertyByTypeExists = 0x081a2a6c;
 
