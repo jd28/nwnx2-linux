@@ -1,0 +1,73 @@
+CC	 = gcc
+CXX      = g++
+GPERF    = gperf
+RM	 = /bin/rm
+MV	 = /bin/mv
+CP	 = /bin/cp
+SED      = /bin/sed
+INSTALL	 = /usr/bin/install -c
+
+INCS	 = -I. -I.. -I../.. -I ../../include -I/usr/local/include -I/usr/local/include/luajit-2.0
+LIBS	 = -L/usr/local/lib -lm -lz -lluajit-5.1
+DEFS	 = -D_REENTRANT -D_THREAD_SAFE #-DNWNX_LUAJIT_PROFILE
+CFLAGS   = @CFLAGS@ -Wall -Werror $(DEFS) $(INCS)
+CPPFLAGS = @CPPFLAGS@ -Wall -Wno-write-strings $(DEFS) $(INCS)
+LFLAGS   = @LDFLAGS@ -w -fPIC -shared -rdynamic -export-dynamic
+
+OFILES  = \
+    hooks/h_CNWSObject_dtor.o                \
+    hooks/h_RunScript.o                      \
+    hooks/h_CheckScript.o                    \
+    hooks/h_CanEquipItem.o                   \
+    hooks/h_GetWeightedDamageAmount.o        \
+    hooks/h_GetRunScriptReturnValue.o        \
+    hooks/h_HandleReply.o                    \
+    hooks/h_ResolveSpecialAttack.o           \
+    hooks/h_ResolveSpecialAttackAttackBonus.o \
+    hooks/h_ResolveSpecialAttackDamageBonus.o \
+    hooks/h_RunScriptSituation.o             \
+    hooks/h_SendServerToPlayerChat_Party.o   \
+    hooks/h_SendServerToPlayerChat_Talk.o    \
+    hooks/h_SendServerToPlayerChat_Shout.o   \
+    hooks/h_SendServerToPlayerChat_Tell.o    \
+    hooks/h_OnApplyModifyNumAttacks.o        \
+    hooks/h_OnRemoveModifyNumAttacks.o       \
+    engine/area.o                            \
+    engine/engine.o                          \
+    engine/chat.o                            \
+    engine/creature.o                        \
+    engine/effect.o                          \
+    engine/object.o                          \
+    engine/rules.o                           \
+    local/l_ApplyCustomEffect.o              \
+    local/l_GetIsIgnoring.o                  \
+    local/l_GetIsSpecialAttackHooked.o       \
+    local/l_GetLastCustomEffect.o            \
+    local/l_ResolveSpecialAttack.o           \
+    local/l_RunLuaScript.o                   \
+    profiler/hash.o                          \
+    profiler/profiler.o                      \
+    lua_funcs.o                              \
+    nwn_funcs.o                              \
+    orig_hooker.o                            \
+    hook_functions.o                         \
+    init_func_pointers.o                     \
+    NWNXLuajit.o                             \
+    plugin-luajit.o
+
+all: nwnx_luajit.so
+
+NWNXLuajit.o: NWNXLuajit.h
+
+nwnx_luajit.so: $(OFILES)
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBS)
+
+depend:
+	$(CC) -MM $(CFLAGS) *.c > .depend
+
+clean:
+	$(RM) -f *.o */*.o *.so
+
+distclean: clean
+	$(RM) -f .depend 
+
