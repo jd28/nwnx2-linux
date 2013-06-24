@@ -18,10 +18,10 @@ typedef struct {
 } CombatMessage;
 
 typedef struct {
-    int type;
-    bool event_type; // exists if one wanted to have apply/remove be the same...
-    bool success;
+    CNWSObject  *obj;
     CGameEffect *effect;
+    bool is_remove; // exists if one wanted to have apply/remove be the same...
+    bool delete_eff;
 } CustomEffect;
 
 typedef struct {
@@ -49,9 +49,7 @@ typedef struct {
     CNWSObject  *obj;
     CGameEffect *eff;
     bool         is_remove;
-    bool         suppress;
     bool         delete_eff;
-    bool         preapply;  
 } EventEffect;
 
 typedef struct {
