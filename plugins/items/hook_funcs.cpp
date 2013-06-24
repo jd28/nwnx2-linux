@@ -1,0 +1,42 @@
+#include "NWNXItems.h"
+#include "hooks.h"
+
+int (*CServerAIMaster__OnItemPropertyApplied_orig)(CServerAIMaster *, CNWSItem *, CNWItemProperty *, CNWSCreature *, uint32_t, int32_t) = NULL;
+int (*CServerAIMaster__OnItemPropertyRemoved_orig)(CServerAIMaster *, CNWSItem *, CNWItemProperty *, CNWSCreature *, uint32_t) = NULL;;
+
+#define HOOK(orig, addr, hook, bytes)                                   \
+    *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
+
+bool hook_functions(){
+    // HOOK(CNWSCreature__CanEquipItem, 0x080FF978, Hook_CanEquipItem, 5);
+    // HOOK(CNWSCreature__CanUnEquipWeapon, 0x08107E78, Hook_CanUnequipItem, 5);
+    // HOOK(CNWSCreature__CanUseItem, 0x08110DF8, Hook_CanUseItem, 5);
+
+    // HOOK(CNWSItem__GetMinEquipLevel, 0x081A5DE4, Hook_GetMinEquipLevel, 5);
+    // HOOK(CNWSItem__CalculateBaseCosts, 0x081A5794, Hook_CalculateBaseCosts, 5);
+    // HOOK(CNWSItem__ComputeWeight, 0x081A137C, Hook_ComputeWeight, 5);
+
+    HOOK(CServerAIMaster__OnItemPropertyApplied_orig,
+         0x08098528, 
+         Hook_OnItemPropertyApplied, 
+         6);
+
+    HOOK(CServerAIMaster__OnItemPropertyRemoved_orig,
+         0x08098550, 
+         Hook_OnItemPropertyRemoved, 
+         6);
+
+    nx_hook_function((void *)0x0806a65e,
+                     (void *)Hook_GetIsHelmetHidden1, 
+                     5, NX_HOOK_DIRECT);
+
+    nx_hook_function((void *)0x0806a822,
+                     (void *)Hook_GetIsHelmetHidden2, 
+                     5, NX_HOOK_DIRECT);
+
+    nx_hook_function((void *)0x0812efa0,
+                     (void *)Hook_UpdateAppearanceForEquips, 
+                     5, NX_HOOK_DIRECT);
+
+    return true;
+}
