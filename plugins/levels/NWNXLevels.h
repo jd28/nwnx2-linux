@@ -20,7 +20,7 @@
 #define NWNX_LEVELS_H
 
 #include "NWNXLib.h"
-#include "talib/all.h"
+#include "talib/nwn/all.h"
 
 void Func_GetMaxLevelLimit  (CGameObject *ob, char *value);
 void Func_LevelUp           (CGameObject *ob, char *value);

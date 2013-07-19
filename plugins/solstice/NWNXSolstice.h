@@ -20,7 +20,7 @@
 #define NWNX_SOLSTICE_H
 
 #include "NWNXLib.h"
-#include "talib/all.h"
+#include "talib/nwn/all.h"
 
 #ifdef __cplusplus
 extern "C" {

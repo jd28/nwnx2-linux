@@ -1,7 +1,7 @@
 #include "creation.h"
 
 extern "C" {
-#include "../effect.h"
+#include "../nwn/effect.h"
 }
 
 CGameEffect * nwn_CreateEffect(int show_icon) {

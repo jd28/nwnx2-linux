@@ -2,7 +2,7 @@
 #define TALIB_ITEMPROP_AC_H
 
 extern "C" {
-#include "../rules.h"
+#include "../nwn/rules.h"
 }
 
 struct ItemPropertyAC {

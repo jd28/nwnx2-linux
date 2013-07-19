@@ -1,6 +1,6 @@
 #include "NWNXLib.h"
 #include "creation.h"
-#include "../effect.h"
+#include "../nwn/effect.h"
 #include "../util/math.h"
 
 CGameEffect * ip_create(bool show_icon) {

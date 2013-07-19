@@ -4,7 +4,7 @@
 #include <string>
 
 #include "NWNXEffects.h"
-#include "talib/effect.h"
+#include "talib/nwn/effect.h"
 #include "talib/effects/creation.h"
 
 std::string Local_GetEffectString(CNWSObject *obj) {

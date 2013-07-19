@@ -18,5 +18,5 @@ add_module(levels NWNXLevels plugin-levels
     hooks/h_SummonAnimalCompanion
     hooks/h_SummonFamiliar
 
-    ../../talib/all
+    ../../talib/nwn/all
 )

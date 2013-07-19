@@ -59,6 +59,11 @@ uint32_t nwn_CalculateSpellDC(CNWSCreature *cre, uint32_t spellid){
     return CNWSCreature__CalculateSpellSaveDC(cre, spellid);
 }
 
+bool nwn_CanUseSkill(CNWSCreature* cre, uint8_t skill) {
+    if ( !cre || !cre->cre_stats ) { return false; }
+    return CNWSCreatureStats__GetCanUseSkill(cre->cre_stats, skill);
+}
+
 void nwn_DecrementFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat) {
     CNWSCreatureStats__DecrementFeatRemainingUses(stats, feat);
 }
@@ -196,6 +201,21 @@ bool nwn_GetIsVisible(CNWSCreature *cre, nwn_objid_t target){
 
 CNWSItem *nwn_GetItemInSlot(CNWSCreature *cre, uint32_t slot) {
     return CNWSInventory__GetItemInSlot(cre->cre_equipment, slot);
+}
+
+void nwn_JumpToLimbo(CNWSCreature *cre) {
+    CNWSModule *mod = CServerExoAppInternal__GetModule((*NWN_AppManager)->app_server->srv_internal);
+
+    if (cre == NULL                                   ||
+        mod == NULL                                   ||
+        cre->cre_is_pc                                ||
+        cre->cre_stats->cs_is_pc                      ||
+        cre->cre_stats->cs_is_dm) {
+        return;
+    }
+
+    CNWSCreature__RemoveFromArea(cre, 0);
+    CNWSModule__AddObjectToLimbo(mod, cre->obj.obj_id);
 }
 
 // From nwnx_funcs
@@ -604,12 +624,13 @@ void nwn_SendMessage(uint32_t mode, uint32_t id, const char *msg, uint32_t to) {
     }
     else {
         CNWSPlayer *pl = nwn_GetPlayerByID(to);
+        if (!pl) { return; }
         to = pl->pl_id;
     }
 
     CNWSMessage* message = CServerExoApp__GetNWSMessage((*NWN_AppManager)->app_server);
     if(message){
-        char xz = NULL;
+        char xz = '\0';
         CExoString s;
         s.text = strdup(msg);
 

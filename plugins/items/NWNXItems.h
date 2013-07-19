@@ -20,7 +20,7 @@
 #ifndef _NWNX_ITEMS_H_
 #define _NWNX_ITEMS_H_
 
-#include "talib/all.h"
+#include "talib/nwn/all.h"
 #include "NWNXLib.h"
 #include "NWNXBase.h"
 #include "nwnx_modules_ext.h"

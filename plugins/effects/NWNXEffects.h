@@ -21,7 +21,7 @@
 #define NWNX_EFFECTS_H
 
 #include "NWNXLib.h"
-#include "talib/all.h"
+#include "talib/nwn/all.h"
 #include "nwnx_modules_ext.h"
 #include "hooks.h"
 

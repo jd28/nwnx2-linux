@@ -6,7 +6,7 @@
 void talib_init() {
 
     SET(CGameEffect__dtor, 0x0817DFDC);
-    
+
     SET(CNWSArea__ClearLineOfSight, 0x080d31f0);
 
     SET(CNWSObject__ApplyEffect, 0x081CE7D8);
@@ -26,7 +26,7 @@ void talib_init() {
     SET(CVirtualMachine__StackPushVector, 0x08262B98);
     SET(CVirtualMachine__StackPushObject, 0x08264514);
     SET(CVirtualMachine__StackPushEngineStructure, 0x082644AC);
-    
+
     SET(CTwoDimArrays__GetCached2DA, 0x080B92A8);
     SET(C2DA__GetCExoStringEntry,    0x082BD0D4);
     SET(C2DA__GetCExoStringEntry2,   0x082BEDBC);
@@ -36,7 +36,7 @@ void talib_init() {
     SET(C2DA__GetINTEntry2,          0x082BD77C);
     SET(C2DA__GetNumColumns,         0x082BF6D0);
     SET(C2DA__GetNumRows,            0x082BF6DC);
-    
+
 	SET(CGameEffect__ctor, 0x0817DC70);
     SET(CGameEffect__SetLinked, 0x0817F750);
     SET(CGameEffect__SetNumIntegers, 0x0817F54C);
@@ -45,10 +45,10 @@ void talib_init() {
 
     SET(CItemRepository__AddItem,                   0x081A32D0);
     SET(CItemRepository__FindItemWithBaseItemId,    0x081A3EE4);
-    
+
     SET(CNWCCMessageData__ctor,                     0x080C1B6C);
     SET(CNWCCMessageData__CopyTo,                   0x080c212c);
-    
+
     SET(CNWSCombatRound__AddAttackOfOpportunity,    0x080E31E0);
     SET(CNWSCombatRound__AddCircleKickAttack,       0x080e2f94);
     SET(CNWSCombatRound__AddCleaveAttack,           0x080e2e4c);
@@ -102,13 +102,14 @@ void talib_init() {
     SET(CNWSCreatureStats__DecrementFeatRemainingUses, 0x081646EC);
     SET(CNWSCreatureStats__GetAttacksPerRound,         0x08163D18);
     SET(CNWSCreatureStats__GetBaseAttackBonus,         0x08142054);
+    SET(CNWSCreatureStats__GetCanUseSkill,             0x08152e1c);
     SET(CNWSCreatureStats__GetFeatRemainingUses,       0x08153E00);
     SET(CNWSCreatureStats__GetFeatTotalUses,           0x0815479C);
     SET(CNWSCreatureStats__GetHighestLevelOfFeat,      0x0816562C);
     SET(CNWSCreatureStats__GetLevel,                   0x08163CC8);
     SET(CNWSCreatureStats__GetTotalNegativeLevels,     0x0816571C);
     SET(CNWSCreatureStats__HasFeat,                    0x08153BC4);
-	
+
     SET(CNWSItem__GetMinEquipLevel,                 0x081a5de4);
     SET(CNWSItem__GetPropertyByType,                0x081A2B34);
     SET(CNWSItem__GetPropertyByTypeExists,          0x081A2A6C);
@@ -147,11 +148,14 @@ void talib_init() {
     SET(CNWSScriptVarTable__SetLocation,     0x081F4204);
     SET(CNWSScriptVarTable__SetObject,       0x081F41E0);
     SET(CNWSScriptVarTable__SetString,       0x081F41B4);
-	
+
     SET(CServerExoApp__GetClientObjectByPlayerId,   0x080B24D0);
     SET(CServerExoApp__GetNWSMessage,               0x080B1F54);
     SET(CTwoDimArrays__GetEpicFortSaveBonus,        0x080B9A04);
     SET(CTwoDimArrays__GetEpicRefSaveBonus,         0x080B9A24);
     SET(CTwoDimArrays__GetEpicWillSaveBonus,        0x080B9A48);
 
+    SET(CServerAIMaster__AddEventDeltaTime, 0x08096388);
+    SET(CWorldTimer__GetCalendarDayFromSeconds, 0x08241a8c);
+    SET(CWorldTimer__GetTimeOfDayFromSeconds, 0x08241af0);
 }

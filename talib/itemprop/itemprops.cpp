@@ -1,5 +1,5 @@
 #include "NWNXLib.h"
-#include "../all.h"
+#include "../nwn/all.h"
 
 #include "itemprops.h"
 #include <sstream>

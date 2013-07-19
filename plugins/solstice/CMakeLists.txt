@@ -49,7 +49,7 @@ add_module(solstice NWNXSolstice plugin-solstice
 
     profiler/profiler
 
-    ../../talib/all
+    ../../talib/nwn/all
     ../../talib/effects/itemprop
     ../../talib/effects/creation
 )

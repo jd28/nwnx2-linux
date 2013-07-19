@@ -5,7 +5,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "talib/all.h"
+#include "talib/nwn/all.h"
 #include "talib/custom/versus_info.h"
 #include "talib/util/math.h"
 

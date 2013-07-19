@@ -26,7 +26,7 @@ add_module(items NWNXItems plugin-items
     local/l_GetItemPropString
     local/l_ExamineItemEvent
 
-    ../../talib/all
+    ../../talib/nwn/all
     ../../talib/itemprop/itemprops
 )
 
