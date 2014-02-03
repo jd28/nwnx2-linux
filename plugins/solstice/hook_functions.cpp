@@ -30,10 +30,10 @@ bool hook_functions(){
     nx_hook_function((void *)0x08153E00,
                      (void *)Hook_GetFeatRemainingUses, 5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void *)0x080F982C,
-                     (void *)Hook_SetCombatMode, 5, NX_HOOK_DIRECT);
-    nx_hook_function((void *)0x0812BCB4,
-                     (void *)Hook_ToggleMode, 7, NX_HOOK_DIRECT);
+//    nx_hook_function((void *)0x080F982C,
+//                     (void *)Hook_SetCombatMode, 5, NX_HOOK_DIRECT);
+//    nx_hook_function((void *)0x0812BCB4,
+//                     (void *)Hook_ToggleMode, 7, NX_HOOK_DIRECT);
 
 
 /*
