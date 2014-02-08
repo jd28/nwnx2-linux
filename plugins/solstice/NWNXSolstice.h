@@ -37,7 +37,7 @@ extern "C" {
 bool hook_functions();
 
 char* HandleRequest(CGameObject *ob, const char *request, char *value);
-    
+
 int            Local_RunLuaScript(char *script, uint32_t id);
 ChatMessage   *Local_GetLastChatMessage();
 CombatMessage *Local_GetLastCombatMessage();
@@ -73,13 +73,15 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat);
 int Hook_GetRunScriptReturnValue(CVirtualMachine *vm, int* a, void** b);
 void    Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change);
 int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode);
+int32_t Hook_ExecuteCommandDestroyObject(CNWVirtualMachineCommands *vm_cmds,
+                                         int cmd, int args);
 
 class CNWNXSolstice : public CNWNXBase
 {
 public:
     CNWNXSolstice();
     ~CNWNXSolstice();
-    
+
     std::string GetConf(const char* key);
     bool InitializeEventHandlers();
     bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
@@ -100,4 +102,3 @@ public:
 #endif
 
 #endif /* NWNX_SOLSTICE_H */
-

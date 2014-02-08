@@ -14,8 +14,9 @@ include_directories(
 
 set(SOLSTICE_FUNCS_SRC
   funcs.h
-  handle_request.cpp
-  funcs/f_LoadConstants.cpp
+  handle_request
+  funcs/f_LoadConstants
+  funcs/f_RemoveObjectFromCache
 )
 
 add_module(solstice NWNXSolstice plugin-solstice
@@ -31,6 +32,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_Event
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
+    hooks/h_ExecuteCommandDestroyObject
     hooks/h_RunScript
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
@@ -57,6 +59,6 @@ message(${CMAKE_MODULE_LINKER_FLAGS})
 set(CMAKE_MODULE_LINKER_FLAGS ${CMAKE_MODULE_LINKER_FLAGS} -Wl,-E
 CACHE STRING "Flags used by the linker during the creation.")
 
-target_link_libraries(solstice 
-  rt 
+target_link_libraries(solstice
+  rt
   libluajit-5.1.a)

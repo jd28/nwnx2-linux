@@ -10,6 +10,9 @@ char* HandleRequest(CGameObject *ob, const char *request, char *value) {
     if( M(request, "LOADCONSTANTS") ){
         Func_LoadConstants(ob, value);
     }
+    else if( M(request, "REMOVEFROMCACHE") ){
+        Func_RemoveObjectFromCache(ob, value);
+    }
 
     return NULL;
 #undef M
