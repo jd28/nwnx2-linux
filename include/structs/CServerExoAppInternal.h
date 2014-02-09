@@ -31,7 +31,7 @@ struct CServerExoAppInternal_s {
 
     u_int32_t                   field_10004;            /* 10004 */
     u_int32_t                   field_10008;            /* 10008 */
-    u_int32_t                   field_1000C;            /* 1000C */
+    CServerInfo                 *srv_info;              /* 1000C */
     u_int32_t                   field_10010;            /* 10010 */
     u_int32_t                   field_10014;            /* 10014 */
 
