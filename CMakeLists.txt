@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(nwnx-core-2.8)
 
 # You can exclude plugins from being built here.
-set(dont_build_plugins )
+set(dont_build_plugins extend)
 
 # Compatibility with cmake 2.8.9 and above.
 if(POLICY CMP0018)
