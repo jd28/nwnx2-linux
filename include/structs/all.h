@@ -112,6 +112,7 @@ struct CNWSJournal_s;                     typedef struct CNWSJournal_s          
 struct CNWSMessage_s;                     typedef struct CNWSMessage_s                     CNWSMessage;
 struct CNWSModule_s;                      typedef struct CNWSModule_s                      CNWSModule;
 struct CNWSObject_s;                      typedef struct CNWSObject_s                      CNWSObject;
+struct CNWSObjectActionNode_s;            typedef struct CNWSObjectActionNode_s            CNWSObjectActionNode;
 struct CNWSPlaceable_s;                   typedef struct CNWSPlaceable_s                   CNWSPlaceable;
 struct CNWSPlayerInventoryGUI_s;          typedef struct CNWSPlayerInventoryGUI_s          CNWSPlayerInventoryGUI;
 struct CNWSPlayerLUOInventory_s;          typedef struct CNWSPlayerLUOInventory_s          CNWSPlayerLUOInventory;
@@ -253,6 +254,7 @@ struct Vector_s;                          typedef struct Vector_s               
 #include "structs/CNWSScriptVarTable.h"
 
 #include "structs/CNWSObject.h"
+#include "structs/CNWSObjectActionNode.h"
 #include "structs/CNWSAction.h"
 #include "structs/CNWSAmbientSound.h"
 #include "structs/CNWSArea.h"
