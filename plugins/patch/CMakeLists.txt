@@ -1,0 +1,10 @@
+include_directories(.)
+add_module(patch 
+  NWNXPatch
+  plugin-patch
+  hooks/h_GetEffectImmunity.cpp
+  hooks/h_GetWeaponFocus.cpp
+  hooks/h_OnApplyAbilityDecrease.cpp
+  hooks/h_OnApplyCurse.cpp
+  hooks/h_ResolveAttack.cpp
+)
