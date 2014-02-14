@@ -15,13 +15,14 @@ int nwn_Get2daRowCount(C2DA *tda) {
 const char * nwn_Get2daStringIdx(C2DA *tda, int col, uint32_t row) {
     static char res_[2048] = {0};
 
-    if ( !tda                     || 
+    if ( !tda                     ||
          col >= tda->tda_cols_len ||
-         row >= tda->tda_rows_len ) { 
-        return ""; 
+         row >= tda->tda_rows_len ) {
+        return "";
     }
 
     CExoString *str = &tda->tda_rows[row][col];
+    if (!str || !str->text) { return ""; }
 
     res_[0] = '\0';
     strncat(res_, str->text, 2047);
