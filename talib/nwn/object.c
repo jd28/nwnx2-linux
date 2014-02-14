@@ -7,7 +7,11 @@ void nwn_DelayCommand(uint32_t obj_id, double delay, CVirtualMachineScript *vms)
     time = CWorldTimer__GetTimeOfDayFromSeconds(timer, delay);
 
     CServerAIMaster *ai_master = (*NWN_AppManager)->app_server->srv_internal->srv_ai;
-    CServerAIMaster__AddEventDeltaTime(ai_master, day, time, obj_id, obj_id, EVENT_TIMED_EVENT, vms); 
+    int result = CServerAIMaster__AddEventDeltaTime(ai_master, day, time, obj_id,
+                                                    obj_id, EVENT_TIMED_EVENT, vms);
+    if ( result == 0 ) {
+        nx_log(NX_LOG_INFO, 0, "DelayCommand Error: %d", result);
+    }
 }
 
 void nwn_DeleteLocalFloat(CNWSScriptVarTable *vt, const char *var_name){
@@ -56,8 +60,8 @@ void nwn_DeleteLocalString(CNWSScriptVarTable *vt, const char *var_name){
 }
 
 void nwn_DoCommand(CNWSObject *obj, CVirtualMachineScript *vms) {
-    CNWSObject__AddAction(obj, 37, 65535, 5, vms, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); 
-} 
+    CNWSObject__AddAction(obj, 37, 65535, 5, vms, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+}
 
 CGameEffect* nwn_GetEffect (const CNWSObject *obj, const nwn_objid_t eff_creator,
                             const int eff_spellid, const int eff_type, const int eff_int0, const int eff_int1){
@@ -88,7 +92,7 @@ CGameEffect* nwn_GetEffect (const CNWSObject *obj, const nwn_objid_t eff_creator
         return eff;
     }
     return NULL;
-} 
+}
 
 
 
@@ -231,7 +235,7 @@ void nwn_SetLocalLocation(CNWSScriptVarTable *vt, const char *var_name, CScriptL
     };
 
     CScriptLocation new_loc;
-    //new_loc.CopyScriptLocation(value); 
+    //new_loc.CopyScriptLocation(value);
 
     CNWSScriptVarTable__SetLocation(vt, &name, new_loc);
 }

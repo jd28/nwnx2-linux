@@ -7,7 +7,7 @@ uint32_t  nwn_GetCommandObjectId();
 uint32_t  nwn_SetCommandObjectId(uint32_t obj);
 
 bool      nwn_StackPopBoolean();
-int       nwn_StackPopInteger();
+int32_t   nwn_StackPopInteger();
 float     nwn_StackPopFloat();
 char     *nwn_StackPopString();
 Vector   *nwn_StackPopVector();
@@ -15,7 +15,7 @@ uint32_t  nwn_StackPopObject();
 void      nwn_StackPushBoolean(bool value);
 void     *nwn_StackPopEngineStructure(uint32_t type);
 void      nwn_StackPushFloat(float value);
-void      nwn_StackPushInteger(int value);
+void      nwn_StackPushInteger(int32_t value);
 void      nwn_StackPushString(const char *value);
 void      nwn_StackPushVector(Vector *value);
 void      nwn_StackPushObject(uint32_t value);

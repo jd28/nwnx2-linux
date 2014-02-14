@@ -20,9 +20,10 @@ bool nwn_StackPopBoolean(){
     return !!result;
 }
 
-int nwn_StackPopInteger() {
-    int result = 0;
-    CVirtualMachine__StackPopInteger(*NWN_VirtualMachine, &result);
+int32_t nwn_StackPopInteger() {
+    int32_t result = 0;
+    int32_t err = CVirtualMachine__StackPopInteger(*NWN_VirtualMachine, &result);
+    nx_log(NX_LOG_INFO, 3, "StackPopInteger Error: %d, result: %d", err, result);
     return result;
 }
 
@@ -38,14 +39,15 @@ char * nwn_StackPopString(){
         .len  = 0
     };
 
-    CVirtualMachine__StackPopString(*NWN_VirtualMachine, &str);
+    int err = CVirtualMachine__StackPopString(*NWN_VirtualMachine, &str);
+    nx_log(NX_LOG_INFO, 3, "StackPopString Error: %d", err);
     return str.text;
 }
 
 Vector *nwn_StackPopVector(){
     Vector *buf = (Vector *)malloc(sizeof(Vector));
     CVirtualMachine__StackPopVector(*NWN_VirtualMachine, buf);
-    
+
     return buf;
 }
 
@@ -63,11 +65,12 @@ void * nwn_StackPopEngineStructure(uint32_t type){
 }
 
 void nwn_StackPushBoolean(bool value){
-    CVirtualMachine__StackPushInteger(*NWN_VirtualMachine, !!value);
+    nwn_StackPushInteger(*NWN_VirtualMachine, !!value);
 }
 
-void nwn_StackPushInteger(int value){
-    CVirtualMachine__StackPushInteger(*NWN_VirtualMachine, value);
+void nwn_StackPushInteger(int32_t value){
+    int err = CVirtualMachine__StackPushInteger(*NWN_VirtualMachine, value);
+    nx_log(NX_LOG_INFO, 3, "StackPopInteger Error: %d, result: %d", err, value);
 }
 
 void nwn_StackPushFloat(float value){
