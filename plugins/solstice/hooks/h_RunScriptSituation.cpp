@@ -13,6 +13,10 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
     int ctype = -1;
     double result = 0;
     bool repeat = false;
+
+    solstice.Log(3, "Running Script Situation: %s\n",
+                 script->vms_name.text);
+
     if(strncmp(script->vms_name.text, "$", 1) == 0){
         ctype = COMMAND_TYPE_DELAY;
     }
@@ -23,14 +27,14 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
         ctype = COMMAND_TYPE_REPEAT;
     }
     else {
-        #ifdef NS_PROFILE_SCRIPTS
+#ifdef NS_PROFILE_SCRIPTS
         char temp[17];
         temp[0] = '>';
         temp[1] = 0x0;
         strncat(temp, script->vms_name.text, 15);
         temp[16] = 0x0;
         profiler_start_timer(temp, 0);
-        #endif
+#endif
 
         solstice.Log(4, "Script Situation: |%s| on %x\n", script->vms_name.text, oid);
         return 1;
@@ -39,9 +43,9 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
     uint32_t temp = (*NWN_VirtualMachine)->vm_implementer->vmc_object_id;
     (*NWN_VirtualMachine)->vm_implementer->vmc_object_id = oid;
 
-    #ifdef NS_PROFILE_SCRIPTS
+#ifdef NS_PROFILE_SCRIPTS
     profiler_start_timer(script->vms_name.text, 0);
-    #endif
+#endif
 
     if(!nl_pushfunction(L, "_RUN_COMMAND"))
         return 1;
@@ -49,9 +53,9 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
     lua_pushinteger(L, ctype);
     lua_pushinteger(L, script->vms_stack_size);
     lua_pushinteger(L, oid);
-    
+
     if (lua_pcall(L, 3, 1, 0) != 0){
-    solstice.Log(0, "Error: _RUN_COMMAND Type:%d : %s\n", ctype, lua_tostring(L, -1));
+        solstice.Log(0, "Error: _RUN_COMMAND Type:%d : %s\n", ctype, lua_tostring(L, -1));
         return 1;
     }
 
@@ -78,12 +82,12 @@ void Hook_RunScriptSituationStart(CVirtualMachine *vm, void *script, uint32_t ob
     if (!local_run_scriptsituation((CVirtualMachineScript *)script, obj))
         return;
 
-    CVirtualMachine__RunScriptSituation(vm, script, obj, a);   
+    CVirtualMachine__RunScriptSituation(vm, script, obj, a);
 }
 
 __attribute__((noinline))
-static void local_runss_end(void){  
-    profiler_stop_timer(); 
+static void local_runss_end(void){
+    profiler_stop_timer();
 }
 
 void Hook_RunScriptSituationEnd(void){
@@ -100,4 +104,3 @@ void Hook_RunScriptSituationEnd(void){
     asm("push $0x0826276A");
     asm("ret");
 }
-

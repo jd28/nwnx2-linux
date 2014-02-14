@@ -12,7 +12,7 @@
 
 extern "C" {
 int  ns_BitScanFFS(uint32_t mask);
-void ns_DelayCommand(CNWSObject *obj, float delay, uint32_t token);
-void ns_RepeatCommand(CNWSObject *obj, float delay, uint32_t token);    
+void ns_DelayCommand(uint32_t objid, float delay, uint32_t token);
+void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token);
 }
 #endif

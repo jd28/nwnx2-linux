@@ -7,19 +7,19 @@
 extern char* running_script;
 extern CNWNXSolstice solstice;
 
-void ns_DelayCommand(CNWSObject *obj, float delay, uint32_t token){
+void ns_DelayCommand(uint32_t objid, float delay, uint32_t token){
     CVirtualMachineScript *vms = NULL;
     vms = (CVirtualMachineScript *) malloc(sizeof (CVirtualMachineScript));
 
     if (running_script == NULL){
-        solstice.Log(3, "LUAJIT: WARNING running_script is null!");
+        solstice.Log(3, "LUAJIT: WARNING running_script is null!\n");
     }
 
     // delay command: $
     // We only need to save the running script name for profiling
     // purposes.
 #ifdef NWNX_LUAJIT_PROFILE
-    char temp[18]; 
+    char temp[18];
     sprintf(temp, "$%s", running_script);
     vms->vms_name.text = strdup(temp);
 #else
@@ -29,15 +29,15 @@ void ns_DelayCommand(CNWSObject *obj, float delay, uint32_t token){
     vms->vms_code = NULL;
     vms->vms_stack_size = token;
 
-    nwn_DelayCommand(obj->obj_id, delay, vms);
+    nwn_DelayCommand(objid, delay, vms);
 
-    solstice.Log(3, "id: %x, delay: %.2f, token: %d, scriptsit: %s",
-                 obj->obj_id, delay, vms->vms_stack_size, 
+    solstice.Log(3, "id: %x, delay: %.2f, token: %d, scriptsit: %s\n",
+                 objid, delay, vms->vms_stack_size,
                  vms->vms_name.text);
 
 }
 
-void ns_RepeatCommand(CNWSObject *obj, float delay, uint32_t token){
+void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token){
     CVirtualMachineScript *vms = NULL;
     vms = (CVirtualMachineScript *) malloc(sizeof (CVirtualMachineScript));
 
@@ -49,7 +49,7 @@ void ns_RepeatCommand(CNWSObject *obj, float delay, uint32_t token){
     // We only need to save the running script name for profiling
     // purposes.
 #ifdef NWNX_LUAJIT_PROFILE
-    char temp[18]; 
+    char temp[18];
     sprintf(temp, "*%s", running_script);
     vms->vms_name.text = strdup(temp);
 #else
@@ -59,10 +59,10 @@ void ns_RepeatCommand(CNWSObject *obj, float delay, uint32_t token){
     vms->vms_code = NULL;
     vms->vms_stack_size = token;
 
-    nwn_DelayCommand(obj->obj_id, delay, vms);
+    nwn_DelayCommand(objid, delay, vms);
 
-    solstice.Log(3, "id: %x, delay: %.2f, token: %d, scriptsit: %s", 
-                 obj->obj_id, delay, vms->vms_stack_size,
+    solstice.Log(3, "id: %x, delay: %.2f, token: %d, scriptsit: %s",
+                 objid, delay, vms->vms_stack_size,
                  vms->vms_name.text);
 }
 
