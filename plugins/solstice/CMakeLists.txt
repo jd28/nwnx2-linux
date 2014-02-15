@@ -15,7 +15,6 @@ include_directories(
 set(SOLSTICE_FUNCS_SRC
   funcs.h
   handle_request
-  funcs/f_LoadConstants
   funcs/f_RemoveObjectFromCache
 )
 
@@ -37,6 +36,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
     hooks/h_GetRunScriptReturnValue
+    hooks/h_LoadModuleStart
     hooks/h_RunScriptSituation
     hooks/h_SetCombatMode
     hooks/h_ToggleMode

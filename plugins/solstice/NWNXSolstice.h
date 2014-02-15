@@ -75,6 +75,9 @@ void    Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change);
 int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode);
 int32_t Hook_ExecuteCommandDestroyObject(CNWVirtualMachineCommands *vm_cmds,
                                          int cmd, int args);
+int32_t Hook_LoadModuleStart(CNWSModule *mod, void *a2);
+
+extern int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2);
 
 class CNWNXSolstice : public CNWNXBase
 {
@@ -88,6 +91,7 @@ public:
     char* OnRequest (char* gameObject, char* Request, char* Parameters);
     //unsigned long OnRequestObject (char *gameObject, char* Request);
     bool OnRelease();
+    void Initialize();
 
     bool bHooked;
     int            in_conditional_script;

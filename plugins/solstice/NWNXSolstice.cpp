@@ -49,14 +49,6 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
     if (!CNWNXBase::OnCreate(config,log))
         return false;
 
-    //Add in this hack...to make sure the lua symbols are add to the
-    //global table.  Before lua C modules were not working. 
-    //void *res = dlopen("libluajit-5.1.so", RTLD_NOW | RTLD_GLOBAL);
-    //if ( !res ) {
-    //     Log (0, "ERROR: libluajit-5.1.so not installed!\n");
-    //     return false;
-    //}
-    
     // Plugin Events
     if(!pluginLink){
 	Log (0, "Plugin link not accessible\n");
@@ -82,6 +74,18 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
     L = lua_open();
     luaL_openlibs(L);
 
+    bHooked = hook_functions();
+
+    unsigned char *eff_num_ints = (unsigned char*)0x0817dd37;
+    nx_hook_enable_write(eff_num_ints, 1);
+    memset((void *)eff_num_ints, (uint8_t)10, 1);
+
+
+    Log(0,"* Module loaded successfully.\n");
+    return true;
+}
+
+void CNWNXSolstice::Initialize() {
     std::string dir = GetConf("script_dir");
     if ( dir.empty() ) {
         dir = "solstice/preload";
@@ -96,16 +100,6 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
         /* the stack */
         Log(0, "Couldn't load file: %s\n", lua_tostring(L, -1));
     }
-
-    bHooked = hook_functions();
-
-    unsigned char *eff_num_ints = (unsigned char*)0x0817dd37;
-    nx_hook_enable_write(eff_num_ints, 1);
-    memset((void *)eff_num_ints, (uint8_t)10, 1);
-
-
-    Log(0,"* Module loaded successfully.\n");
-    return true;
 }
 
 char* CNWNXSolstice::OnRequest (char *gameObject, char* Request, char* Parameters) {
@@ -113,10 +107,10 @@ char* CNWNXSolstice::OnRequest (char *gameObject, char* Request, char* Parameter
     Log(3,"(S) Params:  \"%s\"\n",Parameters);
 
     if ( !gameObject ) { return NULL; }
-    
+
     HandleRequest(reinterpret_cast<CGameObject*>(gameObject),
                   Request, Parameters);
-    
+
     return NULL;
 }
 
@@ -126,7 +120,7 @@ bool CNWNXSolstice::OnRelease ()
     profiler_destroy();
 #endif
 
-    int nKBytes = lua_gc(L, LUA_GCCOUNT, 0); 
+    int nKBytes = lua_gc(L, LUA_GCCOUNT, 0);
     Log (0, "o Shutdown.. Memory: %d Kb\n", nKBytes);
 
     return true;
