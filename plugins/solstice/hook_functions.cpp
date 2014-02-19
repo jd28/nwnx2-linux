@@ -26,6 +26,10 @@ int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2) = NULL;
 bool hook_functions(){
     HOOK(CVirtualMachine__RunScript, 0x08261F94, Hook_RunScriptStart, 5);
     HOOK(CVirtualMachine__RunScriptSituation, 0x08262534, Hook_RunScriptSituationStart, 5);
+
+    nx_hook_function((void *)0x08264324,
+                     (void *)Hook_GetRunScriptReturnValue, 5, NX_HOOK_DIRECT);
+
     nx_hook_function((void *)0x0815479c,
                      (void *)Hook_GetFeatTotalUses, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)0x08153E00,
@@ -38,10 +42,10 @@ bool hook_functions(){
          0x081B4A4C,
          Hook_LoadModuleStart, 5);
 
-//    nx_hook_function((void *)0x080F982C,
-//                     (void *)Hook_SetCombatMode, 5, NX_HOOK_DIRECT);
-//    nx_hook_function((void *)0x0812BCB4,
-//                     (void *)Hook_ToggleMode, 7, NX_HOOK_DIRECT);
+    nx_hook_function((void *)0x080F982C,
+                     (void *)Hook_SetCombatMode, 5, NX_HOOK_DIRECT);
+    nx_hook_function((void *)0x0812BCB4,
+                     (void *)Hook_ToggleMode, 7, NX_HOOK_DIRECT);
 
 
 /*
