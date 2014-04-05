@@ -4,8 +4,11 @@ extern lua_State *L;
 extern CNWNXSolstice solstice;
 
 int Local_RunLuaScript(char *script, uint32_t id){
-    if(!nl_pushfunction(L, "_SOL_RUN_SCRIPT"))
+    if(!nl_pushfunction(L, "_SOL_RUN_SCRIPT") || script == NULL)
         return 0;
+
+    std::transform(script, script + ::strlen(script),
+                   script, ::tolower);
 
     lua_pushstring(L, script);
     lua_pushinteger(L, id);

@@ -27,25 +27,12 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
         ctype = COMMAND_TYPE_REPEAT;
     }
     else {
-#ifdef NS_PROFILE_SCRIPTS
-        char temp[17];
-        temp[0] = '>';
-        temp[1] = 0x0;
-        strncat(temp, script->vms_name.text, 15);
-        temp[16] = 0x0;
-        profiler_start_timer(temp, 0);
-#endif
-
         solstice.Log(4, "Script Situation: |%s| on %x\n", script->vms_name.text, oid);
         return 1;
     }
 
     uint32_t temp = (*NWN_VirtualMachine)->vm_implementer->vmc_object_id;
     (*NWN_VirtualMachine)->vm_implementer->vmc_object_id = oid;
-
-#ifdef NS_PROFILE_SCRIPTS
-    profiler_start_timer(script->vms_name.text, 0);
-#endif
 
     if(!nl_pushfunction(L, "_RUN_COMMAND"))
         return 1;
@@ -87,7 +74,7 @@ void Hook_RunScriptSituationStart(CVirtualMachine *vm, void *script, uint32_t ob
 
 __attribute__((noinline))
 static void local_runss_end(void){
-    profiler_stop_timer();
+    //profiler_stop_timer();
 }
 
 void Hook_RunScriptSituationEnd(void){

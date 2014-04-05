@@ -5,12 +5,13 @@ find_path(LUAJIT_INCLUDE_DIR luajit.h
 find_library(LUAJIT_LIBRARIES luajit NAMES luajit-5.1.a)
 
 # Add the user's chosen flags to the build for this directory.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++0x -Wno-return-type")
+set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings -std=c++11 -O3")
 
 include_directories(
     .
     ../../talib
-    ${LUA_INCLUDE_DIR})
+    ${LUA_INCLUDE_DIR}
+    ${Boost_INCLUDE_DIR})
 
 set(SOLSTICE_FUNCS_SRC
   funcs.h
@@ -18,10 +19,15 @@ set(SOLSTICE_FUNCS_SRC
   funcs/f_RemoveObjectFromCache
 )
 
+set(SOLSTICE_LUAFUNCS_SRC
+  lua_funcs.h
+  lua_funcs.cpp
+)
+
 add_module(solstice NWNXSolstice plugin-solstice
-    lua_funcs
     hook_functions
     solstice_funcs
+    ${SOLSTICE_LUAFUNCS_SRC}
     ${SOLSTICE_FUNCS_SRC}
     handles/hndl_ChatMessage
     handles/hndl_CombatMessage
@@ -31,15 +37,21 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_Event
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
-    hooks/h_ExecuteCommandDestroyObject
+    hooks/h_AddAttackOfOpportunity
     hooks/h_RunScript
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
+    hooks/h_GetMaxHitpoints
     hooks/h_GetRunScriptReturnValue
+    hooks/h_InitializeNumberOfAttacks
     hooks/h_LoadModuleStart
+    hooks/h_ResolveMeleeAttack
+    hooks/h_ResolveRangedAttack
     hooks/h_RunScriptSituation
     hooks/h_SetCombatMode
     hooks/h_ToggleMode
+    local/l_GetCreature
+    local/l_GetCombatInfo
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
     local/l_GetLastEffectEvent
@@ -49,7 +61,9 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_NWNXLog
     local/l_RunLuaScript
 
-    profiler/profiler
+    combat/Attack
+
+    object/Creature
 
     ../../talib/nwn/all
     ../../talib/effects/itemprop

@@ -12,7 +12,7 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- ***************************************************************************/
+***************************************************************************/
 
 #include "NWNXSolstice.h"
 
@@ -33,6 +33,7 @@ CNWNXSolstice::CNWNXSolstice(){
 }
 
 CNWNXSolstice::~CNWNXSolstice(){
+    OnRelease();
 }
 
 std::string CNWNXSolstice::GetConf(const char* key) {
@@ -51,17 +52,17 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
 
     // Plugin Events
     if(!pluginLink){
-	Log (0, "Plugin link not accessible\n");
+        Log (0, "Plugin link not accessible\n");
         return false;
     }
     else {
-	Log (0, "Plugin link: %08lX\n", pluginLink);
+        Log (0, "Plugin link: %08lX\n", pluginLink);
     }
 
     HANDLE handlePluginsLoaded = HookEvent("NWNX/Core/PluginsLoaded", Handle_PluginsLoaded);
     if (!handlePluginsLoaded) {
         Log(0, "Cannot hook plugins loaded event!\n");
-	return false;
+        return false;
     }
 
 #ifdef NWNX_SOLSTICE_PROFILE
@@ -73,7 +74,6 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
 
     L = lua_open();
     luaL_openlibs(L);
-
     bHooked = hook_functions();
 
     unsigned char *eff_num_ints = (unsigned char*)0x0817dd37;
@@ -116,9 +116,11 @@ char* CNWNXSolstice::OnRequest (char *gameObject, char* Request, char* Parameter
 
 bool CNWNXSolstice::OnRelease ()
 {
-#ifdef NWNX_SOLSTICE_PROFILE
-    profiler_destroy();
-#endif
+    if ( lua_attacks > 0 )
+        Log(0, "Average Lua Melee Attack Time: %d\n", lua_time/lua_attacks);
+
+    if ( nwn_attacks > 0 )
+        Log(0, "Average NWN Melee Attack Time: %d\n", nwn_time/nwn_attacks);
 
     int nKBytes = lua_gc(L, LUA_GCCOUNT, 0);
     Log (0, "o Shutdown.. Memory: %d Kb\n", nKBytes);
@@ -132,44 +134,76 @@ bool CNWNXSolstice::InitializeEventHandlers(){
     HANDLE handleChatMessage = HookEvent("NWNX/Chat/ChatMessage", Handle_ChatMessage);
     if (!handleChatMessage) {
         Log(0, "Cannot hook NWNX/Chat/ChatMessage!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleCCMessage = HookEvent("NWNX/Chat/CCMessage", Handle_CombatMessage);
     if (!handleCCMessage) {
         Log(0, "Cannot hook NWNX/Chat/CombatMessage!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleEffectEvent = HookEvent("NWNX/Effects/EffectEvent", Handle_EffectEvent);
     if (!handleEffectEvent) {
         Log(0, "Cannot hook NWNX/Effects/EffectEvent!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleEquipEvent = HookEvent("NWNX/Items/Event", Handle_EquipEvent);
     if (!handleEquipEvent){
         Log(0, "Cannot hook NWNX/Equips/Event!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleConversationEvent = HookEvent("NWNX/Events/ConversationEvent", Handle_ConversationEvent);
     if (!handleConversationEvent) {
         Log(0, "Cannot hook NWNX/Events/ConversationEvent!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleEvent = HookEvent("NWNX/Events/Event", Handle_Event);
     if (!handleEvent) {
         Log(0, "Cannot hook NWNX/Events/Event!\n");
-	result = false;
+        result = false;
     }
 
     HANDLE handleItemPropEvent = HookEvent("NWNX/Items/ItemPropEvent", Handle_ItemPropEvent);
     if (!handleItemPropEvent){
         Log(0, "Cannot hook NWNX/Effects/ItemPropEvent!\n");
-	result = false;
+        result = false;
     }
 
     return result;
+}
+
+bool CNWNXSolstice::InitializeTables() {
+    C2DA *props = nwn_GetCached2da("wpnprops");
+
+    if ( props == NULL ) {
+        Log(0, "ERROR: unable to load %s.2da.\n", WEAPON_PROP_2DA);
+        return false;
+    }
+
+    int bi_len = (*NWN_Rules)->ru_baseitems->bitemarray_len;
+    table_baseitems = new uint32_t[bi_len];
+    std::fill_n(table_baseitems, bi_len, 0);
+
+    for ( int i = 0; i < nwn_Get2daRowCount(props); ++i ) {
+        int bi = nwn_Get2daInt(props, "Baseitems", i);
+        table_baseitems[bi] = i;
+    }
+
+    C2DA *dmg = nwn_GetCached2da("iprp_damagecost");
+    if ( dmg == NULL ) {
+        Log(0, "ERROR: unable to load %s.2da.\n", "iprp_damagecost");
+        return false;
+    }
+
+    int rows = nwn_Get2daRowCount(dmg);
+    table_dmg_rolls = new DiceRoll[rows];
+    for ( int i = 0; i < rows; ++i ) {
+        table_dmg_rolls[i] = DiceRoll(nwn_Get2daInt(dmg, "NumDice", i),
+                                      nwn_Get2daInt(dmg, "Die", i),
+                                      0);
+    }
 }

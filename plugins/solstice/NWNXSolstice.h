@@ -19,8 +19,13 @@
 #ifndef NWNX_SOLSTICE_H
 #define NWNX_SOLSTICE_H
 
+#include <unordered_map>
+
 #include "NWNXLib.h"
 #include "talib/nwn/all.h"
+#include "consts.h"
+#include "object/creature.h"
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,7 +36,6 @@ extern "C" {
 #include "nwnx_modules_ext.h"
 #include "lua_funcs.h"
 #include "solstice_funcs.h"
-#include "profiler/profiler.h"
 #include "talib/effects/itemprop.h"
 
 bool hook_functions();
@@ -47,6 +51,13 @@ EventItemprop *Local_GetLastItemPropEvent();
 Event         *Local_GetLastNWNXEvent();
 void           Local_NWNXLog(int level, const char* log);
 
+void Local_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int32_t a,
+                              CombatInfo *att_ci, CombatInfo *tar_ci, CombatCalc calc);
+void Local_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int32_t a,
+                               CombatInfo *att_ci, CombatInfo *tar_ci, CombatCalc calc);
+
+Creature      *Local_GetCreature(uint32_t id);
+CombatInfo    *Local_GetCombatInfo(uint32_t id);
 #ifdef __cplusplus
 }
 
@@ -64,20 +75,28 @@ int Handle_Event(WPARAM p, LPARAM a);
 int Handle_ItemPropEvent(WPARAM p, LPARAM a);
 int Handle_PluginsLoaded(WPARAM p, LPARAM a);
 
-int Hook_RunScriptStart(CVirtualMachine *vm, CExoString *script, nwn_objid_t id, int a);
-void Hook_RunScriptEnd();
-void Hook_RunScriptSituationStart(CVirtualMachine *vm, void *script, uint32_t obj, int a);
-void Hook_RunScriptSituationEnd();
-int8_t Hook_GetFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat);
-int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat);
-int Hook_GetRunScriptReturnValue(CVirtualMachine *vm, int* a, void** b);
+int     Hook_RunScriptStart(CVirtualMachine *vm, CExoString *script, nwn_objid_t id, int a);
+void    Hook_RunScriptEnd();
+void    Hook_RunScriptSituationStart(CVirtualMachine *vm, void *script, uint32_t obj, int a);
+void    Hook_RunScriptSituationEnd();
+int8_t  Hook_GetFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat);
+int8_t  Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat);
+int     Hook_GetMaxHitpoints (CNWSCreature  *cre, int32_t dunno);
+int     Hook_GetRunScriptReturnValue(CVirtualMachine *vm, int* a, void** b);
 void    Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change);
 int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode);
-int32_t Hook_ExecuteCommandDestroyObject(CNWVirtualMachineCommands *vm_cmds,
-                                         int cmd, int args);
+void    Hook_AddAttackOfOpportunity(CNWSCombatRound *cr, uint32_t target);
 int32_t Hook_LoadModuleStart(CNWSModule *mod, void *a2);
+void    Hook_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int a);
+void    Hook_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int a);
+void    Hook_InitializeNumberOfAttacks(CNWSCombatRound *combat_round);
 
 extern int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2);
+extern int (*CNWSCreature__EquipItem_orig)(CNWSCreature *, uint32_t, CNWSItem *, int32_t, int32_t);
+extern int (*CNWSCreature__UnequipItem_orig)(CNWSCreature *, CNWSItem *, int32_t);
+extern int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t, CNWSObject *, int32_t);
+extern void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
+extern void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
 
 class CNWNXSolstice : public CNWNXBase
 {
@@ -92,6 +111,7 @@ public:
     //unsigned long OnRequestObject (char *gameObject, char* Request);
     bool OnRelease();
     void Initialize();
+    bool InitializeTables();
 
     bool bHooked;
     int            in_conditional_script;
@@ -102,6 +122,12 @@ public:
     EventItemprop *last_ip_event;
     EventEffect   *last_effect_event;
     EquipEvent    *last_equip_event;
+    uint32_t       lua_attacks = 0;
+    uint32_t       nwn_attacks = 0;
+    uint64_t       lua_time = 0;
+    uint64_t       nwn_time = 0;
+
+    std::unordered_map<uint32_t, Creature> cache;
 };
 #endif
 

@@ -31,19 +31,18 @@ static void local_run_script(CExoString *script, nwn_objid_t oid) {
 
 __attribute__((noinline))
 static void local_runscript_end(){
-    profiler_stop_timer(); 
 }
 
 int Hook_RunScriptStart(CVirtualMachine *vm, CExoString *script, nwn_objid_t id, int a) {
     vm->vm_object_id[vm->vm_recursion_level] = id;
     vm->vm_valid_obj[vm->vm_recursion_level] = a;
     vm->vm_implementer->vmc_object_id = id;
-    
+
     local_run_script(script, id);
 
     if (lua_script == 1){
 	solstice.Log(0, "SCRIPT: %s, : Result: %d, Return: %d, Cond: %d\n", script->text, lua_script, solstice.lua_last_return,
-		     solstice.in_conditional_script);	
+		     solstice.in_conditional_script);
         return solstice.in_conditional_script;
     }
     else if (lua_script == 0) {

@@ -13,7 +13,7 @@ int Handle_CombatMessage(WPARAM p, LPARAM a) {
 
     if (lua_pcall(L, 0, 1, 0) != 0){
         solstice.Log(0, "SOLSTICE: NWNXChat_HandleCombatMessage : %s\n", lua_tostring(L, -1));
-	return 0;
+        return 0;
     }
 
     msg->suppress = lua_toboolean(L, -1);
@@ -21,6 +21,6 @@ int Handle_CombatMessage(WPARAM p, LPARAM a) {
 
     solstice.Log(3, "SOLSTICE: Handle_CombatMessage : to: %X, type: %d, subtype: %d, suppress: %d\n",
 		 msg->to, msg->type, msg->subtype, msg->suppress);
-    
+
     return 1;
 }

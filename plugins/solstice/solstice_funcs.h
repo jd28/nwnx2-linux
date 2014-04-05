@@ -14,5 +14,18 @@ extern "C" {
 int  ns_BitScanFFS(uint32_t mask);
 void ns_DelayCommand(uint32_t objid, float delay, uint32_t token);
 void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token);
+
+const char** str_split(const char* s, const char* sep, bool isany);
+const char* str_rtrim(const char* str);
+const char* str_ltrim(const char* str);
+const char* str_trim(const char* str);
+
+void ns_AddOnHitSpells(CNWSCombatAttackData *data,
+                       CNWSCreature *attacker,
+                       CNWSObject *target,
+                       CNWSItem *item,
+                       bool from_target);
+
+uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, int32_t ranged_type, bool equip);
 }
 #endif
