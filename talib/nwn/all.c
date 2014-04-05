@@ -14,3 +14,4 @@
 #include "cexolocstring.c"
 #include "tlk.c"
 #include "damage.c"
+#include "combat.c"

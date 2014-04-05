@@ -4,15 +4,13 @@
 #include "EffectAccumulator.h"
 
 struct EffectAttackAcc : public EffectAccumulator<int32_t, int32_t> {
-    EffectAttackAcc(CNWSCreature *cre, VersusInfo vs, int32_t type)
+    EffectAttackAcc(CNWSCreature *cre, VersusInfo vs, int32_t eff_type, int32_t type,
+                    bool item_stack, bool spell_stack)
 	: EffectAccumulator<int32_t, int32_t>(
-	    cre, vs,
-	    EFFECT_TRUETYPE_ATTACK_DECREASE,
-	    EFFECT_TRUETYPE_ATTACK_INCREASE,
-	    false, false,
-	    cre->cre_stats->cs_first_ab_effect),
-	  attack_type(type) { }
-    
+	    cre, vs, eff_type, item_stack, spell_stack,
+	    cre->cre_stats->cs_first_ab_effect)
+    , attack_type(type) { }
+
     virtual bool is_valid(CGameEffect *eff);
     virtual int32_t get_max(int32_t a, int32_t b);
     virtual int32_t get_amount(CGameEffect *eff);

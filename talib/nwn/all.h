@@ -31,6 +31,7 @@ void talib_init();
 #include "cexolocstring.h"
 #include "tlk.h"
 #include "damage.h"
+#include "combat.h"
 }
 
 #endif // TALIB_ALL_H

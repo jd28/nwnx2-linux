@@ -16,7 +16,7 @@ void nwn_ActionUseItem(CNWSCreature *cre, CNWSItem* it, CNWSObject *target, CNWS
 // Source nwnx_funcs
 void nwn_AddKnownFeat(CNWSCreature *cre, uint16_t feat, uint32_t level){
     if ( !cre || !cre->cre_stats ) { return; }
-    
+
     if (level > 0){
         CNWSStats_Level *ls = nwn_GetLevelStats(cre->cre_stats, level);
         if ( !ls ) { return; }
@@ -70,7 +70,7 @@ void nwn_DecrementFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat) {
 
 int8_t nwn_GetAbilityModifier(CNWSCreatureStats *stats, int8_t abil, bool armorcheck) {
     int8_t mod = 0;
-    
+
     switch ( abil ) {
     case ABILITY_STRENGTH:
         mod = stats->cs_str_mod;
@@ -131,7 +131,7 @@ int8_t nwn_GetBaseSavingThrow(CNWSCreature *cre, uint32_t type) {
     }
 
     return result;
-	
+
 }
 
 // From nwnx_funcs
@@ -152,7 +152,7 @@ int nwn_GetBonusSpellSlots(CNWSCreature *cre, uint32_t sp_class, uint32_t sp_lev
         slots = cre->cre_stats->cs_classes[i].cl_spells_bonus[sp_level];
         break;
     }
-    
+
     return slots;
 }
 
@@ -343,7 +343,11 @@ bool nwn_GetIsInvisible(CNWSCreature *cre, CNWSObject *obj){
 }
 
 double nwn_GetMaxAttackRange(CNWSCreature *cre, nwn_objid_t target){
-    return CNWSCreature__MaxAttackRange(cre, target, 0, 0);
+    return CNWSCreature__MaxAttackRange(cre, target, 0, 1);
+}
+
+uint32_t nwn_GetNearestTarget(CNWSCreature *cre, float max_range, nwn_objid_t target) {
+    return CNWSCreature__GetNearestEnemy(cre, max_range, target, 1, 0);
 }
 
 // From nwnx_funcs
@@ -558,7 +562,7 @@ int nwn_SetMemorizedSpell (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_lev
 
         if (sp_spell < 0) {
             if (cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx] != NULL)
-                free(cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx]); 
+                free(cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx]);
 
             cre->cre_stats->cs_classes[i].cl_spells_mem[sp_level].data[sp_idx] = NULL;
         } else {
@@ -581,6 +585,17 @@ int nwn_SetMemorizedSpell (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_lev
     return -1;
 }
 
+void nwn_SetMovementRate(CNWSCreature *cre, int rate) {
+    if (cre == NULL            ||
+        cre->cre_stats == NULL ||
+        rate < 0               ||
+        rate > 255) {
+        return;
+    }
+
+    CNWSCreatureStats__SetMovementRate(cre->cre_stats, rate);
+}
+
 // From nwnx_funcs
 int nwn_SetRemainingSpellSlots (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level, uint32_t sp_slots) {
     int i;
@@ -588,7 +603,7 @@ int nwn_SetRemainingSpellSlots (CNWSCreature *cre, uint32_t sp_class, uint32_t s
     if (cre == NULL                                                     ||
         cre->cre_stats == NULL                                          ||
         sp_level < 0 || sp_level > 9 || sp_slots < 0 || sp_slots > 99) {
-        
+
         return -1;
     }
 

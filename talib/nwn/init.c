@@ -5,14 +5,13 @@
 
 void talib_init() {
 
-    SET(CGameEffect__dtor, 0x0817DFDC);
-
     SET(CNWSArea__ClearLineOfSight, 0x080d31f0);
 
     SET(CNWSObject__ApplyEffect, 0x081CE7D8);
     SET(CNWSObject__RemoveEffectById, 0x081CEEA0);
 
     SET(CNWVirtualMachineCommands__ExecuteCommand, 0x08231A34);
+    SET(CNWVirtualMachineCommands__CopyGameDefinedStructure, 0x081FB82C);
     SET(CVirtualMachine__StackPopEngineStructure, 0x08262CFC);
     SET(CVirtualMachine__StackPopFloat, 0x08262AD8);
     SET(CVirtualMachine__StackPopInteger, 0x082629FC);
@@ -38,6 +37,7 @@ void talib_init() {
     SET(C2DA__GetNumRows,            0x082BF6DC);
 
 	SET(CGameEffect__ctor, 0x0817DC70);
+    SET(CGameEffect__dtor, 0x0817DFDC);
     SET(CGameEffect__SetLinked, 0x0817F750);
     SET(CGameEffect__SetNumIntegers, 0x0817F54C);
     SET(CGameEffect__SetString, 0x0817F6A4);

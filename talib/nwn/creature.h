@@ -32,6 +32,7 @@ CNWSItem *nwn_GetItemInSlot(CNWSCreature *cre, uint32_t slot);
 double    nwn_GetMaxAttackRange(CNWSCreature *cre, nwn_objid_t target);
 int       nwn_GetMaxSpellSlots (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level);
 int       nwn_GetMemorizedSpell (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level, uint32_t sp_idx);
+uint32_t  nwn_GetNearestTarget(CNWSCreature *cre, float max_range, nwn_objid_t target);
 int       nwn_GetRelativeWeaponSize(CNWSCreature *cre, CNWSItem *weapon);
 int       nwn_GetRemainingSpellSlots (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level);
 int8_t    nwn_GetSkillRank(CNWSCreature *cre, uint8_t skill, CNWSObject *vs, bool base);
@@ -51,6 +52,7 @@ void      nwn_SetAnimation(CNWSCreature *cre, uint32_t anim);
 void      nwn_SetCombatMode(CNWSCreature *cre, uint8_t mode);
 int       nwn_SetKnownSpell (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level, uint32_t sp_idx, uint32_t sp_id);
 int       nwn_SetMemorizedSpell (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level, uint32_t sp_idx, uint32_t sp_spell, uint32_t sp_meta, uint32_t sp_flags);
+void      nwn_SetMovementRate(CNWSCreature *cre, int rate);
 int       nwn_SetRemainingSpellSlots (CNWSCreature *cre, uint32_t sp_class, uint32_t sp_level, uint32_t sp_slots);
 void      nwn_SendMessage(uint32_t mode, uint32_t id, const char *msg, uint32_t to);
 

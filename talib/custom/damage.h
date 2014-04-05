@@ -68,36 +68,4 @@ static inline std::string DamageIndexToString(int32_t idx) {
     }
 }
 
-
-// NOTE: The first element of the pair MUST be the damage
-// index, not the damage flag!
-struct DamageAmount {
-    DamageAmount()
-        : type(-1), 
-          roll(), 
-          penalty(false) {}
-    DamageAmount(int32_t t, DiceRoll d, bool p)
-        : type(t),
-          roll(d), 
-          penalty(false) {}
-
-    bool operator==(const DamageAmount& other) const {
-        return ( type    == other.type &&
-                 roll    == other.roll &&
-                 penalty == other.penalty );
-    }
-    bool operator!=(const DamageAmount& other) const {
-        return !(*this == other);
-    }
-
-    int32_t  type;
-    DiceRoll roll;
-    bool     penalty;
-};
-
-static inline std::ostream &operator<<(std::ostream &out, const DamageAmount &o) {
-    out << o.roll << " of " << DamageIndexToString(o.type);
-    return out;
-}
-
 #endif // TALIB_CUSTOM_DAMAGE_H

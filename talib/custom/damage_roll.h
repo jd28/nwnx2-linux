@@ -6,7 +6,7 @@
 
 #include <string>
 #include <sstream>
-
+/*
 struct DamageResult {
     DamageResult(CombatWeapon * weapon,
                  std::vector<DamageAmount>* eff_misc,
@@ -20,16 +20,12 @@ struct DamageResult {
         std::fill_n(mod_adjust, 13, 0);
         soak_adjust = 0;
     }
-		 
+
     int32_t    damages[13];
     int32_t    immunity_adjust[13];
     int32_t    resist_adjust[13];
     int32_t    mod_adjust[13];
     int32_t    soak_adjust;
-
-    CombatWeapon *wpn;
-    std::vector<DamageAmount>* emisc;
-    std::vector<DamageAmount>* eatk;
 
     void roll(uint32_t mult = 1) {
         if ( mult <= 0 || mult > 20 ) { mult = 1; }
@@ -37,7 +33,7 @@ struct DamageResult {
         if ( wpn ) {
             for ( auto it = wpn->damage.begin(); it != wpn->damage.end(); ++it ) {
                 if ( it->type < 0 || it->type > 12 ) { continue; }
-		
+
                 if ( it->penalty ) {
                     damages[it->type] -= it->roll.roll(mult);
                 }
@@ -83,7 +79,7 @@ struct DamageResult {
                 else {
                     damages[it->type] += it->roll.roll();
                 }
-            }	    
+            }
         }
 
         if ( wpn ) {
@@ -98,7 +94,7 @@ struct DamageResult {
                 mult);
         }
     }
-    
+
     void add(const DamageAmount& dmg, uint32_t mult = 1) {
         if ( dmg.type < 0 || dmg.type > 12 ) { return; }
 
@@ -131,7 +127,7 @@ struct DamageResult {
         // for ( size_t i = 0; i < 13; ++i ) {
         //     damages[i] = std::max(0, damages[i] - mod_adjust[i])
         // }
-	
+
         damages[12] = std::max(0, damages[12] - soak_adjust);
     }
 
@@ -142,10 +138,10 @@ struct DamageResult {
         }
         return total;
     }
-    
+
     std::string toString() {
         std::stringstream out;
-	
+
         out << "Damages:\n";
         for ( size_t i = 0; i < 13; ++i ) {
             if ( damages[i] > 0 ) {
@@ -193,5 +189,5 @@ struct DamageResult {
         return out.str();
     }
 };
-
+*/
 #endif // TALIB_CUSTOM_DAMAGE_ROLL_H

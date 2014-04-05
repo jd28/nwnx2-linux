@@ -5,15 +5,12 @@
 #include "EffectAccumulator.h"
 
 struct EffectArmorAcc : public EffectAccumulator<ArmorAmount, ArmorClass> {
-    EffectArmorAcc(CNWSCreature *cre, VersusInfo vs)
-	: EffectAccumulator<ArmorAmount, ArmorClass>(
-	    cre, vs,
-	    EFFECT_TRUETYPE_AC_DECREASE,
-	    EFFECT_TRUETYPE_AC_INCREASE,
-	    false, false,
-	    cre->cre_stats->cs_first_ac_eff) {
-
-	result_ = { 0, 0, 0, 0, 0 };
+    EffectArmorAcc(CNWSCreature *cre, VersusInfo vs, int32_t eff_type,
+                   bool item_stack, bool spell_stack)
+        : EffectAccumulator<ArmorAmount, ArmorClass>(
+            cre, vs, eff_type, item_stack, spell_stack,
+            cre->cre_stats->cs_first_ac_eff) {
+        result_ = { 0, 0, 0, 0, 0 };
     }
 
     virtual bool is_valid(CGameEffect *eff);

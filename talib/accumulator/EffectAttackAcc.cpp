@@ -10,10 +10,13 @@ bool EffectAttackAcc::is_valid(CGameEffect *eff) {
 
     if ( !valid ) { return false; }
 
-    return ( ( lawchaos == 0 && race == 28 && goodevil == 0 ) ||
-	     ( lawchaos == vs_.lawchaos &&
-	       race == vs_.race         &&
-	       goodevil == vs_.goodevil ) );
+    if ( lawchaos == 0 && race == 28 && goodevil == 0 ) {
+        return true;
+    }
+
+    return ( lawchaos == vs_.lawchaos &&
+             race == vs_.race         &&
+             goodevil == vs_.goodevil );
 }
 
 int32_t EffectAttackAcc::get_max(int32_t a, int32_t b){
@@ -27,19 +30,14 @@ int32_t EffectAttackAcc::get_amount(CGameEffect *eff){
 int32_t EffectAttackAcc::get_result(){
     if (!accumulated_) accumulate();
     if (resulted_) return result_;
-	    
-    int32_t total_bonus = 0;
-    int32_t total_penalty = 0;
 
-    for ( size_t i = 0; i < bonus_idx; ++i )
-	total_bonus += bonus[i];
+    int32_t total = 0;
 
-    for ( size_t i = 0; i < penalty_idx; ++i )
-	total_penalty += penalty[i];
+    for ( size_t i = 0; i < idx; ++i )
+        result_ += amounts[i];
 
     resulted_ = true;
-    result_ =  CLAMP<int32_t>(total_bonus - total_penalty, -20, 20);
-    return total_bonus - total_penalty;
+    return result_;
 }
 
 int32_t EffectAttackAcc::get_subtype(CGameEffect *eff) {

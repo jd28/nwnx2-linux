@@ -3,7 +3,7 @@
 bool nwn_GetIsClassBonusFeat(int32_t idx, uint16_t feat){
     if (idx < 0 || idx >= (*NWN_Rules)->ru_classes_len)
         return 0;
-    
+
     CNWClass *cls = &((*NWN_Rules)->ru_classes[idx]);
     return !!CNWClass__IsBonusFeat(cls, feat);
 }
@@ -11,7 +11,7 @@ bool nwn_GetIsClassBonusFeat(int32_t idx, uint16_t feat){
 bool nwn_GetIsClassGeneralFeat(int32_t idx, uint16_t feat){
     if (idx < 0 || idx >= (*NWN_Rules)->ru_classes_len)
         return false;
-    
+
     CNWClass *cls = &((*NWN_Rules)->ru_classes[idx]);
     return !!CNWClass__IsNormalFeat(cls, feat);
 }
@@ -20,7 +20,7 @@ uint8_t nwn_GetIsClassGrantedFeat(int32_t idx, unsigned short feat){
     uint8_t level = 0;
     if (idx < 0 || idx >= (*NWN_Rules)->ru_classes_len)
         return 0;
-    
+
     CNWClass *cls = &((*NWN_Rules)->ru_classes[idx]);
     int ret = CNWClass__IsGrantedFeat(cls, feat, &level);
     if (ret) return level;
@@ -42,6 +42,13 @@ bool nwn_GetIsClassSkill (int32_t idx, uint16_t skill) {
         ret = !!CNWClass__IsSkillClassSkill(cls, skill);
 
     return ret;
+}
+
+CNWFeat *nwn_GetFeat(uint32_t feat) {
+   if ( feat < 0 || feat >= (*NWN_Rules)->ru_feats_len ) {
+        return NULL;
+    }
+    return &(*NWN_Rules)->ru_feats[feat];
 }
 
 CNWSkill *nwn_GetSkill(uint32_t skill) {

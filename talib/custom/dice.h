@@ -5,23 +5,14 @@
 #include <stdlib.h>
 
 struct DiceRoll {
+    int32_t      dice;
+    int32_t      sides;
+    int32_t      bonus;
+
     DiceRoll ()
     	: dice(), sides(), bonus() {}
-    DiceRoll (uint16_t d, uint16_t s, uint32_t b)
+    DiceRoll (int32_t d, int32_t s, int32_t b)
         : dice(d), sides(s), bonus(b) {}
-    
-    uint32_t roll(uint32_t n = 1) const {
-        if ( n <= 0 ) { n = 1; }
-        uint32_t r = 0;
-        for ( int i = dice * n; i > 0; --i ) {
-            r += (rand() % sides + 1);
-        }
-        return r + bonus;
-    }
-
-    bool isValid() {
-        return (dice > 0 && sides > 0) || bonus > 0;
-    }
 
     bool operator==(const DiceRoll& other) const {
         return ( dice  == other.dice  &&
@@ -31,11 +22,21 @@ struct DiceRoll {
     bool operator!=(const DiceRoll& other) const {
         return !(*this == other);
     }
-    
-    uint16_t dice;
-    uint16_t sides;
-    uint32_t bonus;
 };
+
+static inline int32_t rollDice(DiceRoll d, int32_t n = 1) {
+    if ( n <= 0 ) { n = 1; }
+    int32_t r = 0;
+    for ( int i = d.dice * n; i > 0; --i ) {
+        r += (rand() % d.sides) + 1;
+    }
+    return r + d.bonus;
+}
+
+static inline bool rollIsValid(DiceRoll d) {
+    return (d.dice > 0 && d.sides > 0) || d.bonus > 0;
+}
+
 
 static inline std::ostream &operator<<(std::ostream &out, const DiceRoll &o) {
     out << o.dice << "d" << o.sides << " + " << o.bonus;
