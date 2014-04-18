@@ -56,6 +56,7 @@ void Local_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attac
 void Local_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int32_t a,
                                CombatInfo *att_ci, CombatInfo *tar_ci, CombatCalc calc);
 
+void           Local_DeleteCreature(uint32_t id);
 Creature      *Local_GetCreature(uint32_t id);
 CombatInfo    *Local_GetCombatInfo(uint32_t id);
 #ifdef __cplusplus
