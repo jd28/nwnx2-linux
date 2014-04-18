@@ -24,10 +24,6 @@ struct CombatMod {
 struct DamageResult {
     int32_t    damages[DAMAGE_INDEX_NUM];
     int32_t    damages_unblocked[DAMAGE_INDEX_NUM];
-    int32_t    immunity_adjust[DAMAGE_INDEX_NUM];
-    int32_t    resist_adjust[DAMAGE_INDEX_NUM];
-    int32_t    mod_adjust[DAMAGE_INDEX_NUM];
-    int32_t    soak_adjust;
 
     void add(const DamageRoll dmg, int32_t mult) {
         if ( rollIsValid(dmg.roll) ) {
@@ -71,14 +67,6 @@ struct DamageResult {
     }
 };
 
-struct CombatCalc {
-    uint32_t          target_state;
-    uint32_t          situ_flags;
-    float             target_distance;
-    bool              is_crit_immune, is_sneak_immune;
-    int32_t           ab, ac, crit_threat, crit_mult;
-};
-
 struct Offense {
     int32_t       ab_base;
     int32_t       ab_transient;
@@ -98,7 +86,6 @@ struct Defense {
     int32_t       hp_max;
 
     int32_t       soak;
-    int32_t       soak_eff[DAMAGE_POWER_NUM];
     int32_t       soak_stack[DAMAGE_POWER_NUM];
 
     int32_t       immunity[DAMAGE_INDEX_NUM];
@@ -107,7 +94,6 @@ struct Defense {
     int32_t       immunity_misc[IMMUNITY_TYPE_NUM];
 
     int32_t       resist[DAMAGE_INDEX_NUM];
-    int32_t       resist_eff[DAMAGE_INDEX_NUM];
     int32_t       resist_stack[DAMAGE_INDEX_NUM];
 
     /*Saves         saves;*/
@@ -141,6 +127,7 @@ struct CombatInfo {
     CombatWeapon    equips[EQUIP_TYPE_NUM];
     CombatMod       mods[COMBAT_MOD_NUM];
     CombatMod       mod_situ[SITUATION_NUM];
+    CombatMod       mod_mode;
     int32_t         effective_level;
     int32_t         first_custom_eff;
     uint32_t        fe_mask;

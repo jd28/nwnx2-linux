@@ -63,6 +63,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_GetLastNWNXEvent
     local/l_NWNXLog
     local/l_RunLuaScript
+    local/l_GetPoly2da
 
     combat/Attack
 

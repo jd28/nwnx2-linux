@@ -43,6 +43,7 @@ static int local_run_scriptsituation(CVirtualMachineScript *script, nwn_objid_t 
 
     if (lua_pcall(L, 3, 1, 0) != 0){
         solstice.Log(0, "Error: _RUN_COMMAND Type:%d : %s\n", ctype, lua_tostring(L, -1));
+        lua_pop(L, 1);
         return 1;
     }
 

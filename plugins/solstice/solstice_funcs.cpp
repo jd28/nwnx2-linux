@@ -148,54 +148,54 @@ static void AddOnHitSpell(CNWSCombatAttackData *attack_,
                           CNWItemProperty *ip,
                           uint32_t item_id,
                           bool from_target) {
+     if ( !attacker || !target || !ip ||
+          ip->ip_type != ITEM_PROPERTY_ONHITCASTSPELL ) {
+         return;
+     }
 
-    if ( !attacker || !target || !ip ||
-         ip->ip_type != ITEM_PROPERTY_ONHITCASTSPELL ) {
-        return;
-    }
+     C2DA *tda = (*NWN_Rules)->ru_2das->tda_iprp_onhitspell;
+     if ( !tda ) { return; }
 
-    C2DA *tda = (*NWN_Rules)->ru_2das->tda_iprp_onhitspell;
-    if ( !tda ) { return; }
+     int sp_idx = nwn_Get2daInt(tda, "SpellIndex", ip->ip_subtype);
+     solstice.Log(3, "OnHit Spell Index: %d\n", sp_idx);
+     solstice.Log(3, "Spell 2da Length: %d\n",
+                  (*NWN_Rules)->ru_spells->spa_len);
 
-    int sp_idx = nwn_Get2daInt(tda, "SpellIndex", ip->ip_subtype);
-    solstice.Log(3, "OnHit Spell Index: %d\n", sp_idx);
-    solstice.Log(3, "Spell 2da Length: %d\n",
-               (*NWN_Rules)->ru_spells->spa_len);
+     CNWSpell *spell;
+     if ( sp_idx < 0 || sp_idx > (*NWN_Rules)->ru_spells->spa_len ) {
+         return;
+     }
+     else {
+         spell = CNWSpellArray__GetSpell((*NWN_Rules)->ru_spells, sp_idx);
+     }
 
-    CNWSpell *spell;
-    if ( sp_idx < 0 || sp_idx > (*NWN_Rules)->ru_spells->spa_len ) {
-        return;
-    }
-    else {
-        spell = &(*NWN_Rules)->ru_spells->spa_spells[sp_idx];
-    }
+     CNWSSpellScriptData *data = (CNWSSpellScriptData *)malloc(sizeof(CNWSSpellScriptData));
+     if ( !data ) { return; }
 
-    CNWSSpellScriptData *data = (CNWSSpellScriptData *)malloc(sizeof(CNWSSpellScriptData));
-    if ( !data ) { return; }
+     data->target_pos.x = 0;
+     data->target_pos.y = 0;
+     data->target_pos.z = 0;
+     data->feat_id      = -1;
+     data->item_id      = item_id;
+     data->area_id      = attacker->obj.obj_area_id;
 
-    data->target_pos.x = 0;
-    data->target_pos.y = 0;
-    data->target_pos.z = 0;
-    data->feat_id      = -1;
-    data->item_id      = item_id;
-    data->area_id      = attacker->obj.obj_area_id;
+     solstice.Log(3, "OnHit Spell Impcat: %s\n", spell->sp_impactscript.text);
+     if (!spell->sp_impactscript.text) { return; }
+     data->script.text  = strdup(spell->sp_impactscript.text);
+     data->script.len   = strlen(spell->sp_impactscript.text);
 
-    solstice.Log(3, "OnHit Spell Impcat: %s\n", spell->sp_impactscript.text);
-    data->script.text  = strdup(spell->sp_impactscript.text);
-    data->script.len   = strlen(spell->sp_impactscript.text);
-
-    if ( from_target ) {
-        data->target_id  = attacker->obj.obj_id;
-        data->target_pos = attacker->obj.obj_position;
-        data->caster_id  = target->obj_id;
-        CExoArrayList_ptr_add(&attack_->cad_onhit_spells2, data);
-    }
-    else {
-        data->target_id  = target->obj_id;
-        data->target_pos = target->obj_position;
-        data->caster_id  = attacker->obj.obj_id;
-        CExoArrayList_ptr_add(&attack_->cad_onhit_spells, data);
-    }
+     if ( from_target ) {
+         data->target_id  = attacker->obj.obj_id;
+         data->target_pos = attacker->obj.obj_position;
+         data->caster_id  = target->obj_id;
+         CExoArrayList_ptr_add(&attack_->cad_onhit_spells2, data);
+     }
+     else {
+         data->target_id  = target->obj_id;
+         data->target_pos = target->obj_position;
+         data->caster_id  = attacker->obj.obj_id;
+         CExoArrayList_ptr_add(&attack_->cad_onhit_spells, data);
+     }
 }
 
 
@@ -212,11 +212,11 @@ void ns_AddOnHitSpells(CNWSCombatAttackData *data,
             continue;
         }
         AddOnHitSpell(data,
-                          attacker,
-                          target,
-                          &ip,
-                          item_id,
-                          from_target);
+                      attacker,
+                      target,
+                      &ip,
+                      item_id,
+                      from_target);
     }
 
     for ( size_t i = 0; i < item->it_passive_ip_len; ++i ) {
@@ -315,7 +315,7 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
     }
 
     if ( !equip ) {
-        if (stacksize < 20 && attacker->cre_last_ammo_warning >= stacksize + 5 ){
+        if (stacksize < 20 && attacker->cre_last_ammo_warning >= stacksize + 5u ){
             attacker->cre_last_ammo_warning = stacksize;
             CNWCCMessageData *msg = CNWCCMessageData_create();
             CExoArrayList_int32_add(&msg->integers, stacksize);

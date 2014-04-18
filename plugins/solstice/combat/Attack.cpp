@@ -25,6 +25,16 @@ Attack::Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged)
     , target_nwn(target)
     , attacker_ci(nullptr)
     , target_ci(nullptr)
+    , weapon(2)
+    , target_state(0)
+    , situational_flags(0)
+    , target_distance(0.0)
+    , is_offhand(false)
+    , is_sneak(false)
+    , is_death(false)
+    , is_killing(false)
+    , damage_total(0)
+    , effects_to_remove_len(0)
 {
 
     CNWSCombatRound *cr = attacker->cre_combat_round;
@@ -220,6 +230,9 @@ void Attack::update() {
     data->cad_attack_mode = attacker_nwn->cre_mode_combat;
     data->cad_attack_type = CNWSCombatRound__GetWeaponAttackType(cr);
     attack = data;
+
+    is_killing = false;
+    effects_to_remove_len = 0;
 
     memset(&dmg_result, 0, sizeof(DamageResult));
 }

@@ -51,11 +51,6 @@ EventItemprop *Local_GetLastItemPropEvent();
 Event         *Local_GetLastNWNXEvent();
 void           Local_NWNXLog(int level, const char* log);
 
-void Local_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int32_t a,
-                              CombatInfo *att_ci, CombatInfo *tar_ci, CombatCalc calc);
-void Local_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int32_t a,
-                               CombatInfo *att_ci, CombatInfo *tar_ci, CombatCalc calc);
-
 void           Local_DeleteCreature(uint32_t id);
 Creature      *Local_GetCreature(uint32_t id);
 CombatInfo    *Local_GetCombatInfo(uint32_t id);
@@ -70,7 +65,7 @@ bool init_event_handles();
 int Handle_ChatMessage(WPARAM p, LPARAM a);
 int Handle_CombatMessage(WPARAM p, LPARAM a);
 int Handle_ConversationEvent(WPARAM p, LPARAM a);
-int Handle_EffectEvent(WPARAM p, LPARAM a);
+int Handle_CustomEffectEvent(WPARAM p, LPARAM a);
 int Handle_EquipEvent(WPARAM p, LPARAM a);
 int Handle_Event(WPARAM p, LPARAM a);
 int Handle_ItemPropEvent(WPARAM p, LPARAM a);
@@ -89,7 +84,6 @@ public:
     //unsigned long OnRequestObject (char *gameObject, char* Request);
     bool OnRelease();
     void Initialize();
-    bool InitializeTables();
 
     bool bHooked;
     int            in_conditional_script;
@@ -105,6 +99,8 @@ public:
     uint64_t       lua_time = 0;
     uint64_t       nwn_time = 0;
 
+    uint32_t       updates = 0;
+    uint64_t       update_time = 0;
     std::unordered_map<uint32_t, Creature> cache;
 };
 #endif

@@ -3,7 +3,7 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-int Handle_EffectEvent(WPARAM p, LPARAM a) {
+int Handle_CustomEffectEvent(WPARAM p, LPARAM a) {
     EventEffect *eff = (EventEffect *)p;
 
     if(eff->eff == NULL){
@@ -17,9 +17,12 @@ int Handle_EffectEvent(WPARAM p, LPARAM a) {
 
     solstice.last_effect_event = eff;
 
-    lua_getglobal(L, "NWNXEffects_HandleEffectEvent");
+    if(!nl_pushfunction(L, "NWNXEffects_HandleEffectEvent"))
+        return 0;
+
     if (lua_pcall(L, 0, 1, 0) != 0){
         solstice.Log(0, "SOLSTICE: NWNXEffects_HandleEffectEvent : %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
         return 0;
     }
 
