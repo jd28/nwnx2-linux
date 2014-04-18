@@ -25,6 +25,7 @@ extern int (*CServerAIMaster__OnItemPropertyRemoved_orig)(CServerAIMaster *, CNW
 uint32_t Hook_CalculateBaseCosts (CNWSItem *item);
 int Hook_CanEquipItem(CNWSCreature *cre, CNWSItem *item, uint32_t *d, int a, int b, int c, CNWSPlayer *pc);
 int Hook_CanUnequipItem(CNWSCreature *cre, CNWSItem *item);
+int32_t Hook_CheckProficiencies(CNWSCreature *cre, CNWSItem *item, int32_t a);
 int32_t Hook_ComputeWeight(CNWSItem *);
 int32_t Hook_CanUseItem(CNWSCreature *cre, CNWSItem *item, int32_t a);
 void Hook_GetIsHelmetHidden1();

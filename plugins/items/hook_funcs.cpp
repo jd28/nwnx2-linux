@@ -16,26 +16,30 @@ bool hook_functions(){
     // HOOK(CNWSItem__CalculateBaseCosts, 0x081A5794, Hook_CalculateBaseCosts, 5);
     // HOOK(CNWSItem__ComputeWeight, 0x081A137C, Hook_ComputeWeight, 5);
 
+    nx_hook_function((void *)0x080FFCD4,
+                     (void *)Hook_CheckProficiencies,
+                     5, NX_HOOK_DIRECT);
+
     HOOK(CServerAIMaster__OnItemPropertyApplied_orig,
-         0x08098528, 
-         Hook_OnItemPropertyApplied, 
+         0x08098528,
+         Hook_OnItemPropertyApplied,
          6);
 
     HOOK(CServerAIMaster__OnItemPropertyRemoved_orig,
-         0x08098550, 
-         Hook_OnItemPropertyRemoved, 
+         0x08098550,
+         Hook_OnItemPropertyRemoved,
          6);
 
     nx_hook_function((void *)0x0806a65e,
-                     (void *)Hook_GetIsHelmetHidden1, 
+                     (void *)Hook_GetIsHelmetHidden1,
                      5, NX_HOOK_DIRECT);
 
     nx_hook_function((void *)0x0806a822,
-                     (void *)Hook_GetIsHelmetHidden2, 
+                     (void *)Hook_GetIsHelmetHidden2,
                      5, NX_HOOK_DIRECT);
 
     nx_hook_function((void *)0x0812efa0,
-                     (void *)Hook_UpdateAppearanceForEquips, 
+                     (void *)Hook_UpdateAppearanceForEquips,
                      5, NX_HOOK_DIRECT);
 
     return true;
