@@ -3567,7 +3567,7 @@ extern int (*CNWSpell__GetSpellNameText)(CNWSpell *);
 extern int (*CNWSpell__GetSubRadialSpell)(CNWSpell *, uint8_t);
 extern int (*CNWSpell__SetSubRadialSpell)(CNWSpell *, uint8_t, uint32_t);
 extern int (*CNWSpell__SetSubRadialSpellCount)(CNWSpell *, uint8_t);
-extern int (*CNWSpellArray__GetSpell)(CNWSpellArray *, int32_t);
+extern CNWSpell * (*CNWSpellArray__GetSpell)(CNWSpellArray *, int32_t);
 extern int (*CNWSpellArray__Load)(CNWSpellArray *);
 extern int (*CNWSpellArray__Get)(CNWSpellArray *, int32_t);
 extern int (*CNWVirtualMachineCommands__CopyGameDefinedStructure)(CNWVirtualMachineCommands *, int32_t, void *);

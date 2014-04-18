@@ -133,6 +133,8 @@ void talib_init() {
     SET(CNWSMessage__SendServerToPlayerMessage,     0x08076f10);
     SET(CNWSMessage__WriteOBJECTIDServer,           0x08052434);
 
+    SET(CNWSpellArray__GetSpell, 0x081DB8C4);
+
     SET(CNWSScriptVarTable__DestroyFloat,    0x081F4320);
     SET(CNWSScriptVarTable__DestroyInt,      0x081F362C);
     SET(CNWSScriptVarTable__DestroyLocation, 0x081F4458);
