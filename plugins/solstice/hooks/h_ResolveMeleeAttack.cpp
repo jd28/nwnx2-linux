@@ -29,40 +29,11 @@ void Hook_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attack
     int result = !!nwn_GetLocalInt(&attacker->obj.obj_vartable, "NWNX_LUA_COMBAT");
 
     if ( result ) {
-        if(!nl_pushfunction(L, "NWNXSolstice_UpdateCombatInfo"))
-            return;
-
-        lua_pushinteger(L, attacker->obj.obj_id);
-        lua_pushinteger(L, obj->obj_id);
-
-        if (lua_pcall(L, 2, 0, 0) != 0){
-            solstice.Log(0, "SOLSTICE: NWNXSolstice_UpdateCombatInfo : %s\n", lua_tostring(L, -1));
-            return;
-        }
-
         lua_gc(L, LUA_GCSTOP, 0);
-#if 1
         solstice.lua_attacks += attack_count;
         auto start = ClockGetTime();
         ResolveMeleeAttack<Attack>(attacker, obj, attack_count, a);
-#else
-        solstice.lua_attacks += attack_count;
-        auto start = ClockGetTime();
 
-        if(!nl_pushfunction(L, "NWNXSolstice_ResolveMeleeAttack"))
-            return;
-
-        lua_pushinteger(L, attacker->obj.obj_id);
-        lua_pushinteger(L, obj->obj_id);
-        lua_pushinteger(L, attack_count);
-        lua_pushinteger(L, a);
-
-        if (lua_pcall(L, 4, 0, 0) != 0){
-            solstice.Log(0, "SOLSTICE: NWNXSolstice_ResolveMeleeAttack : %s\n", lua_tostring(L, -1));
-            return;
-        }
-
-#endif
         solstice.lua_time += ClockGetTime() - start;
         lua_gc(L, LUA_GCRESTART, 0);
     }
