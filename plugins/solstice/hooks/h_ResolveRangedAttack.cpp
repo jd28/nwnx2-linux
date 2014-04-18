@@ -17,6 +17,7 @@
 ***************************************************************************/
 
 #include "NWNXSolstice.h"
+#include "hooks.h"
 #include "talib/util/timer.h"
 #include "combat/combat.h"
 #include "combat/Attack.h"

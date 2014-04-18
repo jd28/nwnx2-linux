@@ -17,16 +17,22 @@
  ***************************************************************************/
 
 #include "NWNXSolstice.h"
+#include "hooks.h"
 
 #define HOOK(orig, addr, hook, bytes) \
     *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
 
 int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2) = NULL;
-int (*CNWSCreature__EquipItem_orig)(CNWSCreature *, uint32_t, CNWSItem *, int32_t, int32_t) = NULL;
-int (*CNWSCreature__UnequipItem_orig)(CNWSCreature *, CNWSItem *, int32_t) = NULL;
 int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t, CNWSObject *, int32_t) = NULL;
 void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
+void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *) = NULL;
+
+int (*CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t) = NULL;
+int (*CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t) = NULL;
+int (*CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *) = NULL;
+int (*CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *) = NULL;
+
 
 bool hook_functions(){
     HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
@@ -54,14 +60,35 @@ bool hook_functions(){
     HOOK(CNWSCreature__ResolveMeleeAttack_orig, 0x080E9930, Hook_ResolveMeleeAttack, 5);
     HOOK(CNWSCreature__ResolveRangedAttack_orig, 0x080E6FE4, Hook_ResolveRangedAttack, 5);
 
+    HOOK(CNWSCreatureStats__UpdateCombatInformation_orig,
+         0x08142134,
+         Hook_UpdateCombatInformation,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig,
+         0x081712A8,
+         Hook_OnApplyDamageImmunityIncrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig,
+         0x08171454,
+         Hook_OnRemoveDamageImmunityIncrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig,
+         0x0817153C,
+         Hook_OnApplyDamageImmunityDecrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig,
+         0x08171734,
+         Hook_OnRemoveDamageImmunityDecrease,
+         5);
 /*
     nx_hook_function((void*)0x080e38dc,
                      (void*)Hook_GetWeaponAttackType,
                      5, NX_HOOK_DIRECT);
     //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
-
-    HOOK(CNWSCreature__EquipItem_orig, 0x0811b64c, Hook_EquipItem, 5);
-    HOOK(CNWSCreature__UnequipItem_orig, 0x0811b7b0, Hook_UnequipItem, 5);
 
     //HOOK(CNWSCreatureStats__GetArmorClassVersus, 0x0814088C, Hook_GetArmorClassVersus, 5);
     HOOK(CNWSCreatureStats__GetCriticalHitRoll, 0x0814C31C, Hook_GetCriticalHitRoll, 5);

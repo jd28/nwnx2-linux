@@ -1,4 +1,5 @@
 #include "NWNXSolstice.h"
+#include "hooks.h"
 
 extern CNWNXSolstice solstice;
 

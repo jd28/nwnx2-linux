@@ -38,6 +38,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
     hooks/h_AddAttackOfOpportunity
+    hooks/h_Effects
     hooks/h_RunScript
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
@@ -50,7 +51,9 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_RunScriptSituation
     hooks/h_SetCombatMode
     hooks/h_ToggleMode
+    hooks/h_UpdateCombatInformation
     local/l_GetCreature
+    local/l_DeleteCreature
     local/l_GetCombatInfo
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
