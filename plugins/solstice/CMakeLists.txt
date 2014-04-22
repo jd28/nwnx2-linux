@@ -46,11 +46,13 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_GetRunScriptReturnValue
     hooks/h_InitializeNumberOfAttacks
     hooks/h_LoadModuleStart
+    hooks/h_Polymorph
     hooks/h_ResolveMeleeAttack
     hooks/h_ResolveRangedAttack
     hooks/h_RunScriptSituation
     hooks/h_SetCombatMode
     hooks/h_ToggleMode
+    hooks/h_Unpolymorph
     hooks/h_UpdateCombatInformation
     local/l_GetCreature
     local/l_DeleteCreature
@@ -64,6 +66,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_NWNXLog
     local/l_RunLuaScript
     local/l_GetPoly2da
+    local/l_GetPolyEffect
 
     combat/Attack
 

@@ -6,9 +6,12 @@
 void talib_init() {
 
     SET(CNWSArea__ClearLineOfSight, 0x080d31f0);
+    SET(CNWSArea__ComputeSafeLocation, 0x080D70D4);
 
     SET(CNWSObject__ApplyEffect, 0x081CE7D8);
+    SET(CNWSObject__GetArea, 0x081D5028);
     SET(CNWSObject__RemoveEffectById, 0x081CEEA0);
+    SET(CNWSObject__SetPosition, 0x081D4E30);
 
     SET(CNWVirtualMachineCommands__ExecuteCommand, 0x08231A34);
     SET(CNWVirtualMachineCommands__CopyGameDefinedStructure, 0x081FB82C);
@@ -61,6 +64,7 @@ void talib_init() {
     SET(CNWSCombatRound__SetPauseTimer,             0x080E4E78);
     SET(CNWSCombatRound__SetRoundPaused,            0x080E4DF8);
 
+    SET(CNWSCreature__AddToArea,                    0x08118D20);
     SET(CNWSCreature__ApplyOnHitDeathAttack,        0x080f34d8);
     SET(CNWSCreature__CalculateProjectileTimeToTarget, 0x080F5B98);
     SET(CNWSCreature__CalculateSpellSaveDC,         0x0813ADC8);
@@ -80,6 +84,7 @@ void talib_init() {
     SET(CNWSCreature__MaxAttackRange,               0x0813C114);
     SET(CNWSCreature__NotifyAssociateActionToggle,  0x0813B454);
     SET(CNWSCreature__ReceiveAssociateCommand,      0x0810cdc0);
+    SET(CNWSCreature__RemoveFromArea,               0x0811B87C);
     SET(CNWSCreature__RemoveItemFromRepository,     0x0813B22C);
     SET(CNWSCreature__ResolveCachedSpecialAttacks,  0x080EC390);
     SET(CNWSCreature__ResolveItemCastSpell,         0x080ECB18);
@@ -98,6 +103,9 @@ void talib_init() {
     SET(CNWSCreature__SignalRangedDamage,           0x080E94DC);
     SET(CNWSCreature__SummonAssociate,              0x0810da28);
     SET(CNWSCreature__UnequipItem,                  0x0811B7B0);
+    SET(CNWSCreature__UpdatePersonalSpace,          0x0812F6B4);
+    SET(CNWSCreature__UpdateAppearanceDependantInfo, 0x0812F900);
+
 
     SET(CNWSCreatureStats__DecrementFeatRemainingUses, 0x081646EC);
     SET(CNWSCreatureStats__GetAttacksPerRound,         0x08163D18);
@@ -110,6 +118,8 @@ void talib_init() {
     SET(CNWSCreatureStats__GetTotalNegativeLevels,     0x0816571C);
     SET(CNWSCreatureStats__HasFeat,                    0x08153BC4);
 
+    SET(CNWSItem__ctor, 0x0819EDA0);
+    SET(CNWSItem__LoadFromTemplate, 0x0819FEDC);
     SET(CNWSItem__GetMinEquipLevel,                 0x081a5de4);
     SET(CNWSItem__GetPropertyByType,                0x081A2B34);
     SET(CNWSItem__GetPropertyByTypeExists,          0x081A2A6C);

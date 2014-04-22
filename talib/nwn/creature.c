@@ -652,3 +652,36 @@ void nwn_SendMessage(uint32_t mode, uint32_t id, const char *msg, uint32_t to) {
         CNWSMessage__SendServerToPlayerChatMessage(message, mode, id, (const char **)&s, to, &xz);
     }
 }
+
+void nwn_UnequipItem(CNWSCreature *cre, CNWSItem *it, int32_t a) {
+    if ( !cre || !it ) { return; }
+    CNWSCreature__UnequipItem(cre, it, a);
+}
+
+void nwn_EquipItem(CNWSCreature *cre, int32_t slot, CNWSItem *it, int32_t a, int32_t b) {
+    CNWSCreature__EquipItem(cre, 1 << slot, it, a, b);
+}
+
+void nwn_CreateItemAndEquip(CNWSCreature *cre, const char *resref, int32_t slot) {
+    CNWSItem *it = (CNWSItem *)malloc(0x2A8u);
+    if ( !it ) { return; }
+    CNWSItem__ctor(it, OBJECT_INVALID);
+    CResRef r = {{0}};
+    strncat(r.resref, resref, 16);
+
+    nx_log(NX_LOG_INFO, 0, "CreateItemAndEquip: %s", resref);
+
+    int i = 0;
+    for (; i < 16 && r.resref[i]; ++i) {
+        r.resref[i] = tolower(r.resref[i]);
+    }
+
+
+    CNWSItem__LoadFromTemplate(it, r, NULL);
+
+    it->it_identified = 1;
+    it->field_214 = 1;
+
+    CNWSCreature__EquipItem(cre, 1 << slot, it, 1, 0);
+}
+

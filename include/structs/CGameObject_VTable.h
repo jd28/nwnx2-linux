@@ -27,7 +27,7 @@
 struct CGameObject_VTable_s {
     void                       *unknown_1;                                                              /* 00 */
     void                       *unknown_2;                                                              /* 04 */
-    void                       *destructor;                                                             /* 08 */
+    void                      (*destructor)(void *, uint32_t);                                          /* 08 */
     int                       (*SetId)(void *, uint32_t);                                               /* 0C */
     int                       (*ResetUpdateTimes)(void *, uint32_t, uint32_t);                          /* 10 */
     void *                    (*AsNWCObject)(void *);                                                   /* 14 */

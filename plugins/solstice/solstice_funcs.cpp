@@ -345,3 +345,34 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
 
     return num_attacks;
 }
+
+void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply) {
+    CNWSCreature__UpdatePersonalSpace(cre);
+    CNWSCreature__UpdateAppearanceDependantInfo(cre);
+
+    if ( is_apply ) {
+        cre->cre_is_poly = 1;
+    }
+
+    if ( !ignore_pos ) {
+        CNWSArea *area = CNWSObject__GetArea(&cre->obj);
+        if ( area ) {
+            Vector new_pos = { 0.0f, 0.0f, 0.0f };
+            if ( CNWSArea__ComputeSafeLocation(area,
+                                               cre->obj.obj_position,
+                                               20.0,
+                                               cre->cre_blocked_pos,
+                                               1,
+                                               &new_pos) ) {
+                CNWSObject__SetPosition(&cre->obj, new_pos, 0);
+            }
+            else {
+                new_pos = cre->obj.obj_position;
+            }
+            cre->cre_is_polymorphing = 1;
+            CNWSCreature__RemoveFromArea(cre, 1);
+            CNWSCreature__AddToArea(cre, area, new_pos.x, new_pos.y, new_pos.z, 0);
+            cre->cre_is_polymorphing = 0;
+        }
+    }
+}

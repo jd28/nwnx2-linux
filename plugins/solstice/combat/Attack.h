@@ -9,6 +9,7 @@ public:
     Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged);
     ~Attack() { }
 
+    int32_t   getWeaponAttackType();
     // Public interface exposed in combat.h
     bool     isHit();
     bool     isSpecialAttack();

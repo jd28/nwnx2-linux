@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <utility>
-
+#include "talib/util/math.h"
 #define RANGED_TYPE_BOW              1
 #define RANGED_TYPE_CROSSBOW         2
 #define RANGED_TYPE_THROWAXE         3
@@ -57,6 +57,56 @@ Attack::Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged)
     memset(&dmg_result, 0, sizeof(DamageResult));
 }
 
+int32_t Attack::getWeaponAttackType() {
+    int on         = attacker_nwn->cre_combat_round->cr_onhand_atks;
+    int off        = attacker_nwn->cre_combat_round->cr_offhand_atks;
+    int additional = attacker_nwn->cre_combat_round->cr_additional_atks;
+    int effect     = attacker_nwn->cre_combat_round->cr_effect_atks;
+    int next       = attacker_nwn->cre_combat_round->cr_current_attack;
+
+    bool has_cre = false;
+    for ( int i = 3; i < EQUIP_TYPE_NUM; ++i ) {
+        if ( attacker_ci->equips[i].id != OBJECT_INVALID ) {
+            has_cre = true;
+            break;
+        }
+    }
+
+    if ( has_cre ) {
+        switch ( true_random (1, 3) ) {
+        case 1:
+            if ( attacker_ci->equips[3].id != OBJECT_INVALID ) {
+                return ATTACK_TYPE_CWEAPON1;
+            }
+        case 2:
+            if ( attacker_ci->equips[4].id != OBJECT_INVALID ) {
+                return ATTACK_TYPE_CWEAPON2;
+            }
+        case 3:
+            if ( attacker_ci->equips[5].id != OBJECT_INVALID ) {
+                return ATTACK_TYPE_CWEAPON3;
+            }
+        }
+        // If chanced on a invalid creature attack...
+        // take the first one found.
+        for ( int i = 3; i < EQUIP_TYPE_NUM; ++i ) {
+            if ( attacker_ci->equips[i].id != OBJECT_INVALID ) {
+                return i;
+            }
+        }
+    }
+
+    if ( off > 0 && next > (on + additional + effect) ) {
+        return ATTACK_TYPE_OFFHAND;
+    }
+    else if ( attacker_ci->equips[0].id != OBJECT_INVALID ) {
+        return ATTACK_TYPE_ONHAND;
+    }
+    else {
+        return ATTACK_TYPE_UNARMED;
+    }
+}
+
 void Attack::resolvePreAttack() {
     ATTACK = this;
     if ( !nl_pushfunction(L, "NWNXSolstice_ResolvePreAttack") ) { return; }
@@ -67,6 +117,8 @@ void Attack::resolvePreAttack() {
         solstice.Log(0, "SOLSTICE: NWNXSolstice_ResolvePreAttack : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
+
+    attack->cad_attack_type = getWeaponAttackType();
 }
 
 void Attack::resolve() {
@@ -228,7 +280,8 @@ void Attack::update() {
     data->cad_attack_group = cr->cr_attack_group;
     data->cad_target = target_nwn->obj_id;
     data->cad_attack_mode = attacker_nwn->cre_mode_combat;
-    data->cad_attack_type = CNWSCombatRound__GetWeaponAttackType(cr);
+
+    data->cad_attack_type = getWeaponAttackType();
     attack = data;
 
     is_killing = false;

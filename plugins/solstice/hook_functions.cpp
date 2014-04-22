@@ -48,6 +48,12 @@ bool hook_functions(){
     nx_hook_function((void *)0x08153E00,
                      (void *)Hook_GetFeatRemainingUses, 5, NX_HOOK_DIRECT);
 
+    nx_hook_function((void *)0x081356A0,
+                     (void *)Hook_Polymorph, 5, NX_HOOK_DIRECT);
+
+    nx_hook_function((void *)0x081369F8,
+                     (void *)Hook_Unpolymorph, 5, NX_HOOK_DIRECT);
+
     HOOK(CNWSModule__LoadModuleStartNext,
          0x081B4A4C,
          Hook_LoadModuleStart, 5);

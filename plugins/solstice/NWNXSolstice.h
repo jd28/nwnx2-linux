@@ -54,6 +54,9 @@ void           Local_NWNXLog(int level, const char* log);
 void           Local_DeleteCreature(uint32_t id);
 Creature      *Local_GetCreature(uint32_t id);
 CombatInfo    *Local_GetCombatInfo(uint32_t id);
+CGameEffect   *Local_GetPolyEffect();
+C2DA          *Local_GetPoly2da();
+
 #ifdef __cplusplus
 }
 
@@ -101,6 +104,8 @@ public:
 
     uint32_t       updates = 0;
     uint64_t       update_time = 0;
+    CGameEffect   *poly_eff;
+
     std::unordered_map<uint32_t, Creature> cache;
 };
 #endif

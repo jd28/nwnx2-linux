@@ -32,3 +32,7 @@ extern int (*CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig)(CNWSEffe
 extern int (*CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t);
 extern int (*CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
 extern int (*CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
+
+int32_t Hook_Polymorph(CNWSCreature *cre, int32_t polyid, CGameEffect *eff, int32_t a);
+int32_t Hook_Unpolymorph(CNWSCreature *cre, CGameEffect *eff);
+

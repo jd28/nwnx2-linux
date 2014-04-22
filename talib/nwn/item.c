@@ -19,7 +19,7 @@ uint8_t nwn_GetItemSize(CNWSItem *item) {
 CNWItemProperty *nwn_GetPropertyByType(CNWSItem *item, uint16_t type) {
     int i;
     CNWItemProperty *ip;
-    
+
     for ( i = 0; i < item->it_active_ip_len; ++i ) {
         ip = (CNWItemProperty *)&item->it_active_ip[i];
         if ( ip->ip_type == type ) {
@@ -40,7 +40,7 @@ CNWItemProperty *nwn_GetPropertyByType(CNWSItem *item, uint16_t type) {
 bool nwn_HasPropertyType(CNWSItem *item, uint16_t type){
     int i;
     CNWItemProperty *ip;
-    
+
     for ( i = 0; i < item->it_active_ip_len; ++i ) {
         ip = (CNWItemProperty *)&item->it_active_ip[i];
         if ( ip->ip_type == type ) {
@@ -64,4 +64,8 @@ CNWBaseItem *nwn_GetBaseItem(uint32_t basetype){
         return &basearr->bitemarray_bitem[basetype];
 
     return NULL;
+}
+
+void nwn_DestroyItem(CNWSItem *it) {
+    it->obj.obj_vtable->destructor(&it->obj, 3);
 }
