@@ -152,3 +152,10 @@ const char *nwn_GetMiscImmunityName(uint32_t val) {
     case IMMUNITY_TYPE_DEATH:                     return "Death";
     }
 }
+
+CNWRace *nwn_GetRace(uint32_t race) {
+    if ( race >= (*NWN_Rules)->ru_races_len ) {
+        return NULL;
+    }
+    return &(*NWN_Rules)->ru_races[race];
+}

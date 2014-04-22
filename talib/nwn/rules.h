@@ -11,5 +11,6 @@ const char *nwn_GetSkillName(uint32_t skill);
 const char *nwn_GetAbilityName(uint32_t abil);
 const char *nwn_GetArmorClassName(uint32_t val);
 const char *nwn_GetMiscImmunityName(uint32_t val);
+CNWRace    *nwn_GetRace(uint32_t race);
 
 #endif // TALIB_RULES_H
