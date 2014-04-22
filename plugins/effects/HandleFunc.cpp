@@ -25,10 +25,7 @@ extern CNWNXEffects effects;
     strncmp((str), "" lit, (sizeof (lit)/sizeof(char)) - 1) == 0
 
 void HandleFunc(CGameObject *ob, char *func, char* value) {
-    if ( M(func, "GETEFFECTIMMUNITY") ) {
-        Func_GetEffectImmunity(ob, value);
-    }
-    else if ( M(func, "LOGEFFECTS") ) {
+    if ( M(func, "LOGEFFECTS") ) {
         Func_LogEffects(ob, value);
     }
     else if ( M(func, "SENDEFFECTS") ) {
