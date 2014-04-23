@@ -91,16 +91,12 @@ bool hook_functions(){
          Hook_OnRemoveDamageImmunityDecrease,
          5);
 /*
-    nx_hook_function((void*)0x080e38dc,
-                     (void*)Hook_GetWeaponAttackType,
-                     5, NX_HOOK_DIRECT);
     //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
 
     //HOOK(CNWSCreatureStats__GetArmorClassVersus, 0x0814088C, Hook_GetArmorClassVersus, 5);
     HOOK(CNWSCreatureStats__GetCriticalHitRoll, 0x0814C31C, Hook_GetCriticalHitRoll, 5);
     HOOK(CNWSCreatureStats__GetCriticalHitMultiplier, 0x0814C4A0, Hook_GetCriticalHitMultiplier, 5);
     HOOK(CNWSCreatureStats__GetSkillRank_orig, 0x08152F5C, Hook_GetSkillRank, 5);
-    //HOOK(CNWSCreatureStats__GetWeaponFinesse, 0x08155CF4, Hook_GetWeaponFinesse, 5);
 
     HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
     HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
@@ -153,19 +149,6 @@ bool hook_functions(){
                      (void*)Hook_ResolveDamageShields,
                      5, NX_HOOK_DIRECT);
 
-    // Look into cleaning this up...
-    unsigned char *pDM = (unsigned char *)0x080f9965;
-    nx_hook_enable_write(pDM, 24);
-    memcpy(pDM, "\xe9\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90\x90", 24); //JMP NOP NOP ...
-    *((uint32_t *)(pDM + 1)) = (uint32_t)Hook_GetIsFlurryWeapon - (uint32_t)(pDM + 5);
-
-
-#ifdef NS_PROFILE_SCRIPTS
-    nx_hook_function((void *)0x0826252C,
-                     (void *)Hook_RunScriptEnd, 5, NX_HOOK_DIRECT);
-    nx_hook_function((void *)0x08262763,
-                     (void *)Hook_RunScriptSituationEnd, 5, NX_HOOK_DIRECT);
-#endif
 */
     return true;
 }
