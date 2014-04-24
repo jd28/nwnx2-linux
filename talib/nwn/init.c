@@ -51,7 +51,7 @@ void talib_init() {
 
     SET(CNWCCMessageData__ctor,                     0x080C1B6C);
     SET(CNWCCMessageData__CopyTo,                   0x080c212c);
-
+    SET(CNWCCMessageData__SetString,                0x080C3178);
     SET(CNWSCombatRound__AddAttackOfOpportunity,    0x080E31E0);
     SET(CNWSCombatRound__AddCircleKickAttack,       0x080e2f94);
     SET(CNWSCombatRound__AddCleaveAttack,           0x080e2e4c);

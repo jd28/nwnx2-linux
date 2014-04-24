@@ -358,7 +358,7 @@ extern int (*CNWCCMessageData__SaveData)(CNWCCMessageData *, CResGFF *, CResStru
 extern int (*CNWCCMessageData__SetFloat)(CNWCCMessageData *, int32_t, float);
 extern int (*CNWCCMessageData__SetInteger)(CNWCCMessageData *, int32_t, int32_t);
 extern int (*CNWCCMessageData__SetObjectID)(CNWCCMessageData *, int32_t, uint32_t);
-extern int (*CNWCCMessageData__SetString)(CNWCCMessageData *, int32_t, CExoString);
+extern int (*CNWCCMessageData__SetString)(CNWCCMessageData *, int32_t, const char **);
 extern int (*CNWClass__GetAttackBonus)(CNWClass *, uint8_t);
 extern int (*CNWClass__GetBonusFeats)(CNWClass *, uint8_t);
 extern int (*CNWClass__GetClassFeat)(CNWClass *, uint16_t);

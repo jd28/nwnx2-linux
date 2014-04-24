@@ -44,8 +44,11 @@ void nwn_AddOnHitEffect(CNWSCreature *cre, CGameEffect *eff) {
     int res = CExoArrayList_ptr_add(&attack->cad_onhit_effs, eff);
 }
 
-void nwn_AddCombatMessageData(CNWSCombatAttackData *attack, int32_t type, int32_t num_obj, uint32_t obj1, uint32_t obj2,
-                              int32_t num_int, int32_t int1, int32_t int2, int32_t int3, int32_t int4) {
+void nwn_AddCombatMessageData(
+    CNWSCombatAttackData *attack, int32_t type, int32_t num_obj, uint32_t obj1, uint32_t obj2,
+    int32_t num_int, int32_t int1, int32_t int2, int32_t int3, int32_t int4,
+    const char* str) {
+
     CNWCCMessageData *msg = CNWCCMessageData_create();
     if (type) {
         msg->type = type;
@@ -81,6 +84,13 @@ void nwn_AddCombatMessageData(CNWSCombatAttackData *attack, int32_t type, int32_
     case 1:
         CExoArrayList_int32_add(&msg->integers, int1);
         break;
+    }
+
+    if ( str ) {
+        CExoString s;
+        s.text = strdup(str);
+
+        CNWCCMessageData__SetString(msg, 0, (const char**)&s);
     }
 
     CExoArrayList_ptr_add(&attack->cad_feedback, msg);
