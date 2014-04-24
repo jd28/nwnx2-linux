@@ -67,6 +67,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_RunLuaScript
     local/l_GetPoly2da
     local/l_GetPolyEffect
+    local/l_SetDamageInfo
 
     combat/Attack
 

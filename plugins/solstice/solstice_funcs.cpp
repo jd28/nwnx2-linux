@@ -376,3 +376,122 @@ void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply) {
         }
     }
 }
+
+const char* ns_GetCombatDamageString(
+    const char *attacker,
+    const char *target,
+    const DamageResult *dmg) {
+
+    static char res[2048];
+
+    if (!dmg) { return ""; }
+
+    char *s = &res[0];
+    memset(s, 0, 2048);
+
+    int cx, cur = 0;
+    int total = dmg->getTotal();
+    if ( total <= 0 ) return "";
+
+    cx = sprintf(s + cur, "%s%s Damage Modifications:",
+                 solstice.damage_colors[12].c_str(),
+                 target);
+    cur += cx;
+
+    // Resistance
+    int res_total = 0;
+    for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+        res_total += dmg->resist[i];
+    }
+
+    if ( res_total > 0 ) {
+        cx = sprintf(s + cur, "\n  Resistance: %d ( ", res_total);
+        cur += cx;
+
+        if ( dmg->resist[12] > 0) {
+            cx = sprintf(s + cur, "%d Physical ", dmg->resist[12]);
+            cur += cx;
+        }
+
+        for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+            if ( i == 12 ) { continue; }
+            if ( dmg->resist[i] > 0 ) {
+                if ( dmg->resist_remaining[i] > 0 ) {
+                    cx = sprintf(s + cur, "%s%d (%d) %s</c> ",
+                                 solstice.damage_colors[i].c_str(),
+                                 dmg->resist[i],
+                                 dmg->resist_remaining[i],
+                                 solstice.damage_names[i].c_str());
+                }
+                else {
+                    cx = sprintf(s + cur, "%s%d %s</c> ",
+                                 solstice.damage_colors[i].c_str(),
+                                 dmg->resist[i],
+                                 solstice.damage_names[i].c_str());
+                }
+                cur += cx;
+            }
+        }
+
+        cx = sprintf(s + cur, "%s", ")");
+        cur += cx;
+    }
+
+    // Immunity
+    int imm_total = 0;
+    for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+        imm_total += dmg->immunity[i];
+    }
+
+    if (imm_total > 0) {
+        cx = sprintf(s + cur, "\n  Immunity: %d ( ", imm_total);
+        cur += cx;
+
+        if ( dmg->immunity[12] > 0) {
+            cx = sprintf(s + cur, "%d Physical ", dmg->immunity[12]);
+            cur += cx;
+        }
+
+        for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+            if ( i == 12 ) { continue; }
+            if ( dmg->immunity[i] > 0 ) {
+                cx = sprintf(s + cur, "%s%d %s</c> ",
+                             solstice.damage_colors[i].c_str(),
+                             dmg->immunity[i],
+                             solstice.damage_names[i].c_str());
+                cur += cx;
+            }
+        }
+
+        cx = sprintf(s + cur, "%s", ")");
+        cur += cx;
+    }
+
+    // Reduction
+    if (dmg->reduction > 0) {
+        if ( dmg->reduction_remaining > 0 ) {
+            cx = sprintf(s + cur, "\n  Reduction: %d (%d)",
+                          dmg->reduction,
+                          dmg->reduction_remaining);
+        }
+        else {
+            cx = sprintf(s + cur, "\n  Reduction: %d",
+                          dmg->reduction);
+        }
+        cur += cx;
+    }
+
+    //Parry
+    if (dmg->parry > 0) {
+        cx = sprintf(s + cur, "\n  Parry: %d%%",
+                      dmg->parry);
+        cur += cx;
+    }
+    cx = sprintf(s + cur, "</c>");
+    cur += cx;
+
+    solstice.Log(3, "Final string size: %d\n", cur);
+    solstice.Log(3, "String: %s", res);
+
+    return res;
+}

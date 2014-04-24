@@ -20,6 +20,7 @@
 #define NWNX_SOLSTICE_H
 
 #include <unordered_map>
+#include <vector>
 
 #include "NWNXLib.h"
 #include "talib/nwn/all.h"
@@ -56,6 +57,7 @@ Creature      *Local_GetCreature(uint32_t id);
 CombatInfo    *Local_GetCombatInfo(uint32_t id);
 CGameEffect   *Local_GetPolyEffect();
 C2DA          *Local_GetPoly2da();
+void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);
 
 #ifdef __cplusplus
 }
@@ -107,6 +109,8 @@ public:
     CGameEffect   *poly_eff;
 
     std::unordered_map<uint32_t, Creature> cache;
+    std::vector<std::string> damage_names;
+    std::vector<std::string> damage_colors;
 };
 #endif
 

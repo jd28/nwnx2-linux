@@ -24,6 +24,10 @@ struct CombatMod {
 struct DamageResult {
     int32_t    damages[DAMAGE_INDEX_NUM];
     int32_t    damages_unblocked[DAMAGE_INDEX_NUM];
+    int32_t    immunity[DAMAGE_INDEX_NUM];
+    int32_t    resist[DAMAGE_INDEX_NUM];
+    int32_t    resist_remaining[DAMAGE_INDEX_NUM];
+    int32_t    reduction, reduction_remaining, parry;
 
     void add(const DamageRoll dmg, int32_t mult) {
         if ( rollIsValid(dmg.roll) ) {
@@ -58,7 +62,7 @@ struct DamageResult {
             damages[i] += damages_unblocked[i];
         }
     }
-    int32_t getTotal() {
+    int32_t getTotal() const {
         int32_t res = 0;
         for ( int i = 0; i < DAMAGE_INDEX_NUM; ++i ) {
             res += damages[i];

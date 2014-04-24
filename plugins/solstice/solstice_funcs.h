@@ -28,5 +28,10 @@ void ns_AddOnHitSpells(CNWSCombatAttackData *data,
 
 uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, int32_t ranged_type, bool equip);
 void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply);
+
+const char* ns_GetCombatDamageString(
+    const char *attacker,
+    const char *target,
+    const DamageResult *dmg);
 }
 #endif

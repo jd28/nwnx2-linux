@@ -31,6 +31,8 @@ CNWNXSolstice::CNWNXSolstice(){
     bHooked = 1;
     lua_last_return = -1;
     talib_init();
+    damage_names.resize(DAMAGE_INDEX_NUM, "");
+    damage_colors.resize(DAMAGE_INDEX_NUM, "");
 }
 
 CNWNXSolstice::~CNWNXSolstice(){
