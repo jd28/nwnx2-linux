@@ -2,14 +2,6 @@
 #define TALIB_ALL_H
 
 #include "NWNXLib.h"
-#include "talib/custom/armor_class.h"
-#include "talib/custom/const.h"
-#include "talib/custom/damage.h"
-#include "talib/custom/damage_roll.h"
-#include "talib/custom/dice.h"
-#include "talib/custom/combat.h"
-#include "talib/custom/versus_info.h"
-#include "talib/custom/saves.h"
 
 extern "C" {
 

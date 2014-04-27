@@ -25,8 +25,8 @@
 #include "NWNXLib.h"
 #include "talib/nwn/all.h"
 #include "consts.h"
+#include "combat/dice.h"
 #include "object/creature.h"
-
 
 #ifdef __cplusplus
 extern "C" {

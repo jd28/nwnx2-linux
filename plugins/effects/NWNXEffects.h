@@ -25,6 +25,8 @@
 #include "nwnx_modules_ext.h"
 #include "hooks.h"
 
+#include <string>
+
 extern int (*CExoArrayList__CGameEffect_Add)(CExoArrayList_ptr *list, CGameEffect *eff);
 
 #include "NWNXBase.h"

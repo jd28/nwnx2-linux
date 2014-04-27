@@ -41,14 +41,11 @@ const int ITEMS_CURRENT_IP_VERSION = 0;
 bool hook_functions();
 
 int Handle_ExamineEvent(WPARAM p, LPARAM a);
-int Handle_ItemPropEvent(WPARAM p, LPARAM a);
 
 char * HandleRequest(CGameObject *ob, const char *request, char *value);
 unsigned long HandleRequestObject(CGameObject *ob, const char *request);
 
 bool Local_GetIsHelmetHidden(CNWSCreature *cre);
-std::string Local_GetItemPropString(CNWSItem *it);
-int Local_ExamineItemEvent(EventExamine *ev);
 
 class CNWNXItems : public CNWNXBase {
     HANDLE hEquipEvent;

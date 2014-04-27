@@ -23,10 +23,5 @@ extern CNWNXItems items;
 int Handle_ExamineEvent(WPARAM p, LPARAM a) {
     EventExamine *ev = (EventExamine *)p;
 
-    switch(ev->type){
-    case OBJECT_TYPE_ITEM:
-        return Local_ExamineItemEvent(ev);
-    default:
-        return 0;
-    }
+    return 0;
 }

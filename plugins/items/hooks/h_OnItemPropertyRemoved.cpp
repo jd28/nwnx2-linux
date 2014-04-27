@@ -17,7 +17,6 @@
 ***************************************************************************/
 
 #include "NWNXItems.h"
-#include "talib/itemprop/itemprops.h"
 #include "hooks.h"
 
 extern CNWNXItems items;
@@ -28,19 +27,10 @@ int Hook_OnItemPropertyRemoved(CServerAIMaster *ai, CNWSItem *item, CNWItemPrope
         return 0;
     }
 
-    int32_t version = nwn_GetLocalInt(&item->obj.obj_vartable,	
+    int32_t version = nwn_GetLocalInt(&item->obj.obj_vartable,
                                       "NWNX_ITEMS_IP_VER");
 
-    auto res = ItemProperties::apply(ip, item, cre, version);
-    int result;
-
-    if ( !res.first ) {
-        // result is always zero...
-        result = CServerAIMaster__OnItemPropertyRemoved_orig(ai, item, ip, cre, a);
-    }
-    else {
-        result = res.second;
-    }
+    int result = CServerAIMaster__OnItemPropertyRemoved_orig(ai, item, ip, cre, a);
 
     if ( !items.in_script ) {
         items.ItempropEvent(cre, item, ip, true, false);

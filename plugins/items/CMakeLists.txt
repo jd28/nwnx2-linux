@@ -21,14 +21,10 @@ add_module(items NWNXItems plugin-items
     hooks/h_UpdateAppearanceForEquips
 
     handles/hndl_ExamineEvent
-    handles/hndl_ItemPropEvent
 
     local/l_GetIsHelmetHidden
-    local/l_GetItemPropString
-    local/l_ExamineItemEvent
 
     ../../talib/nwn/all
-    ../../talib/itemprop/itemprops
 )
 
 target_link_libraries(items rt)

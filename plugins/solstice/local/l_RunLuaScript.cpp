@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "NWNXSolstice.h"
 
 extern lua_State *L;

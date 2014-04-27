@@ -38,6 +38,9 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
     hooks/h_AddAttackOfOpportunity
+    hooks/h_DoDamageImmunity
+    hooks/h_DoDamageReduction
+    hooks/h_DoDamageResistance
     hooks/h_Effects
     hooks/h_RunScript
     hooks/h_GetFeatRemainingUses

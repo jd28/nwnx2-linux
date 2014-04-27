@@ -36,3 +36,10 @@ extern int (*CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig)(CNWSEff
 int32_t Hook_Polymorph(CNWSCreature *cre, int32_t polyid, CGameEffect *eff, int32_t a);
 int32_t Hook_Unpolymorph(CNWSCreature *cre, CGameEffect *eff);
 
+int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                              uint16_t flags, int32_t no_feedback, int32_t from_attack);
+int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                               uint8_t power, int32_t no_feedback, int32_t from_attack);
+int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                                uint16_t flags, int32_t no_feedback, int32_t from_attack,
+                                int32_t a);
