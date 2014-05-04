@@ -24,4 +24,6 @@ void nwn_AddCleaveAttack(CNWSCreature *cre, uint32_t target, bool great);
 
 void nwn_ResolveOnHitEffect(CNWSCreature *cre, CNWSObject* target, bool offhand,
                             bool critical);
+void nwn_ApplyOnHitDeathAttack(CNWSCreature *cre, CNWSObject *target, int32_t dc);
+
 #endif // TALIB_NWN_COMBAT_H

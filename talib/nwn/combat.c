@@ -108,3 +108,7 @@ void nwn_ResolveOnHitEffect(CNWSCreature *cre, CNWSObject* target, bool offhand,
                             bool critical) {
     CNWSCreature__ResolveOnHitEffect(cre, target, offhand, critical);
 }
+
+void nwn_ApplyOnHitDeathAttack(CNWSCreature *cre, CNWSObject *target, int32_t dc) {
+    CNWSCreature__ApplyOnHitDeathAttack(cre, target, dc);
+}
