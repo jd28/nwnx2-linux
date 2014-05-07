@@ -66,6 +66,7 @@ void talib_init() {
 
     SET(CNWSCreature__AddToArea,                    0x08118D20);
     SET(CNWSCreature__ApplyOnHitDeathAttack,        0x080f34d8);
+    SET(CNWSCreature__ApplyOnHitCastSpell,          0x080ECCF8);
     SET(CNWSCreature__CalculateProjectileTimeToTarget, 0x080F5B98);
     SET(CNWSCreature__CalculateSpellSaveDC,         0x0813ADC8);
     SET(CNWSCreature__CanEquipItem,                 0x080FF978);
