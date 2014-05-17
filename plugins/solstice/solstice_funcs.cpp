@@ -326,16 +326,27 @@ const char* ns_GetCombatDamageString(
     int total = dmg->getTotal();
     if ( total <= 0 ) return "";
 
-    cx = sprintf(s + cur, "%s%s Damage Modifications:",
-                 solstice.damage_colors[12].c_str(),
-                 target);
-    cur += cx;
-
     // Resistance
     int res_total = 0;
     for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
         res_total += dmg->resist[i];
     }
+
+    // Immunity
+    int imm_total = 0;
+    for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+        imm_total += dmg->immunity[i];
+    }
+
+    if ( dmg->reduction + imm_total + res_total <= 0 ) {
+        return "";
+    }
+
+
+    cx = sprintf(s + cur, "%s%s Damage Modifications:",
+                 solstice.damage_colors[12].c_str(),
+                 target);
+    cur += cx;
 
     if ( res_total > 0 ) {
         cx = sprintf(s + cur, "\n  Resistance: %d ( ", res_total);
@@ -368,12 +379,6 @@ const char* ns_GetCombatDamageString(
 
         cx = sprintf(s + cur, "%s", ")");
         cur += cx;
-    }
-
-    // Immunity
-    int imm_total = 0;
-    for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
-        imm_total += dmg->immunity[i];
     }
 
     if (imm_total > 0) {
