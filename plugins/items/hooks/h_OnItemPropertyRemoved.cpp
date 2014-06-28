@@ -22,18 +22,15 @@
 extern CNWNXItems items;
 
 // Item property removal cannot be supressed.
-int Hook_OnItemPropertyRemoved(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip, CNWSCreature *cre, uint32_t a){
+int Hook_OnItemPropertyRemoved(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip, CNWSCreature *cre, uint32_t slot){
     if( cre == NULL || item == NULL || ip == NULL ) {
         return 0;
     }
 
-    int32_t version = nwn_GetLocalInt(&item->obj.obj_vartable,
-                                      "NWNX_ITEMS_IP_VER");
-
-    int result = CServerAIMaster__OnItemPropertyRemoved_orig(ai, item, ip, cre, a);
+    int result = CServerAIMaster__OnItemPropertyRemoved_orig(ai, item, ip, cre, slot);
 
     if ( !items.in_script ) {
-        items.ItempropEvent(cre, item, ip, true, false);
+        items.ItempropEvent(cre, item, ip, true, slot);
     }
 
     return result;

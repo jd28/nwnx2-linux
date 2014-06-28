@@ -52,7 +52,7 @@ void CNWNXItems::FireEvent(int32_t type, uint32_t obj_id, uint32_t item_id) {
     in_script = false;
 }
 
-bool CNWNXItems::ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, bool preapply) {
+bool CNWNXItems::ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, uint32_t slot) {
     in_script = true;
 
     ip_event.obj = obj;
@@ -60,7 +60,7 @@ bool CNWNXItems::ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemPropert
     ip_event.ip = ip;
     ip_event.suppress = false;
     ip_event.remove = removal;
-    ip_event.preapply = preapply;
+    ip_event.slot = slot;
 
     int notifyRet = NotifyEventHooks(hOnItemPropertyEvent, (WPARAM)&ip_event, 0);
 

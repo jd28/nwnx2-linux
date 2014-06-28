@@ -21,24 +21,19 @@
 
 extern CNWNXItems items;
 
-int Hook_OnItemPropertyApplied(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip, CNWSCreature *cre, uint32_t a, int b){
+int Hook_OnItemPropertyApplied(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip, CNWSCreature *cre, uint32_t slot, int b){
     if( cre == NULL || item == NULL || ip == NULL ) {
         return 0;
     }
 
-    int32_t version = nwn_GetLocalInt(&item->obj.obj_vartable,
-                                      "NWNX_ITEMS_IP_VER");
-
     bool suppress = false;
 
     if ( !items.in_script ) {
-        suppress = items.ItempropEvent(cre, item, ip, false, true);
+        suppress = items.ItempropEvent(cre, item, ip, false, slot);
     }
     if ( suppress ) { return 0; }
 
-    int32_t result = CServerAIMaster__OnItemPropertyApplied_orig(ai, item, ip, cre, a, b);
-
-    items.ItempropEvent(cre, item, ip, false, false);
+    int32_t result = CServerAIMaster__OnItemPropertyApplied_orig(ai, item, ip, cre, slot, b);
 
     return result;
 }

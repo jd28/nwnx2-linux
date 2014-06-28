@@ -61,7 +61,7 @@ public:
     bool OnRelease();
 
     void FireEvent(int32_t type, uint32_t obj_id, uint32_t item_id);
-    bool ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, bool preapply);
+    bool ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, uint32_t slot);
 
     std::string event_scripts[ITEMS_EVENT_NUM];
     bool in_script;

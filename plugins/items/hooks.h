@@ -32,9 +32,9 @@ void Hook_GetIsHelmetHidden1();
 void Hook_GetIsHelmetHidden2();
 int8_t Hook_GetMinEquipLevel (CNWSItem *item);
 int Hook_OnItemPropertyApplied(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip,
-                               CNWSCreature *cre, uint32_t a, int b);
+                               CNWSCreature *cre, uint32_t slot, int b);
 int Hook_OnItemPropertyRemoved(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip,
-                               CNWSCreature *cre, uint32_t a);
+                               CNWSCreature *cre, uint32_t slot);
 uint32_t Hook_UpdateAppearanceForEquips(CNWSCreature *cre);
 
 #endif // NWNX_ITEMS_HOOKS_H
