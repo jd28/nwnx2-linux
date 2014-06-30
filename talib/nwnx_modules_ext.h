@@ -56,9 +56,9 @@ typedef struct {
     CNWSCreature    *obj;
     CNWSItem        *item;
     CNWItemProperty *ip;
+    uint32_t         slot;
     bool             suppress;
     bool             remove;
-    bool             preapply;
 } EventItemprop;
 
 typedef struct {
