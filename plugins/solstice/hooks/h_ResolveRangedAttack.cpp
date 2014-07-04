@@ -26,9 +26,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 void Hook_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int a) {
-    int result = !!nwn_GetLocalInt(&attacker->obj.obj_vartable, "NWNX_LUA_COMBAT");
-
-    if ( result ) {
+    if ( solstice.combat_on ) {
         lua_gc(L, LUA_GCSTOP, 0);
         solstice.lua_attacks += attack_count;
         auto start = ClockGetTime();

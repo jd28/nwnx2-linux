@@ -45,7 +45,7 @@ void ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *target,
         attack.resolve();
 
         if ( !attack.isHit() ) {
-            CNWSCreature__ResolveRangedMiss(attacker, target);
+            //CNWSCreature__ResolveRangedMiss(attacker, target);
         }
         CNWSCreature__ResolveRangedAnimations(attacker, target, anim);
 

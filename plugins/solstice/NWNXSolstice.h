@@ -111,6 +111,7 @@ public:
     std::unordered_map<uint32_t, Creature> cache;
     std::vector<std::string> damage_names;
     std::vector<std::string> damage_colors;
+    bool combat_on;
 };
 #endif
 
