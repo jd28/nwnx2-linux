@@ -76,7 +76,7 @@ CGameEffect * ip_weight_reduction(int32_t amount) {
 //- Item Property Bonus Feat
 // @param feat IP_CONST_FEAT_*
 CGameEffect * ip_feat(int32_t feat) {
-    ip_set_values(ip_create(false), ITEM_PROPERTY_BONUS_FEAT, -1, 0, feat, -1, -1, 1, 100);
+    return ip_set_values(ip_create(false), ITEM_PROPERTY_BONUS_FEAT, -1, 0, feat, -1, -1, 1, 100);
 }
 
 //- Creates a "bonus spell of a specified level" itemproperty.
@@ -236,7 +236,7 @@ CGameEffect * ip_no_damage() {
 // @param dc IP_CONST_ONHIT_SAVEDC_*
 // @param special Meaning varies with type. (Default: 0)
 CGameEffect * ip_onhit(int32_t prop, int32_t dc, int32_t special) {
-    ip_set_values(ip_create(false), ITEM_PROPERTY_ON_HIT_PROPERTIES, prop, 24, dc, 0, special, 1, 100);
+    return ip_set_values(ip_create(false), ITEM_PROPERTY_ON_HIT_PROPERTIES, prop, 24, dc, 0, special, 1, 100);
 }
 
 //- Creates a regeneration item property.
@@ -277,7 +277,7 @@ CGameEffect * ip_unlimited_ammo(int32_t ammo = IP_CONST_UNLIMITEDAMMO_BASIC) {
     return ip_set_values(ip_create(false), ITEM_PROPERTY_UNLIMITED_AMMUNITION, ammo, 14, -1, -1, -1, 1, 100);
 }
 
-CGameEffect * ip_use_align(int32_t align_group) {}
+CGameEffect * ip_use_align(int32_t align_group) { return NULL; }
 
 //- Creates a class use limitation item property
 // @param class IP_CONST_CLASS_*
@@ -291,7 +291,7 @@ CGameEffect * ip_use_race(int32_t race) {
     return ip_set_values(ip_create(false), ITEM_PROPERTY_USE_LIMITATION_RACIAL_TYPE, race, 0, -1, -1, -1, 1, 100);
 }
 
-CGameEffect * ip_use_salign(int32_t nAlignment) {}
+CGameEffect * ip_use_salign(int32_t nAlignment) { return NULL; }
 
 //- Creates vampiric regeneration effect.
 // @param amount [1,20]

@@ -26,7 +26,7 @@
 #include "talib/nwn/all.h"
 #include "consts.h"
 #include "combat/dice.h"
-#include "object/creature.h"
+#include "object/Creature.h"
 
 #ifdef __cplusplus
 extern "C" {

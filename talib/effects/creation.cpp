@@ -81,7 +81,7 @@ CGameEffect * effect_appear(bool animation) {
 }
 
 CGameEffect * effect_aoe(int32_t aoe, const char * enter, const char * heartbeat, const char * exit) {
-
+    return NULL;
 }
 
 CGameEffect * effect_attack(int32_t amount, int32_t modifier_type) {

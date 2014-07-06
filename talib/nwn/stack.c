@@ -64,13 +64,12 @@ void * nwn_StackPopEngineStructure(uint32_t type){
     return result;
 }
 
-void nwn_StackPushBoolean(bool value){
-    nwn_StackPushInteger(*NWN_VirtualMachine, !!value);
+void nwn_StackPushInteger(int32_t value){
+    CVirtualMachine__StackPushInteger(*NWN_VirtualMachine, value);
 }
 
-void nwn_StackPushInteger(int32_t value){
-    int err = CVirtualMachine__StackPushInteger(*NWN_VirtualMachine, value);
-    nx_log(NX_LOG_INFO, 3, "StackPopInteger Error: %d, result: %d", err, value);
+void nwn_StackPushBoolean(bool value){
+    nwn_StackPushInteger(!!value);
 }
 
 void nwn_StackPushFloat(float value){

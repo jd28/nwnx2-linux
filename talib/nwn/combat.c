@@ -38,7 +38,7 @@ void nwn_SignalRangedDamage(CNWSCreature *cre, CNWSObject *target, int32_t attac
 }
 
 void nwn_AddOnHitEffect(CNWSCreature *cre, CGameEffect *eff) {
-    auto cur = cre->cre_combat_round->cr_current_attack;
+    int cur = cre->cre_combat_round->cr_current_attack;
     CNWSCombatAttackData *attack = nwn_GetAttack(cre, cur);
     if ( attack == NULL || eff == NULL ) return;
     int res = CExoArrayList_ptr_add(&attack->cad_onhit_effs, eff);

@@ -29,7 +29,7 @@ std::string Local_GetEffectString(CNWSObject *obj) {
             << e->eff_expire_time << '\n';
 
         out << "  Ints: ";
-        for ( int j = 0; j < e->eff_num_integers; ++j ) {
+        for ( unsigned int j = 0; j < e->eff_num_integers; ++j ) {
             out << e->eff_integers[j] << "; ";
         }
         out << '\n';
