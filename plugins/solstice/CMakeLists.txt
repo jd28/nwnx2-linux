@@ -43,6 +43,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_DoDamageResistance
     hooks/h_Effects
     hooks/h_RunScript
+    hooks/h_GetArmorClass
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
     hooks/h_GetMaxHitpoints

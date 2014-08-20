@@ -90,7 +90,12 @@ bool hook_functions(){
          0x08171734,
          Hook_OnRemoveDamageImmunityDecrease,
          5);
-/*
+
+    nx_hook_function((void*)0x0812e19c,
+                     (void*)Hook_GetArmorClass,
+                     5, NX_HOOK_DIRECT);
+
+    /*
     //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
 
     //HOOK(CNWSCreatureStats__GetArmorClassVersus, 0x0814088C, Hook_GetArmorClassVersus, 5);
@@ -105,9 +110,6 @@ bool hook_functions(){
     HOOK(CNWSCreature__GetTotalEffectBonus, 0x08132298, Hook_GetTotalEffectBonus, 5);
     HOOK(CNWSCreatureStats__GetEffectImmunity, 0x0815FF10, Hook_GetEffectImmunity, 5);
 
-    nx_hook_function((void*)0x0812e19c,
-                     (void*)Hook_GetArmorClass,
-                     5, NX_HOOK_DIRECT);
 
     nx_hook_function((void*)0x0814425c,
                      (void*)Hook_GetCreatureDamageDice,

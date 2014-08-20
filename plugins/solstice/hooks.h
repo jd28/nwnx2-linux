@@ -43,3 +43,4 @@ int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount
 int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
                                 uint16_t flags, int32_t no_feedback, int32_t from_attack,
                                 int32_t a);
+int32_t Hook_GetArmorClass(CNWSCreature *cre);
