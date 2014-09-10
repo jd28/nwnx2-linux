@@ -12,6 +12,7 @@ void talib_init() {
     SET(CNWSObject__GetArea, 0x081D5028);
     SET(CNWSObject__RemoveEffectById, 0x081CEEA0);
     SET(CNWSObject__SetPosition, 0x081D4E30);
+    SET(CNWSObject__AddAction, 0x081C9384);
 
     SET(CNWVirtualMachineCommands__ExecuteCommand, 0x08231A34);
     SET(CNWVirtualMachineCommands__CopyGameDefinedStructure, 0x081FB82C);
