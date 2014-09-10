@@ -14,6 +14,7 @@ extern "C" {
 int  ns_BitScanFFS(uint32_t mask);
 void ns_DelayCommand(uint32_t objid, float delay, uint32_t token);
 void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token);
+void ns_ActionDoCommand(CNWSObject * obj, uint32_t token);
 
 const char** str_split(const char* s, const char* sep, bool isany);
 const char* str_rtrim(const char* str);
