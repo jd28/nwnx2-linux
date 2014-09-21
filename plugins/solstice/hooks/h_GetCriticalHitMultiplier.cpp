@@ -16,32 +16,29 @@
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ***************************************************************************/
 
-#include "NWNXCombat.h"
+#include "NWNXSolstice.h"
 
-extern CNWNXCombat combat;
+extern CNWNXSolstice solstice;
+extern lua_State *L;
 
 // Hook is only for one caller: CNWSCreatureStats::UpdateCombatInformation
 int32_t Hook_GetCriticalHitMultiplier(CNWSCreatureStats *attacker, int offhand) {
-    if ( !attacker ) { return 2; }
+    if(!nl_pushfunction(L, "NWNXSolstice_GetCriticalHitMultiplier"))
+        return 0;
 
-    CNWSCreature *cre = attacker->cs_original;
-    auto c = combat.get_creature(cre->obj.obj_id);
-    if ( !c ) { return 2; }
+    // Push object ID.
+    lua_pushinteger(L, attacker->cs_original->obj.obj_id);
+    lua_pushboolean(L, offhand);
 
-    uint32_t equip = 2; // Default equip is unarmed...
-
-    if ( offhand ) {
-        equip = 1;
-    }
-    else { 
-        for ( size_t i = 0; i < 6; ++i ) {
-            if ( c->offense.isEquipValid(i) ) {
-                equip = i;
-                break;
-            }
-        }
+    if (lua_pcall(L, 2, 1, 0) != 0){
+        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetCriticalHitMultiplier : %s\n", lua_tostring(L, -1));
+        return 0;
     }
 
-    int32_t result = c->offense.getCritMultiplier(equip);
-    return result;
+    int32_t res = lua_tointeger(L, -1);
+    lua_pop(L,1);
+
+    solstice.Log(3, "GetWeaponFinesse: obj: %X, result: %d\n", attacker->cs_original->obj.obj_id, res);
+
+    return res;
 }

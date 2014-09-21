@@ -1,5 +1,7 @@
+
 /***************************************************************************
-    Copyright (C) 2011-2012 jmd (jmd2028 at gmail dot com)
+    ExaltReplace.c - Implementation of NWN combat replacement functions
+    Copyright (C) 2007 Doug Swarin (zac@intertex.net)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -14,31 +16,33 @@
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-***************************************************************************/
+ ***************************************************************************/
 
 #include "NWNXSolstice.h"
 
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-// Hook is only for one caller: CNWSCreatureStats::UpdateCombatInformation
-int Hook_GetCriticalHitRoll(CNWSCreatureStats *attacker, int offhand){
-    if(!nl_pushfunction(L, "NWNXSolstice_GetCriticalHitRoll"))
+int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon) {
+    if(!nl_pushfunction(L, "NWNXSolstice_GetWeaponFinesse"))
         return 0;
 
     // Push object ID.
-    lua_pushinteger(L, attacker->cs_original->obj.obj_id);
-    lua_pushboolean(L, offhand);
+    lua_pushinteger(L, info->cs_original->obj.obj_id);
+    lua_pushinteger(L, weapon ? weapon->obj.obj_id : OBJECT_INVALID);
 
     if (lua_pcall(L, 2, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetCriticalHitRoll : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetWeaponFinesse : %s\n", lua_tostring(L, -1));
         return 0;
     }
 
     int32_t res = lua_tointeger(L, -1);
     lua_pop(L,1);
 
-    solstice.Log(3, "GetCriticalHitRoll: obj: %X, result: %d\n", attacker->cs_original->obj.obj_id, res);
+    solstice.Log(3, "GetWeaponFinesse: obj: %X, result: %d\n", info->cs_original->obj.obj_id, res);
 
     return res;
 }
+
+
+/* vim: set sw=4: */

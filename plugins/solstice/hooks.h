@@ -44,3 +44,6 @@ int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amoun
                                 uint16_t flags, int32_t no_feedback, int32_t from_attack,
                                 int32_t a);
 int32_t Hook_GetArmorClass(CNWSCreature *cre);
+int Hook_GetWeaponFinesse (CNWSCreatureStats *info, CNWSItem *weapon);
+int Hook_GetCriticalHitRoll(CNWSCreatureStats *attacker, int offhand);
+int32_t Hook_GetCriticalHitMultiplier(CNWSCreatureStats *attacker, int offhand);

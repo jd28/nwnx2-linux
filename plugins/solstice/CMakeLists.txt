@@ -44,10 +44,13 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_Effects
     hooks/h_RunScript
     hooks/h_GetArmorClass
+    hooks/h_GetCriticalHitRoll
+    hooks/h_GetCriticalHitMultiplier
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
     hooks/h_GetMaxHitpoints
     hooks/h_GetRunScriptReturnValue
+    hooks/h_GetWeaponFinesse
     hooks/h_InitializeNumberOfAttacks
     hooks/h_LoadModuleStart
     hooks/h_Polymorph
