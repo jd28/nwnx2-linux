@@ -285,6 +285,10 @@ void Attack::update() {
     data->cad_target = target_nwn->obj_id;
     data->cad_attack_mode = attacker_nwn->cre_mode_combat;
 
+    if (ranged) {
+        data->cad_ranged_target_loc = target->obj_position;
+    }
+
     data->cad_attack_type = getWeaponAttackType();
     attack = data;
 
