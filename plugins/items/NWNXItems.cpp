@@ -43,7 +43,7 @@ void CNWNXItems::FireEvent(int32_t type, uint32_t obj_id, uint32_t item_id) {
 
     in_script = true;
 
-    int notifyRet = NotifyEventHooks(hEquipEvent, (WPARAM)&event, 0);
+    int notifyRet = NotifyEventHooks(hItemEvent, (WPARAM)&event, 0);
     // Someone else has handled the event.
     if ( !notifyRet ) {
         nwn_ExecuteScript(event_scripts[type].c_str(), obj_id);
@@ -98,7 +98,7 @@ bool CNWNXItems::OnCreate (gline *config, const char* LogDir)
 
     }
 
-    hEquipEvent = CreateHookableEvent("NWNX/Items/Event");
+    hItemEvent = CreateHookableEvent("NWNX/Items/Event");
     hOnItemPropertyEvent = CreateHookableEvent("NWNX/Items/ItemPropEvent");
 
     //HANDLE handleExamineEvent = HookEvent("NWNX/Events/ExamineEvent", Handle_ExamineEvent);

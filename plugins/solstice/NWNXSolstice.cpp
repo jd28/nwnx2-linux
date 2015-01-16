@@ -148,9 +148,9 @@ bool CNWNXSolstice::InitializeEventHandlers(){
     }
 
 
-    HANDLE handleEquipEvent = HookEvent("NWNX/Items/Event", Handle_EquipEvent);
-    if (!handleEquipEvent){
-        Log(0, "Cannot hook NWNX/Equips/Event!\n");
+    HANDLE handleItemEvent = HookEvent("NWNX/Items/Event", Handle_ItemEvent);
+    if (!handleItemEvent){
+        Log(0, "Cannot hook NWNX/Items/Event!\n");
         result = false;
     }
 

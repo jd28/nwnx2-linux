@@ -33,7 +33,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_CombatMessage
     handles/hndl_ConversationEvent
     handles/hndl_EffectEvent
-    handles/hndl_EquipEvent
+    handles/hndl_ItemEvent
     handles/hndl_Event
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
@@ -67,7 +67,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
     local/l_GetLastEffectEvent
-    local/l_GetLastEquipEvent
+    local/l_GetLastItemEvent
     local/l_GetLastItemPropEvent
     local/l_GetLastNWNXEvent
     local/l_NWNXLog

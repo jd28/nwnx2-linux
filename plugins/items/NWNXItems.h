@@ -48,7 +48,7 @@ unsigned long HandleRequestObject(CGameObject *ob, const char *request);
 bool Local_GetIsHelmetHidden(CNWSCreature *cre);
 
 class CNWNXItems : public CNWNXBase {
-    HANDLE hEquipEvent;
+    HANDLE hItemEvent;
     HANDLE hOnItemPropertyEvent;
 
 public:
@@ -66,7 +66,7 @@ public:
     std::string event_scripts[ITEMS_EVENT_NUM];
     bool in_script;
     EventItemprop ip_event;
-    EquipEvent event;
+    ItemEvent event;
     std::map<int, std::string> ip_scripts;
 };
 
