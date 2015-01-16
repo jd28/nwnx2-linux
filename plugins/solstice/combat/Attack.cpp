@@ -48,6 +48,10 @@ Attack::Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged)
     data->cad_attack_type = CNWSCombatRound__GetWeaponAttackType(cr);
     attack = data;
 
+    if (ranged) {
+        data->cad_ranged_target_loc = target->obj_position;
+    }
+
     //solstice.Log(3,
     //             "Attack::update(): Current Attack: %d, Attack Group: %d, "
     //             "Target: %x, Mode: %d, Attack Type: %d, Equip num: %d\n",

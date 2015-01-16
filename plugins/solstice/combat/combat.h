@@ -4,7 +4,7 @@
 #include "talib/util/timer.h"
 #include "NWNXSolstice.h"
 
-extern CNWNXSolstice solstce;
+extern CNWNXSolstice solstice;
 
 template <typename AttackType>
 void ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *target,
@@ -45,7 +45,7 @@ void ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *target,
         attack.resolve();
 
         if ( !attack.isHit() ) {
-            //CNWSCreature__ResolveRangedMiss(attacker, target);
+            CNWSCreature__ResolveRangedMiss(attacker, target);
         }
         CNWSCreature__ResolveRangedAnimations(attacker, target, anim);
 
