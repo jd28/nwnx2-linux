@@ -68,6 +68,7 @@ public:
     EventItemprop ip_event;
     ItemEvent event;
     std::map<int, std::string> ip_scripts;
+    bool override_proficiencies = false;
 };
 
 #endif

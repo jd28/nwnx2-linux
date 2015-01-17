@@ -85,6 +85,11 @@ bool CNWNXItems::OnCreate (gline *config, const char* LogDir)
     if (!CNWNXBase::OnCreate(config,log))
         return false;
 
+    if(nwnxConfig->exists(confKey)) {
+        override_proficiencies = atoi(GetConf("override_proficiencies"));
+    }
+
+
     // write copy information to the log file
     Log (0, "NWNX Items v0.2\n");
     Log (0, "(c) 2012 by jmd\n");
@@ -100,11 +105,6 @@ bool CNWNXItems::OnCreate (gline *config, const char* LogDir)
 
     hItemEvent = CreateHookableEvent("NWNX/Items/Event");
     hOnItemPropertyEvent = CreateHookableEvent("NWNX/Items/ItemPropEvent");
-
-    //HANDLE handleExamineEvent = HookEvent("NWNX/Events/ExamineEvent", Handle_ExamineEvent);
-    //if (!handleExamineEvent) {
-    //    Log(0, "Cannot hook NWNX/Events/ExamineEvent!\n");
-    //}
 
     talib_init();
     hook_functions();

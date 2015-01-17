@@ -20,11 +20,17 @@
 
 extern CNWNXItems items;
 
+// This is techincally CanUnequipWeapon, but all items run through it...
+// In the case of this hook, it is a BAD idea to completely override this.
+// So only if the event result is unequippable, can the original function
+// be ignored.
+
 int Hook_CanUnequipItem(CNWSCreature *cre, CNWSItem *item) {
+    int ret = 1;
     if(cre && item) {
-	items.FireEvent(ITEMS_EVENT_CAN_UNEQUIP, cre->obj.obj_id, item->obj.obj_id);
-	if (items.event.use_result)
-	    return items.event.result;
+        items.FireEvent(ITEMS_EVENT_CAN_UNEQUIP, cre->obj.obj_id, item->obj.obj_id);
+        if (items.event.use_result && items.event.result == 0)
+            return 0;
     }
 
     return CNWSCreature__CanUnEquipWeapon(cre, item);
