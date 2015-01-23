@@ -23,7 +23,7 @@ bool nwn_StackPopBoolean(){
 int32_t nwn_StackPopInteger() {
     int32_t result = 0;
     int32_t err = CVirtualMachine__StackPopInteger(*NWN_VirtualMachine, &result);
-    nx_log(NX_LOG_INFO, 3, "StackPopInteger Error: %d, result: %d", err, result);
+    //nx_log(NX_LOG_INFO, 3, "StackPopInteger Error: %d, result: %d", err, result);
     return result;
 }
 
@@ -40,7 +40,7 @@ char * nwn_StackPopString(){
     };
 
     int err = CVirtualMachine__StackPopString(*NWN_VirtualMachine, &str);
-    nx_log(NX_LOG_INFO, 3, "StackPopString Error: %d", err);
+    //nx_log(NX_LOG_INFO, 3, "StackPopString Error: %d", err);
     return str.text;
 }
 
