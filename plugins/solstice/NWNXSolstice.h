@@ -54,7 +54,7 @@ void           Local_NWNXLog(int level, const char* log);
 
 void           Local_DeleteCreature(uint32_t id);
 Creature      *Local_GetCreature(uint32_t id);
-CombatInfo    *Local_GetCombatInfo(uint32_t id);
+CombatInfo    *Local_GetCombatInfo(uint32_t id, bool skip_cre);
 CGameEffect   *Local_GetPolyEffect();
 C2DA          *Local_GetPoly2da();
 void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);

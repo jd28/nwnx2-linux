@@ -21,8 +21,20 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-CombatInfo *Local_GetCombatInfo(uint32_t id) {
-    auto cre = Local_GetCreature(id);
-    if ( !cre ) { return NULL; }
-    return &cre->info;
+CombatInfo *Local_GetCombatInfo(uint32_t id, bool skip_cre) {
+
+    if(!skip_cre) {
+        auto cre = Local_GetCreature(id);
+        if ( !cre ) { return NULL; }
+        return &cre->info;
+    }
+    else {
+        auto it = solstice.cache.find(id);
+        if (it == solstice.cache.end()) {
+            //uh oh
+            return NULL;
+        }
+        return &it->second.info;
+    }
+
 }
