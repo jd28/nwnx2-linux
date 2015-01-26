@@ -23,5 +23,5 @@ extern lua_State *L;
 
 void Local_SetCombatEngineActive(bool active) {
     solstice.combat_engine_active = active;
-    solstice.Log(0, "Combat Engine Active: %d\n", active)
+    solstice.Log(0, "Combat Engine Active: %d\n", active);
 }

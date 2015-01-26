@@ -35,6 +35,7 @@ int Handle_ItemPropEvent(WPARAM p, LPARAM a) {
 
     int result = lua_toboolean(L, -1);
     lua_pop(L, 1);
+    ip_event->suppress = result;
 
     return result;
 }
