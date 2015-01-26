@@ -28,7 +28,7 @@ uint8_t nwn_GetIsClassGrantedFeat(int32_t idx, unsigned short feat){
     return 0;
 }
 
-bool nwn_GetIsClassSkill (int32_t idx, uint16_t skill) {
+int32_t nwn_GetIsClassSkill (int32_t idx, uint16_t skill) {
     int ret;
 
     if (idx < 0 || idx >= (*NWN_Rules)->ru_classes_len) {
@@ -37,7 +37,7 @@ bool nwn_GetIsClassSkill (int32_t idx, uint16_t skill) {
 
     CNWClass *cls = &((*NWN_Rules)->ru_classes[idx]);
     if (!CNWClass__IsSkillUseable(cls, skill))
-        ret = false;
+        ret = -1;
     else
         ret = !!CNWClass__IsSkillClassSkill(cls, skill);
 
