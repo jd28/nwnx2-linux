@@ -17,21 +17,11 @@ void    Hook_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int att
 void    Hook_InitializeNumberOfAttacks(CNWSCombatRound *combat_round);
 void    Hook_UpdateCombatInformation(CNWSCreatureStats *cre);
 
-int32_t Hook_OnApplyDamageImmunityDecrease(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t);
-int32_t Hook_OnApplyDamageImmunityIncrease(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t);
-int32_t Hook_OnRemoveDamageImmunityIncrease(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
-int32_t Hook_OnRemoveDamageImmunityDecrease(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
-
 extern int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2);
 extern int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t, CNWSObject *, int32_t);
 extern void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
 extern void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
 extern void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *);
-
-extern int (*CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t);
-extern int (*CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t);
-extern int (*CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
-extern int (*CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *);
 
 int32_t Hook_Polymorph(CNWSCreature *cre, int32_t polyid, CGameEffect *eff, int32_t a);
 int32_t Hook_Unpolymorph(CNWSCreature *cre, CGameEffect *eff);

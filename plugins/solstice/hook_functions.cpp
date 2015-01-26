@@ -28,12 +28,6 @@ void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int
 void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *) = NULL;
 
-int (*CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t) = NULL;
-int (*CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *, int32_t) = NULL;
-int (*CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *) = NULL;
-int (*CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *) = NULL;
-
-
 bool hook_functions(){
     HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
 
@@ -71,26 +65,6 @@ bool hook_functions(){
          Hook_UpdateCombatInformation,
          5);
 
-    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityIncrease_orig,
-         0x081712A8,
-         Hook_OnApplyDamageImmunityIncrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityIncrease_orig,
-         0x08171454,
-         Hook_OnRemoveDamageImmunityIncrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityDecrease_orig,
-         0x0817153C,
-         Hook_OnApplyDamageImmunityDecrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityDecrease_orig,
-         0x08171734,
-         Hook_OnRemoveDamageImmunityDecrease,
-         5);
-
     HOOK(CNWSCreatureStats__GetCriticalHitRoll, 0x0814C31C, Hook_GetCriticalHitRoll, 5);
     HOOK(CNWSCreatureStats__GetCriticalHitMultiplier, 0x0814C4A0, Hook_GetCriticalHitMultiplier, 5);
     nx_hook_function((void *)CNWSCreatureStats__GetWeaponFinesse,
@@ -109,10 +83,6 @@ bool hook_functions(){
     HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
     HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
     HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
-
-    HOOK(CNWSCreature__GetTotalEffectBonus, 0x08132298, Hook_GetTotalEffectBonus, 5);
-    HOOK(CNWSCreatureStats__GetEffectImmunity, 0x0815FF10, Hook_GetEffectImmunity, 5);
-
 
     nx_hook_function((void*)0x0814425c,
                      (void*)Hook_GetCreatureDamageDice,
