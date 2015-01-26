@@ -33,7 +33,6 @@ CNWNXSolstice::CNWNXSolstice(){
     talib_init();
     damage_names.resize(DAMAGE_INDEX_NUM, "");
     damage_colors.resize(DAMAGE_INDEX_NUM, "");
-    combat_on = true;
 }
 
 CNWNXSolstice::~CNWNXSolstice(){

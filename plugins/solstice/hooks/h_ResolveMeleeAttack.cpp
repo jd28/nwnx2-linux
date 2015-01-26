@@ -26,7 +26,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 void Hook_ResolveMeleeAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int a) {
-    if ( solstice.combat_on ) {
+    if ( solstice.combat_engine_active ) {
         lua_gc(L, LUA_GCSTOP, 0);
         solstice.lua_attacks += attack_count;
         auto start = ClockGetTime();

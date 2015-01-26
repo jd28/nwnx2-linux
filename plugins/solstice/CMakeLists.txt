@@ -74,7 +74,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_GetPoly2da
     local/l_GetPolyEffect
     local/l_SetDamageInfo
-
+    local/l_SetCombatEngineActive
     combat/Attack
 
     object/Creature

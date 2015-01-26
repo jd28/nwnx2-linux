@@ -58,6 +58,7 @@ CombatInfo    *Local_GetCombatInfo(uint32_t id, bool skip_cre);
 CGameEffect   *Local_GetPolyEffect();
 C2DA          *Local_GetPoly2da();
 void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);
+void           Local_SetCombatEngineActive(bool active);
 
 #ifdef __cplusplus
 }
@@ -91,6 +92,7 @@ public:
     void Initialize();
 
     bool bHooked;
+    bool combat_engine_active = false;
     int            in_conditional_script;
     int            lua_last_return;
     Event         *last_event;
@@ -111,7 +113,6 @@ public:
     std::unordered_map<uint32_t, Creature> cache;
     std::vector<std::string> damage_names;
     std::vector<std::string> damage_colors;
-    bool combat_on;
 };
 #endif
 
