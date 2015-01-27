@@ -25,5 +25,17 @@ void nwn_SetDurationType(CGameEffect *eff, uint32_t dur) {
 }
 
 void nwn_SetSubType(CGameEffect *eff, uint32_t value) {
-    eff->eff_dursubtype = value | nwn_GetDurationType(eff);    
+    eff->eff_dursubtype = value | nwn_GetDurationType(eff);
+}
+
+CGameEffect * nwn_CreateEffect(int gen_id) {
+    if ( CGameEffect__ctor == NULL ) { return NULL; }
+
+    CGameEffect *eff = (CGameEffect *)malloc(sizeof(CGameEffect));
+    CGameEffect__ctor(eff, gen_id);
+
+    nwn_SetDurationType(eff, DURATION_TYPE_PERMANENT);
+    eff->eff_creator = (*NWN_VirtualMachine)->vm_implementer->vmc_object_id;
+
+    return eff;
 }
