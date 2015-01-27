@@ -27,7 +27,7 @@ public:
     void                 *target_ci;
     CNWSCombatAttackData *attack;
     int32_t               weapon;
-    int32_t               ranged_type = -1;
+    int32_t               ranged_type = 0;
     int32_t               target_state;
     int32_t               situational_flags;
     double                target_distance;

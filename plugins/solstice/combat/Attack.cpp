@@ -44,7 +44,7 @@ Attack::Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged)
     data->cad_target = target->obj_id;
     data->cad_ranged_attack = ranged;
     data->cad_attack_mode = attacker->cre_mode_combat;
-    data->cad_attack_type = CNWSCombatRound__GetWeaponAttackType(cr);
+    data->cad_attack_type = getWeaponAttackType();
     attack = data;
 
     if (ranged) {
@@ -110,6 +110,25 @@ void Attack::resolvePreAttack() {
 }
 
 void Attack::resolve() {
+    auto item = nwn_GetCurrentAttackWeapon(attacker_nwn, attack->cad_attack_type);
+
+    weapon = EQUIP_TYPE_UNARMED;
+    if (item->obj.obj_id == attacker_nwn->cre_equipment->equips[4]) {
+        weapon = EQUIP_TYPE_ONHAND;
+    }
+    else if (item->obj.obj_id == attacker_nwn->cre_equipment->equips[5]) {
+        weapon = EQUIP_TYPE_OFFHAND;
+    }
+    else if (item->obj.obj_id == attacker_nwn->cre_equipment->equips[14]) {
+        weapon = EQUIP_TYPE_CREATURE_1;
+    }
+    else if (item->obj.obj_id == attacker_nwn->cre_equipment->equips[15]) {
+        weapon = EQUIP_TYPE_CREATURE_2;
+    }
+    else if (item->obj.obj_id == attacker_nwn->cre_equipment->equips[16]) {
+        weapon = EQUIP_TYPE_CREATURE_3;
+    }
+
     if ( attack->cad_ranged_attack ) {
         if ( !nl_pushfunction(L, "NWNXSolstice_DoRangedAttack") ) { return; }
         if (lua_pcall(L, 0, 0, 0) != 0){
@@ -141,7 +160,7 @@ uint32_t Attack::resolveAmmo(uint32_t num_attacks, bool equip) {
         return num_attacks;
     }
 
-    switch(0){//attacker_ci->offense.ranged_type) {
+    switch(ranged_type) {
     default: return num_attacks;
     case RANGED_TYPE_BOW:
         equipslot = EQUIPMENT_SLOT_ARROWS;
