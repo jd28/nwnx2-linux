@@ -323,7 +323,11 @@ const char* ns_GetCombatDamageString(
     memset(s, 0, 2048);
 
     int cx, cur = 0;
-    int total = dmg->getTotal();
+
+    int total = 0;
+    for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
+        total += dmg->damages[i];
+    }
     if ( total <= 0 ) return "";
 
     // Resistance

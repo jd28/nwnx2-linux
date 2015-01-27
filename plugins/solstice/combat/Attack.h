@@ -2,7 +2,6 @@
 #define NWNX_COMBAT_ATTACK_H
 
 #include "NWNXSolstice.h"
-#include "object/Creature.h"
 
 class Attack {
 public:
@@ -24,10 +23,11 @@ public:
     CNWSCreature         *attacker_nwn;
     CNWSObject           *target_nwn;
 
-    CombatInfo           *attacker_ci;
-    CombatInfo           *target_ci;
+    void                 *attacker_ci;
+    void                 *target_ci;
     CNWSCombatAttackData *attack;
     int32_t               weapon;
+    int32_t               ranged_type = -1;
     int32_t               target_state;
     int32_t               situational_flags;
     double                target_distance;

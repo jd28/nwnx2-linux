@@ -43,14 +43,10 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_DoDamageResistance
     hooks/h_RunScript
     hooks/h_GetArmorClass
-    hooks/h_GetCriticalHitRoll
-    hooks/h_GetCriticalHitMultiplier
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
     hooks/h_GetMaxHitpoints
     hooks/h_GetRunScriptReturnValue
-    hooks/h_GetWeaponFinesse
-    hooks/h_InitializeNumberOfAttacks
     hooks/h_LoadModuleStart
     hooks/h_Polymorph
     hooks/h_ResolveMeleeAttack
@@ -60,9 +56,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_ToggleMode
     hooks/h_Unpolymorph
     hooks/h_UpdateCombatInformation
-    local/l_GetCreature
-    local/l_DeleteCreature
-    local/l_GetCombatInfo
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
     local/l_GetLastEffectEvent
@@ -76,12 +69,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_SetDamageInfo
     local/l_SetCombatEngineActive
     combat/Attack
-
-    object/Creature
-
     ../../talib/nwn/all
-    ../../talib/effects/itemprop
-    ../../talib/effects/creation
 )
 message(${CMAKE_MODULE_LINKER_FLAGS})
 set(CMAKE_MODULE_LINKER_FLAGS ${CMAKE_MODULE_LINKER_FLAGS} -Wl,-E

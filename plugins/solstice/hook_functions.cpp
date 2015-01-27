@@ -64,20 +64,14 @@ bool hook_functions(){
          0x08142134,
          Hook_UpdateCombatInformation,
          5);
-
-    HOOK(CNWSCreatureStats__GetCriticalHitRoll, 0x0814C31C, Hook_GetCriticalHitRoll, 5);
-    HOOK(CNWSCreatureStats__GetCriticalHitMultiplier, 0x0814C4A0, Hook_GetCriticalHitMultiplier, 5);
-    nx_hook_function((void *)CNWSCreatureStats__GetWeaponFinesse,
-        (void *)Hook_GetWeaponFinesse, 5, NX_HOOK_DIRECT);
-
+    /*
     nx_hook_function((void*)0x0812e19c,
                      (void*)Hook_GetArmorClass,
                      5, NX_HOOK_DIRECT);
 
-    /*
+
     //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
 
-    //HOOK(CNWSCreatureStats__GetArmorClassVersus, 0x0814088C, Hook_GetArmorClassVersus, 5);
     HOOK(CNWSCreatureStats__GetSkillRank_orig, 0x08152F5C, Hook_GetSkillRank, 5);
 
     HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
@@ -118,10 +112,6 @@ bool hook_functions(){
 
     nx_hook_function((void*)0x08209e94,
                      (void*)Hook_ExecuteCommandDoTouchAttack,
-                     5, NX_HOOK_DIRECT);
-
-    nx_hook_function((void*)0x080efcac,
-                     (void*)Hook_ResolveDamageShields,
                      5, NX_HOOK_DIRECT);
 
 */

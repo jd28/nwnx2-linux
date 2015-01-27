@@ -8,7 +8,6 @@
 #define RANGED_TYPE_DART             5
 #define RANGED_TYPE_SHURIKEN         6
 
-#include "talib/effects/creation.h"
 #include "Attack.h"
 
 extern CNWNXSolstice solstice;
@@ -67,43 +66,28 @@ int32_t Attack::getWeaponAttackType() {
     int additional = attacker_nwn->cre_combat_round->cr_additional_atks;
     int effect     = attacker_nwn->cre_combat_round->cr_effect_atks;
     int next       = attacker_nwn->cre_combat_round->cr_current_attack;
+    CNWSItem *cre1 = nwn_GetItemInSlot(attacker_nwn, EQUIPMENT_SLOT_CWEAPON_L);
+    CNWSItem *cre2 = nwn_GetItemInSlot(attacker_nwn, EQUIPMENT_SLOT_CWEAPON_R);
+    CNWSItem *cre3 = nwn_GetItemInSlot(attacker_nwn, EQUIPMENT_SLOT_CWEAPON_B);
 
-    bool has_cre = false;
-    for ( int i = 3; i < EQUIP_TYPE_NUM; ++i ) {
-        if ( attacker_ci->equips[i].id != OBJECT_INVALID ) {
-            has_cre = true;
-            break;
-        }
-    }
-
+    bool has_cre = (cre1 || cre2 || cre3);
     if ( has_cre ) {
         switch ( true_random (1, 3) ) {
-        case 1:
-            if ( attacker_ci->equips[3].id != OBJECT_INVALID ) {
-                return ATTACK_TYPE_CWEAPON1;
-            }
-        case 2:
-            if ( attacker_ci->equips[4].id != OBJECT_INVALID ) {
-                return ATTACK_TYPE_CWEAPON2;
-            }
-        case 3:
-            if ( attacker_ci->equips[5].id != OBJECT_INVALID ) {
-                return ATTACK_TYPE_CWEAPON3;
-            }
+        case 1: if ( cre1 ) return ATTACK_TYPE_CWEAPON1;
+        case 2: if ( cre2 ) return ATTACK_TYPE_CWEAPON2;
+        case 3: if ( cre3 ) return ATTACK_TYPE_CWEAPON3;
         }
         // If chanced on a invalid creature attack...
         // take the first one found.
-        for ( int i = 3; i < EQUIP_TYPE_NUM; ++i ) {
-            if ( attacker_ci->equips[i].id != OBJECT_INVALID ) {
-                return i;
-            }
-        }
+        if ( cre1 ) return ATTACK_TYPE_CWEAPON1;
+        if ( cre2 ) return ATTACK_TYPE_CWEAPON2;
+        if ( cre3 ) return ATTACK_TYPE_CWEAPON3;
     }
 
     if ( off > 0 && next > (on + additional + effect) ) {
         return ATTACK_TYPE_OFFHAND;
     }
-    else if ( attacker_ci->equips[0].id != OBJECT_INVALID ) {
+    else if ( nwn_GetItemInSlot(attacker_nwn, EQUIPMENT_SLOT_RIGHTHAND) ) {
         return ATTACK_TYPE_ONHAND;
     }
     else {
@@ -126,17 +110,6 @@ void Attack::resolvePreAttack() {
 }
 
 void Attack::resolve() {
-    auto item = nwn_GetCurrentAttackWeapon(attacker_nwn, attack->cad_attack_type);
-    weapon = EQUIP_TYPE_UNARMED;
-    if ( item ) {
-        for (int i = 0; i < EQUIP_TYPE_NUM; ++i) {
-            if ( attacker_ci->equips[i].id == item->obj.obj_id ) {
-                weapon = i;
-                break;
-            }
-        }
-    }
-
     if ( attack->cad_ranged_attack ) {
         if ( !nl_pushfunction(L, "NWNXSolstice_DoRangedAttack") ) { return; }
         if (lua_pcall(L, 0, 0, 0) != 0){
@@ -168,7 +141,7 @@ uint32_t Attack::resolveAmmo(uint32_t num_attacks, bool equip) {
         return num_attacks;
     }
 
-    switch(attacker_ci->offense.ranged_type) {
+    switch(0){//attacker_ci->offense.ranged_type) {
     default: return num_attacks;
     case RANGED_TYPE_BOW:
         equipslot = EQUIPMENT_SLOT_ARROWS;

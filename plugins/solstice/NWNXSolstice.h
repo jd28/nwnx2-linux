@@ -19,14 +19,22 @@
 #ifndef NWNX_SOLSTICE_H
 #define NWNX_SOLSTICE_H
 
-#include <unordered_map>
 #include <vector>
 
 #include "NWNXLib.h"
 #include "talib/nwn/all.h"
 #include "consts.h"
 #include "combat/dice.h"
-#include "object/Creature.h"
+
+struct DamageResult {
+    int32_t    damages[DAMAGE_INDEX_NUM];
+    int32_t    damages_unblocked[DAMAGE_INDEX_NUM];
+    int32_t    immunity[DAMAGE_INDEX_NUM];
+    int32_t    resist[DAMAGE_INDEX_NUM];
+    int32_t    resist_remaining[DAMAGE_INDEX_NUM];
+    int32_t    reduction, reduction_remaining, parry;
+};
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -37,7 +45,6 @@ extern "C" {
 #include "nwnx_modules_ext.h"
 #include "lua_funcs.h"
 #include "solstice_funcs.h"
-#include "talib/effects/itemprop.h"
 
 bool hook_functions();
 
@@ -52,9 +59,6 @@ EventItemprop *Local_GetLastItemPropEvent();
 Event         *Local_GetLastNWNXEvent();
 void           Local_NWNXLog(int level, const char* log);
 
-void           Local_DeleteCreature(uint32_t id);
-Creature      *Local_GetCreature(uint32_t id);
-CombatInfo    *Local_GetCombatInfo(uint32_t id, bool skip_cre);
 CGameEffect   *Local_GetPolyEffect();
 C2DA          *Local_GetPoly2da();
 void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);
@@ -110,7 +114,6 @@ public:
     uint64_t       update_time = 0;
     CGameEffect   *poly_eff;
 
-    std::unordered_map<uint32_t, Creature> cache;
     std::vector<std::string> damage_names;
     std::vector<std::string> damage_colors;
 };
