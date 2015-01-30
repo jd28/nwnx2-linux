@@ -38,9 +38,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
     hooks/h_AddAttackOfOpportunity
-    hooks/h_DoDamageImmunity
-    hooks/h_DoDamageReduction
-    hooks/h_DoDamageResistance
     hooks/h_RunScript
     hooks/h_GetArmorClass
     hooks/h_GetFeatRemainingUses
@@ -48,13 +45,11 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_GetMaxHitpoints
     hooks/h_GetRunScriptReturnValue
     hooks/h_LoadModuleStart
-    hooks/h_Polymorph
     hooks/h_ResolveMeleeAttack
     hooks/h_ResolveRangedAttack
     hooks/h_RunScriptSituation
     hooks/h_SetCombatMode
     hooks/h_ToggleMode
-    hooks/h_Unpolymorph
     hooks/h_UpdateCombatInformation
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
@@ -64,8 +59,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_GetLastNWNXEvent
     local/l_NWNXLog
     local/l_RunLuaScript
-    local/l_GetPoly2da
-    local/l_GetPolyEffect
     local/l_SetDamageInfo
     local/l_SetCombatEngineActive
     combat/Attack

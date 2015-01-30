@@ -58,9 +58,6 @@ ItemEvent     *Local_GetLastItemEvent();
 EventItemprop *Local_GetLastItemPropEvent();
 Event         *Local_GetLastNWNXEvent();
 void           Local_NWNXLog(int level, const char* log);
-
-CGameEffect   *Local_GetPolyEffect();
-C2DA          *Local_GetPoly2da();
 void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);
 void           Local_SetCombatEngineActive(bool active);
 

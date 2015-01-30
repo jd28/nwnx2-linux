@@ -42,12 +42,6 @@ bool hook_functions(){
     nx_hook_function((void *)0x08153E00,
                      (void *)Hook_GetFeatRemainingUses, 5, NX_HOOK_DIRECT);
 
-    //nx_hook_function((void *)0x081356A0,
-    //                 (void *)Hook_Polymorph, 5, NX_HOOK_DIRECT);
-
-    //nx_hook_function((void *)0x081369F8,
-    //                 (void *)Hook_Unpolymorph, 5, NX_HOOK_DIRECT);
-
     HOOK(CNWSModule__LoadModuleStartNext,
          0x081B4A4C,
          Hook_LoadModuleStart, 5);
@@ -73,10 +67,6 @@ bool hook_functions(){
     //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
 
     HOOK(CNWSCreatureStats__GetSkillRank_orig, 0x08152F5C, Hook_GetSkillRank, 5);
-
-    HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
-    HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
-    HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
 
     nx_hook_function((void*)0x0814425c,
                      (void*)Hook_GetCreatureDamageDice,
