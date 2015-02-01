@@ -33,6 +33,7 @@ void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply);
 const char* ns_GetCombatDamageString(
     const char *attacker,
     const char *target,
-    const DamageResult *dmg);
+    const DamageResult *dmg,
+    bool simple);
 }
 #endif

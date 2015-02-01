@@ -313,7 +313,8 @@ void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply) {
 const char* ns_GetCombatDamageString(
     const char *attacker,
     const char *target,
-    const DamageResult *dmg) {
+    const DamageResult *dmg,
+    bool simple) {
 
     static char res[2048];
 
@@ -346,15 +347,28 @@ const char* ns_GetCombatDamageString(
         return "";
     }
 
-
-    cx = sprintf(s + cur, "%s%s Damage Modifications:",
-                 solstice.damage_colors[12].c_str(),
-                 target);
-    cur += cx;
+    if (simple) {
+        cx = sprintf(s + cur, "%s%s Damage ",
+                     solstice.damage_colors[12].c_str(),
+                     target);
+        cur += cx;
+    }
+    else {
+        cx = sprintf(s + cur, "%s%s Damage Modifications:",
+                     solstice.damage_colors[12].c_str(),
+                     target);
+        cur += cx;
+    }
 
     if ( res_total > 0 ) {
-        cx = sprintf(s + cur, "\n  Resistance: %d ( ", res_total);
-        cur += cx;
+        if (simple) {
+            cx = sprintf(s + cur, " Resistance: %d ( ", res_total);
+            cur += cx;
+        }
+        else {
+            cx = sprintf(s + cur, "\n  Resistance: %d ( ", res_total);
+            cur += cx;
+        }
 
         if ( dmg->resist[12] > 0) {
             cx = sprintf(s + cur, "%d Physical ", dmg->resist[12]);
@@ -386,8 +400,14 @@ const char* ns_GetCombatDamageString(
     }
 
     if (imm_total > 0) {
-        cx = sprintf(s + cur, "\n  Immunity: %d ( ", imm_total);
-        cur += cx;
+        if (simple) {
+            cx = sprintf(s + cur, " Immunity: %d ( ", imm_total);
+            cur += cx;
+        }
+        else {
+            cx = sprintf(s + cur, "\n  Immunity: %d ( ", imm_total);
+            cur += cx;
+        }
 
         if ( dmg->immunity[12] > 0) {
             cx = sprintf(s + cur, "%d Physical ", dmg->immunity[12]);
@@ -411,14 +431,27 @@ const char* ns_GetCombatDamageString(
 
     // Reduction
     if (dmg->reduction > 0) {
-        if ( dmg->reduction_remaining > 0 ) {
-            cx = sprintf(s + cur, "\n  Reduction: %d (%d)",
-                          dmg->reduction,
-                          dmg->reduction_remaining);
+        if (simple) {
+            if ( dmg->reduction_remaining > 0 ) {
+                cx = sprintf(s + cur, " Reduction: %d (%d)",
+                             dmg->reduction,
+                             dmg->reduction_remaining);
+            }
+            else {
+                cx = sprintf(s + cur, " Reduction: %d",
+                             dmg->reduction);
+            }
         }
         else {
-            cx = sprintf(s + cur, "\n  Reduction: %d",
-                          dmg->reduction);
+            if ( dmg->reduction_remaining > 0 ) {
+                cx = sprintf(s + cur, "\n  Reduction: %d (%d)",
+                             dmg->reduction,
+                             dmg->reduction_remaining);
+            }
+            else {
+                cx = sprintf(s + cur, "\n  Reduction: %d",
+                             dmg->reduction);
+            }
         }
         cur += cx;
     }
