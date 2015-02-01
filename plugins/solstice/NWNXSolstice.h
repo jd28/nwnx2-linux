@@ -26,6 +26,12 @@
 #include "consts.h"
 #include "combat/dice.h"
 
+struct EffectData {
+    CNWSObject *obj;
+    CGameEffect *eff;
+    bool is_remove;
+};
+
 struct DamageResult {
     int32_t    damages[DAMAGE_INDEX_NUM];
     int32_t    damages_unblocked[DAMAGE_INDEX_NUM];
@@ -60,7 +66,7 @@ Event         *Local_GetLastNWNXEvent();
 void           Local_NWNXLog(int level, const char* log);
 void           Local_SetDamageInfo(int32_t index, const char* name, const char* color);
 void           Local_SetCombatEngineActive(bool active);
-
+EffectData    *Local_GetLastEffect();
 #ifdef __cplusplus
 }
 
@@ -106,11 +112,10 @@ public:
     uint32_t       nwn_attacks = 0;
     uint64_t       lua_time = 0;
     uint64_t       nwn_time = 0;
-
+    bool           hook_nonstacks;
     uint32_t       updates = 0;
     uint64_t       update_time = 0;
-    CGameEffect   *poly_eff;
-
+    EffectData     last_effect;
     std::vector<std::string> damage_names;
     std::vector<std::string> damage_colors;
 };

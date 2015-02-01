@@ -3,7 +3,7 @@
 void nwn_EffectSetNumIntegers(CGameEffect *eff, uint32_t num) {
     eff->eff_num_integers = num;
     eff->eff_integers = (int32_t*)realloc(eff->eff_integers, num*(sizeof(int32_t)));
-    memset(eff->eff_integers, 0, num*(sizeof(int32_t));
+    memset(eff->eff_integers, 0, num*(sizeof(int32_t)));
 }
 
 uint32_t nwn_GetDurationType(CGameEffect *eff) {

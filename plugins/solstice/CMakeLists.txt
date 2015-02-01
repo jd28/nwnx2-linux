@@ -37,6 +37,8 @@ add_module(solstice NWNXSolstice plugin-solstice
     handles/hndl_Event
     handles/hndl_ItemPropEvent
     handles/hndl_PluginsLoaded
+    hooks/h_Effects
+    hooks/h_Combat
     hooks/h_AddAttackOfOpportunity
     hooks/h_RunScript
     hooks/h_GetArmorClass
@@ -61,6 +63,7 @@ add_module(solstice NWNXSolstice plugin-solstice
     local/l_RunLuaScript
     local/l_SetDamageInfo
     local/l_SetCombatEngineActive
+    local/l_GetLastEffect
     combat/Attack
     ../../talib/nwn/all
 )

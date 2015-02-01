@@ -62,6 +62,9 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
         Log (0, "Plugin link: %08lX\n", pluginLink);
     }
 
+    last_effect.obj = nullptr;
+    last_effect.eff = nullptr;
+
     HANDLE handlePluginsLoaded = HookEvent("NWNX/Core/PluginsLoaded", Handle_PluginsLoaded);
     if (!handlePluginsLoaded) {
         Log(0, "Cannot hook plugins loaded event!\n");
@@ -70,6 +73,8 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
 
     Log(0,"NWNX Solstice v0.2\n");
     Log(0,"(c) by jmd (jmd2028 at gmail dot com, 2011-2012)\n");
+    hook_nonstacks = atoi(GetConf("hook_nonstack_effects").c_str());
+    Log(0, "Hooking non-stacking effects: %d\n", hook_nonstacks);
 
     L = lua_open();
     luaL_openlibs(L);

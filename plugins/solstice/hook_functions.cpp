@@ -19,6 +19,9 @@
 #include "NWNXSolstice.h"
 #include "hooks.h"
 
+extern CNWNXSolstice solstice;
+extern lua_State *L;
+
 #define HOOK(orig, addr, hook, bytes) \
     *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
 
@@ -58,7 +61,98 @@ bool hook_functions(){
          0x08142134,
          Hook_UpdateCombatInformation,
          5);
-    /*
+
+
+    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityIncrease,
+         0x081712A8,
+         Hook_OnApplyDamageImmunityIncrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityIncrease,
+         0x08171454,
+         Hook_OnRemoveDamageImmunityIncrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityDecrease,
+         0x0817153C,
+         Hook_OnApplyDamageImmunityDecrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityDecrease,
+         0x08171734,
+         Hook_OnRemoveDamageImmunityDecrease,
+         5);
+
+    HOOK(CNWSEffectListHandler__OnApplyEffectImmunity,
+         0x08178470,
+         Hook_OnApplyEffectImmunity,
+         5);
+
+    nx_hook_function((void *)0x0817D2F0,
+                     (void *)Hook_OnRemoveEffectImmunity,
+                     6, NX_HOOK_DIRECT);
+
+
+    HOOK(CNWSCreatureStats__GetEffectImmunity,
+         0x0815FF10,
+         Hook_GetEffectImmunity,
+         5);
+
+    HOOK(CNWSCreature__GetTotalEffectBonus,
+         0x08132298,
+         Hook_GetTotalEffectBonus,
+         5);
+
+    HOOK(CNWSCombatRound__InitializeNumberOfAttacks,
+         0x080E2260,
+         Hook_InitializeNumberOfAttacks,
+         5);
+
+    HOOK(CNWSCreatureStats__GetWeaponFinesse,
+         0x08155CF4,
+         Hook_GetWeaponFinesse,
+         5);
+
+
+    HOOK(CNWSCreatureStats__GetCriticalHitMultiplier,
+         0x0814C4A0,
+         Hook_GetCriticalHitMultiplier,
+         5);
+
+    HOOK(CNWSCreatureStats__GetCriticalHitRoll,
+         0x0814C31C,
+         Hook_GetCriticalHitRoll,
+         5);
+
+
+    HOOK(CNWSCreature__ResolveDamageShields,
+         0x080EFCAC,
+         Hook_ResolveDamageShields,
+         5);
+
+    if (solstice.hook_nonstacks) {
+        HOOK(CNWSEffectListHandler__OnApplyAbilityIncrease,
+             0x0816F3A4,
+             Hook_OnApplyAbilityIncrease,
+             5);
+
+        HOOK(CNWSEffectListHandler__OnApplyAbilityDecrease,
+             0x0816F4D8,
+             Hook_OnApplyAbilityDecrease,
+             5);
+
+        HOOK(CNWSEffectListHandler__OnRemoveAbilityIncrease,
+             0x0817CD04,
+             Hook_OnRemoveAbilityIncrease,
+             5);
+
+        HOOK(CNWSEffectListHandler__OnRemoveAbilityDecrease,
+             0x0817CD50,
+             Hook_OnRemoveAbilityDecrease,
+             7);
+    }
+
+/*
     nx_hook_function((void*)0x0812e19c,
                      (void*)Hook_GetArmorClass,
                      5, NX_HOOK_DIRECT);
