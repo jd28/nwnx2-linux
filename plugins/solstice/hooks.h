@@ -61,3 +61,10 @@ int32_t Hook_OnRemoveAbilityIncrease(CNWSEffectListHandler *handler,
                                      CNWSObject *obj, CGameEffect *eff);
 int32_t Hook_OnRemoveAbilityDecrease(CNWSEffectListHandler *handler,
                                      CNWSObject *obj, CGameEffect *eff);
+int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                              uint16_t flags, int32_t no_feedback, int32_t from_attack);
+int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                               uint8_t power, int32_t no_feedback, int32_t from_attack);
+int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                                uint16_t flags, int32_t no_feedback, int32_t from_attack,
+                                int32_t a);

@@ -130,6 +130,10 @@ bool hook_functions(){
          Hook_ResolveDamageShields,
          5);
 
+    HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
+    HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
+    HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
+
     if (solstice.hook_nonstacks) {
         HOOK(CNWSEffectListHandler__OnApplyAbilityIncrease,
              0x0816F3A4,

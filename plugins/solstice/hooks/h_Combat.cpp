@@ -140,3 +140,79 @@ int32_t Hook_ResolveDamageShields(CNWSCreature *cre, CNWSCreature *attacker) {
     }
     return 0;
 }
+
+int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                              uint16_t flags, int32_t no_feedback, int32_t from_attack) {
+
+    if ( !obj || from_attack  ) { return amount; }
+
+    if(!nl_pushfunction(L, "NWNXSolstice_DoDamageImmunity"))
+        return 0;
+
+    lua_pushinteger(L, obj->obj_id);
+    lua_pushinteger(L, vs ? vs->obj.obj_id : OBJECT_INVALID);
+    lua_pushinteger(L, amount);
+    lua_pushinteger(L, flags);
+    lua_pushboolean(L, no_feedback);
+
+    if (lua_pcall(L, 5, 1, 0) != 0){
+        solstice.Log(0, "SOLSTICE: NWNXSolstice_DoDamageImmunity : %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
+        return 0;
+    }
+
+    int32_t res = lua_tointeger(L, -1);
+    lua_pop(L, 1);
+    return res;
+}
+
+int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                               uint8_t power, int32_t no_feedback, int32_t from_attack) {
+
+    if ( !obj || from_attack  ) { return amount; }
+
+    if(!nl_pushfunction(L, "NWNXSolstice_DoDamageReduction"))
+        return 0;
+
+    lua_pushinteger(L, obj->obj_id);
+    lua_pushinteger(L, vs ? vs->obj.obj_id : OBJECT_INVALID);
+    lua_pushinteger(L, amount);
+    lua_pushinteger(L, power);
+    lua_pushboolean(L, no_feedback);
+
+    if (lua_pcall(L, 5, 1, 0) != 0){
+        solstice.Log(0, "SOLSTICE: NWNXSolstice_DoDamageReduction : %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
+        return 0;
+    }
+
+    int32_t res = lua_tointeger(L, -1);
+    lua_pop(L, 1);
+    return res;
+}
+
+int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
+                                uint16_t flags, int32_t no_feedback, int32_t from_attack,
+                                int32_t a) {
+
+   if ( !obj || from_attack ) { return amount; }
+
+    if(!nl_pushfunction(L, "NWNXSolstice_DoDamageResistance"))
+        return 0;
+
+    lua_pushinteger(L, obj->obj_id);
+    lua_pushinteger(L, vs ? vs->obj.obj_id : OBJECT_INVALID);
+    lua_pushinteger(L, amount);
+    lua_pushinteger(L, flags);
+    lua_pushboolean(L, no_feedback);
+
+    if (lua_pcall(L, 5, 1, 0) != 0){
+        solstice.Log(0, "SOLSTICE: NWNXSolstice_DoDamageResistance : %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
+        return 0;
+    }
+
+    int32_t res = lua_tointeger(L, -1);
+    lua_pop(L, 1);
+    return res;
+}
