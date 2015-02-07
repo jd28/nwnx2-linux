@@ -69,3 +69,7 @@ CNWBaseItem *nwn_GetBaseItem(uint32_t basetype){
 void nwn_DestroyItem(CNWSItem *it) {
     it->obj.obj_vtable->destructor(&it->obj, 3);
 }
+
+int32_t nwn_ComputeArmorClass(CNWSItem *it) {
+    return CNWSItem__ComputeArmorClass(it);
+}

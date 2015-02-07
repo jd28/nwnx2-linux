@@ -127,6 +127,7 @@ void talib_init() {
     SET(CNWSItem__GetPropertyByTypeExists,          0x081A2A6C);
     SET(CNWSItem__GetWeight,                        0x081a6b90);
     SET(CNWSItem__SetPossessor,                     0x0819F23C);
+    SET(CNWSItem__ComputeArmorClass,                0x081A2D58);
 
     SET(CNWMessage__CreateWriteMessage, 0x080c3aec);
     SET(CNWMessage__GetWriteMessage,    0x080c2e54);
