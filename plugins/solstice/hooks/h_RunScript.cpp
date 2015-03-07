@@ -41,7 +41,7 @@ int Hook_RunScriptStart(CVirtualMachine *vm, CExoString *script, nwn_objid_t id,
     local_run_script(script, id);
 
     if (lua_script == 1){
-        solstice.Log(0, "SCRIPT: %s, : Result: %d, Return: %d, Cond: %d\n", script->text, lua_script, solstice.lua_last_return,
+        solstice.Log(3, "SCRIPT: %s, : Result: %d, Return: %d, Cond: %d\n", script->text, lua_script, solstice.lua_last_return,
                      solstice.in_conditional_script);
         return solstice.in_conditional_script;
     }
