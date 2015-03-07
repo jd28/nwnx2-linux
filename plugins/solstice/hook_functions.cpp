@@ -62,36 +62,10 @@ bool hook_functions(){
          Hook_UpdateCombatInformation,
          5);
 
-
-    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityIncrease,
-         0x081712A8,
-         Hook_OnApplyDamageImmunityIncrease,
+    HOOK(CNWSCreature__UpdateAttributesOnEffect,
+         0x0811E0A8,
+         Hook_UpdateAttributesOnEffect,
          5);
-
-    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityIncrease,
-         0x08171454,
-         Hook_OnRemoveDamageImmunityIncrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnApplyDamageImmunityDecrease,
-         0x0817153C,
-         Hook_OnApplyDamageImmunityDecrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnRemoveDamageImmunityDecrease,
-         0x08171734,
-         Hook_OnRemoveDamageImmunityDecrease,
-         5);
-
-    HOOK(CNWSEffectListHandler__OnApplyEffectImmunity,
-         0x08178470,
-         Hook_OnApplyEffectImmunity,
-         5);
-
-    nx_hook_function((void *)0x0817D2F0,
-                     (void *)Hook_OnRemoveEffectImmunity,
-                     6, NX_HOOK_DIRECT);
-
 
     HOOK(CNWSCreatureStats__GetEffectImmunity,
          0x0815FF10,
@@ -133,28 +107,6 @@ bool hook_functions(){
     HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
     HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
     HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
-
-    if (solstice.hook_nonstacks) {
-        HOOK(CNWSEffectListHandler__OnApplyAbilityIncrease,
-             0x0816F3A4,
-             Hook_OnApplyAbilityIncrease,
-             5);
-
-        HOOK(CNWSEffectListHandler__OnApplyAbilityDecrease,
-             0x0816F4D8,
-             Hook_OnApplyAbilityDecrease,
-             5);
-
-        HOOK(CNWSEffectListHandler__OnRemoveAbilityIncrease,
-             0x0817CD04,
-             Hook_OnRemoveAbilityIncrease,
-             5);
-
-        HOOK(CNWSEffectListHandler__OnRemoveAbilityDecrease,
-             0x0817CD50,
-             Hook_OnRemoveAbilityDecrease,
-             7);
-    }
 
 /*
     nx_hook_function((void*)0x0812e19c,

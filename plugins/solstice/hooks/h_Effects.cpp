@@ -39,116 +39,6 @@ static void handle_effect(CNWSObject *obj, CGameEffect *eff, bool is_remove) {
 
 }
 
-// CNWSEffectListHandler::OnApplyDamageImmunityIncrease(CNWSObject *,CGameEffect *,int)
-int32_t Hook_OnApplyDamageImmunityIncrease(CNWSEffectListHandler *handler,
-                                           CNWSObject *obj, CGameEffect *eff,
-                                           int32_t force) {
-    int32_t res = CNWSEffectListHandler__OnApplyDamageImmunityIncrease(handler, obj, eff, force);
-    if (res == 0 && obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, false);
-    }
-    return res;
-}
-
-
-// CNWSEffectListHandler::OnRemoveDamageImmunityIncrease(CNWSObject *,CGameEffect *)
-int32_t Hook_OnRemoveDamageImmunityIncrease(CNWSEffectListHandler *handler,
-                                            CNWSObject *obj, CGameEffect *eff) {
-    int32_t res = CNWSEffectListHandler__OnRemoveDamageImmunityIncrease(handler, obj, eff);
-    if (obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, true);
-    }
-    return res;
-}
-
-// CNWSEffectListHandler::OnApplyDamageImmunityDecrease(CNWSObject *,CGameEffect *,int)
-int32_t Hook_OnApplyDamageImmunityDecrease(CNWSEffectListHandler *handler,
-                                           CNWSObject *obj, CGameEffect *eff,
-                                           int32_t force) {
-    int32_t res = CNWSEffectListHandler__OnApplyDamageImmunityDecrease(handler, obj, eff, force);
-    if (res == 0 && obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, false);
-    }
-    return res;
-}
-
-// CNWSEffectListHandler::OnRemoveDamageImmunityDecrease(CNWSObject *,CGameEffect *)
-int32_t Hook_OnRemoveDamageImmunityDecrease(CNWSEffectListHandler *handler,
-                                            CNWSObject *obj, CGameEffect *eff) {
-    int32_t res = CNWSEffectListHandler__OnRemoveDamageImmunityDecrease(handler, obj, eff);
-    if (obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, true);
-    }
-    return res;
-}
-
-// CNWSEffectListHandler::OnApplyEffectImmunity(CNWSObject *,CGameEffect *,int) 0x08178470
-int32_t Hook_OnApplyEffectImmunity(CNWSEffectListHandler *handler,
-                                   CNWSObject *obj, CGameEffect *eff,
-                                   int32_t force) {
-    int32_t res = CNWSEffectListHandler__OnApplyEffectImmunity(handler, obj, eff, force);
-    if (res == 0 && obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, false);
-    }
-    return res;
-}
-
-// CNWSEffectListHandler::OnRemoveEffectImmunity(CNWSObject *,CGameEffect *)    0x0817D2F0
-int32_t Hook_OnRemoveEffectImmunity(CNWSEffectListHandler *handler,
-                                    CNWSObject *obj, CGameEffect *eff) {
-    if (obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, true);
-    }
-    return 1;
-}
-
-
-//-- CNWSEffectListHandler::OnApplyAbilityIncrease(CNWSObject *,CGameEffect *,int) 0x0816F3A4
-int32_t Hook_OnApplyAbilityIncrease(CNWSEffectListHandler *handler,
-                                    CNWSObject *obj, CGameEffect *eff,
-                                    int32_t force) {
-    int32_t res = CNWSEffectListHandler__OnApplyEffectImmunity(handler, obj, eff, force);
-    if (res == 0 && obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, false);
-    }
-    return res;
-}
-
-
-// CNWSEffectListHandler::OnApplyAbilityDecrease(CNWSObject *,CGameEffect *,int) 0x0816F4D8
-int32_t Hook_OnApplyAbilityDecrease(CNWSEffectListHandler *handler,
-                                    CNWSObject *obj, CGameEffect *eff,
-                                    int32_t force) {
-    int32_t res = CNWSEffectListHandler__OnApplyEffectImmunity(handler, obj, eff, force);
-    if (res == 0 && obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, false);
-    }
-    return res;
-}
-
-
-
-//-- CNWSEffectListHandler::OnRemoveAbilityIncrease(CNWSObject *,CGameEffect *) 0x0817CD04
-int32_t Hook_OnRemoveAbilityIncrease(CNWSEffectListHandler *handler,
-                                     CNWSObject *obj, CGameEffect *eff) {
-    CNWSEffectListHandler__OnRemoveAbilityIncrease(handler, obj, eff);
-    if (obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, true);
-    }
-    return 1;
-}
-
-
-//-- CNWSEffectListHandler::OnRemoveAbilityDecrease(CNWSObject *,CGameEffect *) 0x0817CD50
-int32_t Hook_OnRemoveAbilityDecrease(CNWSEffectListHandler *handler,
-                                     CNWSObject *obj, CGameEffect *eff) {
-    CNWSEffectListHandler__OnRemoveAbilityDecrease(handler, obj, eff);
-    if (obj->obj_type == OBJECT_TYPE_CREATURE) {
-        handle_effect(obj, eff, true);
-    }
-    return 1;
-}
-
 // CNWSCreatureStats::GetEffectImmunity(uchar,CNWSCreature *) 0x0815FF10
 int32_t Hook_GetEffectImmunity(CNWSCreatureStats *stats, uint8_t immunity,
                                CNWSCreature *vs) {
@@ -183,16 +73,16 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
                                                  is_crit, save, save_vs, skill,
                                                  ability, is_offhand);
         break;
-    case 3:
-        if(!nl_pushfunction(L, "NWNXSolstice_GetSaveEffectBonus"))
-            return 0;
-        args = 3;
-        // Push object ID.
-        lua_pushinteger(L, cre->obj.obj_id);
-        lua_pushinteger(L, save);
-        lua_pushinteger(L, save_vs);
+    // case 3:
+    //     if(!nl_pushfunction(L, "NWNXSolstice_GetSaveEffectBonus"))
+    //         return 0;
+    //     args = 3;
+    //     // Push object ID.
+    //     lua_pushinteger(L, cre->obj.obj_id);
+    //     lua_pushinteger(L, save);
+    //     lua_pushinteger(L, save_vs);
 
-        break;
+    //     break;
     case 4:
         if(!nl_pushfunction(L, "NWNXSolstice_GetAbilityEffectBonus"))
             return 0;
@@ -221,4 +111,9 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
     int32_t result = lua_tointeger(L, -1);
     lua_pop(L, 1);
     return result;
+}
+
+void Hook_UpdateAttributesOnEffect(CNWSCreature *cre, CGameEffect *eff, int32_t a) {
+    handle_effect(&cre->obj, eff, false);
+    CNWSCreature__UpdateAttributesOnEffect(cre, eff, a);
 }
