@@ -35,7 +35,7 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
 
     solstice.Log(3, "GetFeatTotalUses: Object: %x, Feat: %d\n",
 		 stats->cs_original->obj.obj_id, feat);
-    
+
     if ( !CNWSCreatureStats__HasFeat(stats, feat) ) {
         solstice.Log(3, "GetFeatTotalUses: Object: %x does not have feat: %d\n",
                      stats->cs_original->obj.obj_id, feat);
@@ -43,7 +43,7 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
     }
     if ( stats->cs_is_dm ) { return 100; }
 
-    if(!nl_pushfunction(L, "NWNXSolstice_GetMaximumFeatUses"))
+    if(!nl_pushfunction(L, "__GetMaximumFeatUses"))
         return 0;
 
     // Push object ID.
@@ -51,10 +51,10 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
 
     if (lua_pcall(L, 2, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetMaximumFeatUses : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __GetMaximumFeatUses : %s\n", lua_tostring(L, -1));
         return 0;
     }
-    
+
     result = lua_tointeger(L, -1);
     lua_pop(L, 1);
 
@@ -72,4 +72,3 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
 
     return result;
 }
-

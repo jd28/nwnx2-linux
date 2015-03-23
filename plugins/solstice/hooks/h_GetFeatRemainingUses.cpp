@@ -22,7 +22,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 int8_t Hook_GetFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat) {
-    if(!nl_pushfunction(L, "NWNXSolstice_GetRemainingFeatUses"))
+    if(!nl_pushfunction(L, "__GetRemainingFeatUses"))
         return 0;
 
     // Push object ID.
@@ -30,7 +30,7 @@ int8_t Hook_GetFeatRemainingUses(CNWSCreatureStats *stats, uint16_t feat) {
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
 
     if (lua_pcall(L, 2, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetRemainingFeatUses : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __GetRemainingFeatUses : %s\n", lua_tostring(L, -1));
         return 0;
     }
 

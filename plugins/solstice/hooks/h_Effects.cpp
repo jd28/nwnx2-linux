@@ -22,7 +22,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 static void handle_effect(CNWSObject *obj, CGameEffect *eff, bool is_remove) {
-    if(!nl_pushfunction(L, "NWNXSolstice_HandleEffect"))
+    if(!nl_pushfunction(L, "__HandleEffect"))
         return;
 
     solstice.last_effect.obj = obj;
@@ -30,7 +30,7 @@ static void handle_effect(CNWSObject *obj, CGameEffect *eff, bool is_remove) {
     solstice.last_effect.is_remove = is_remove;
 
     if (lua_pcall(L, 0, 0, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_HandleEffect : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __HandleEffect : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
 
@@ -42,7 +42,7 @@ static void handle_effect(CNWSObject *obj, CGameEffect *eff, bool is_remove) {
 // CNWSCreatureStats::GetEffectImmunity(uchar,CNWSCreature *) 0x0815FF10
 int32_t Hook_GetEffectImmunity(CNWSCreatureStats *stats, uint8_t immunity,
                                CNWSCreature *vs) {
-    if(!nl_pushfunction(L, "NWNXSolstice_GetEffectImmunity"))
+    if(!nl_pushfunction(L, "__GetEffectImmunity"))
         return 0;
 
     // Push object ID.
@@ -50,7 +50,7 @@ int32_t Hook_GetEffectImmunity(CNWSCreatureStats *stats, uint8_t immunity,
     lua_pushinteger(L, immunity);
 
     if (lua_pcall(L, 2, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetEffectImmunity : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __GetEffectImmunity : %s\n", lua_tostring(L, -1));
         return 0;
     }
 
@@ -74,7 +74,7 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
                                                  ability, is_offhand);
         break;
     // case 3:
-    //     if(!nl_pushfunction(L, "NWNXSolstice_GetSaveEffectBonus"))
+    //     if(!nl_pushfunction(L, "__GetSaveEffectBonus"))
     //         return 0;
     //     args = 3;
     //     // Push object ID.
@@ -84,7 +84,7 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
 
     //     break;
     case 4:
-        if(!nl_pushfunction(L, "NWNXSolstice_GetAbilityEffectBonus"))
+        if(!nl_pushfunction(L, "__GetAbilityEffectBonus"))
             return 0;
 
         // Push object ID.
@@ -93,7 +93,7 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
 
         break;
     case 5:
-        if(!nl_pushfunction(L, "NWNXSolstice_GetSkillEffectBonus"))
+        if(!nl_pushfunction(L, "__GetSkillEffectBonus"))
             return 0;
 
         // Push object ID.
@@ -104,7 +104,7 @@ int32_t Hook_GetTotalEffectBonus(CNWSCreature *cre, uint8_t eff_switch ,
     }
 
     if (lua_pcall(L, args, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetTotalEffectBonus : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __GetTotalEffectBonus : %s\n", lua_tostring(L, -1));
         return 0;
     }
 

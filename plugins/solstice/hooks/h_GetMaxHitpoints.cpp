@@ -25,13 +25,13 @@ int Hook_GetMaxHitpoints (CNWSCreature  *cre, int32_t dunno) {
     if(cre == NULL || cre->cre_stats == NULL)
         return 0;
 
-    if(!nl_pushfunction(L, "NWNXSolstice_GetMaxHitpoints"))
+    if(!nl_pushfunction(L, "__GetMaxHitpoints"))
         return 0;
 
     lua_pushinteger(L, cre->obj.obj_id);
 
     if (lua_pcall(L, 1, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_GetMaxHitpoints : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __GetMaxHitpoints : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;
     }

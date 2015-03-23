@@ -25,11 +25,11 @@ int Handle_ItemPropEvent(WPARAM p, LPARAM a) {
 
     solstice.last_ip_event = ip_event;
 
-    lua_getglobal(L, "NWNXItems_HandleItemPropEvent");
+    lua_getglobal(L, "__NWNXItemsHandleItemPropEvent");
     lua_pushinteger(L, ip_event->ip->ip_type);
 
     if (lua_pcall(L, 1, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXItems_HandleItemPropEvent : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __NWNXItemsHandleItemPropEvent : %s\n", lua_tostring(L, -1));
         return 0;
     }
 

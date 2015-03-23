@@ -22,7 +22,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 void Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change){
-    if(!nl_pushfunction(L, "NSSetCombatMode"))
+    if(!nl_pushfunction(L, "__SetCombatMode"))
         return;
 
     // Push object ID.
@@ -31,6 +31,6 @@ void Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change){
     lua_pushinteger(L, change);
 
     if (lua_pcall(L, 3, 0, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NSSetCombatMode : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __SetCombatMode : %s\n", lua_tostring(L, -1));
     }
 }

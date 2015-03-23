@@ -22,7 +22,7 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode){
-    if(!nl_pushfunction(L, "NSToggleMode"))
+    if(!nl_pushfunction(L, "__ToggleMode"))
         return 0;
 
     // Push object ID.
@@ -30,7 +30,7 @@ int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode){
     lua_pushinteger(L, mode);
 
     if (lua_pcall(L, 2, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NSToggleMode : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __ToggleMode : %s\n", lua_tostring(L, -1));
         return 0;
     }
 

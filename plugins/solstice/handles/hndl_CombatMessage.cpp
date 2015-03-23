@@ -8,11 +8,11 @@ int Handle_CombatMessage(WPARAM p, LPARAM a) {
 
     solstice.last_combat_msg = msg;
 
-    if(!nl_pushfunction(L, "NWNXChat_HandleCombatMessage"))
+    if(!nl_pushfunction(L, "__HandleCombatMessage"))
         return 0;
 
     if (lua_pcall(L, 0, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXChat_HandleCombatMessage : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __HandleCombatMessage : %s\n", lua_tostring(L, -1));
         return 0;
     }
 

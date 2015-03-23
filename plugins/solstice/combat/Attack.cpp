@@ -97,12 +97,12 @@ int32_t Attack::getWeaponAttackType() {
 
 void Attack::resolvePreAttack() {
     ATTACK = this;
-    if ( !nl_pushfunction(L, "NWNXSolstice_ResolvePreAttack") ) { return; }
+    if ( !nl_pushfunction(L, "__ResolvePreAttack") ) { return; }
     lua_pushinteger(L, attacker_nwn->obj.obj_id);
     lua_pushinteger(L, target_nwn->obj_id);
 
     if (lua_pcall(L, 2, 0, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXSolstice_ResolvePreAttack : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __ResolvePreAttack : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
     }
 
@@ -131,16 +131,16 @@ void Attack::resolve() {
         }
     }
     if ( attack->cad_ranged_attack ) {
-        if ( !nl_pushfunction(L, "NWNXSolstice_DoRangedAttack") ) { return; }
+        if ( !nl_pushfunction(L, "__DoRangedAttack") ) { return; }
         if (lua_pcall(L, 0, 0, 0) != 0){
-            solstice.Log(0, "SOLSTICE: NWNXSolstice_DoRangedAttack : %s\n", lua_tostring(L, -1));
+            solstice.Log(0, "SOLSTICE: __DoRangedAttack : %s\n", lua_tostring(L, -1));
             lua_pop(L, 1);
         }
     }
     else {
-        if ( !nl_pushfunction(L, "NWNXSolstice_DoMeleeAttack") ) { return; }
+        if ( !nl_pushfunction(L, "__DoMeleeAttack") ) { return; }
         if ( lua_pcall(L, 0, 0, 0) != 0 ) {
-            solstice.Log(0, "SOLSTICE: NWNXSolstice_DoMeleeAttack : %s\n", lua_tostring(L, -1));
+            solstice.Log(0, "SOLSTICE: __DoMeleeAttack : %s\n", lua_tostring(L, -1));
             lua_pop(L, 1);
         }
     }

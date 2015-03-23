@@ -17,11 +17,11 @@ int Handle_CustomEffectEvent(WPARAM p, LPARAM a) {
 
     solstice.last_effect_event = eff;
 
-    if(!nl_pushfunction(L, "NWNXEffects_HandleEffectEvent"))
+    if(!nl_pushfunction(L, "__NWNXEffectsHandleEffectEvent"))
         return 0;
 
     if (lua_pcall(L, 0, 1, 0) != 0){
-        solstice.Log(0, "SOLSTICE: NWNXEffects_HandleEffectEvent : %s\n", lua_tostring(L, -1));
+        solstice.Log(0, "SOLSTICE: __NWNXEffectsHandleEffectEvent : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;
     }
