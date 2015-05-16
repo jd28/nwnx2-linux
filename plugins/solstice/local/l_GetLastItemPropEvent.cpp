@@ -20,6 +20,7 @@
 
 extern CNWNXSolstice solstice;
 
-EventItemprop *Local_GetLastItemPropEvent(){
+EventItemprop *Local_GetLastItemPropEvent()
+{
     return solstice.last_ip_event;
 }

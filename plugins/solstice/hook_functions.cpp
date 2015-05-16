@@ -31,14 +31,12 @@ void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int
 void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *) = NULL;
 
-bool hook_functions(){
+bool hook_functions()
+{
     HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
 
     HOOK(CVirtualMachine__RunScript, 0x08261F94, Hook_RunScriptStart, 5);
     HOOK(CVirtualMachine__RunScriptSituation, 0x08262534, Hook_RunScriptSituationStart, 5);
-
-    nx_hook_function((void *)0x08264324,
-                     (void *)Hook_GetRunScriptReturnValue, 5, NX_HOOK_DIRECT);
 
     nx_hook_function((void *)0x0815479c,
                      (void *)Hook_GetFeatTotalUses, 5, NX_HOOK_DIRECT);
@@ -108,52 +106,52 @@ bool hook_functions(){
     HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
     HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
 
-/*
-    nx_hook_function((void*)0x0812e19c,
-                     (void*)Hook_GetArmorClass,
-                     5, NX_HOOK_DIRECT);
+    /*
+        nx_hook_function((void*)0x0812e19c,
+                         (void*)Hook_GetArmorClass,
+                         5, NX_HOOK_DIRECT);
 
 
-    //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
+        //HOOK(CNWSCreature__SavingThrowRoll, 0x080F0A90, Hook_SavingThrowRoll, 5);
 
-    HOOK(CNWSCreatureStats__GetSkillRank_orig, 0x08152F5C, Hook_GetSkillRank, 5);
+        HOOK(CNWSCreatureStats__GetSkillRank_orig, 0x08152F5C, Hook_GetSkillRank, 5);
 
-    nx_hook_function((void*)0x0814425c,
-                     (void*)Hook_GetCreatureDamageDice,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x0814425c,
+                         (void*)Hook_GetCreatureDamageDice,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08144368,
-                     (void*)Hook_GetCreatureDamageDie,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08144368,
+                         (void*)Hook_GetCreatureDamageDie,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08143068,
-                     (void*)Hook_GetMeleeAttackBonus,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08143068,
+                         (void*)Hook_GetMeleeAttackBonus,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08143524,
-                     (void*)Hook_GetMeleeDamageBonus,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08143524,
+                         (void*)Hook_GetMeleeDamageBonus,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x0814374c,
-                     (void*)Hook_GetRangedAttackBonus,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x0814374c,
+                         (void*)Hook_GetRangedAttackBonus,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08143b5c,
-                     (void*)Hook_GetRangedDamageBonus,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08143b5c,
+                         (void*)Hook_GetRangedDamageBonus,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08143f88,
-                     (void*)Hook_GetUnarmedDamageDice,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08143f88,
+                         (void*)Hook_GetUnarmedDamageDice,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x0814408c,
-                     (void*)Hook_GetUnarmedDamageDie,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x0814408c,
+                         (void*)Hook_GetUnarmedDamageDie,
+                         5, NX_HOOK_DIRECT);
 
-    nx_hook_function((void*)0x08209e94,
-                     (void*)Hook_ExecuteCommandDoTouchAttack,
-                     5, NX_HOOK_DIRECT);
+        nx_hook_function((void*)0x08209e94,
+                         (void*)Hook_ExecuteCommandDoTouchAttack,
+                         5, NX_HOOK_DIRECT);
 
-*/
+    */
     return true;
 }

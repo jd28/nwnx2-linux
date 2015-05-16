@@ -21,36 +21,36 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
+int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat)
+{
     int8_t result = 0;
     int i, temp;
     CNWFeat *rule_feat;
 
-    if ( feat < 0 || feat >= (*NWN_Rules)->ru_feats_len ) {
+    if (feat < 0 || feat >= (*NWN_Rules)->ru_feats_len) {
         return 0;
-    }
-    else {
+    } else {
         rule_feat = &(*NWN_Rules)->ru_feats[feat];
     }
 
     solstice.Log(3, "GetFeatTotalUses: Object: %x, Feat: %d\n",
-		 stats->cs_original->obj.obj_id, feat);
+                 stats->cs_original->obj.obj_id, feat);
 
-    if ( !CNWSCreatureStats__HasFeat(stats, feat) ) {
+    if (!CNWSCreatureStats__HasFeat(stats, feat)) {
         solstice.Log(3, "GetFeatTotalUses: Object: %x does not have feat: %d\n",
                      stats->cs_original->obj.obj_id, feat);
         return 0;
     }
-    if ( stats->cs_is_dm ) { return 100; }
+    if (stats->cs_is_dm) { return 100; }
 
-    if(!nl_pushfunction(L, "__GetMaximumFeatUses"))
+    if (!nl_pushfunction(L, "__GetMaximumFeatUses"))
         return 0;
 
     // Push object ID.
     lua_pushinteger(L, feat);
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
 
-    if (lua_pcall(L, 2, 1, 0) != 0){
+    if (lua_pcall(L, 2, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __GetMaximumFeatUses : %s\n", lua_tostring(L, -1));
         return 0;
     }
@@ -58,17 +58,16 @@ int8_t Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat) {
     result = lua_tointeger(L, -1);
     lua_pop(L, 1);
 
-    if(result > 100) {
+    if (result > 100) {
         result = 100;
-    }
-    else if(result < 0) {
+    } else if (result < 0) {
         result = 0;
     }
 
     solstice.Log(3, "GetFeatTotalUses: obj: %X, feat: %d, max uses: %d\n",
-		 stats->cs_original->obj.obj_id,
-		 feat,
-		 result);
+                 stats->cs_original->obj.obj_id,
+                 feat,
+                 result);
 
     return result;
 }

@@ -15,11 +15,12 @@ extern CNWNXSolstice solstice;
 #define RANGED_TYPE_DART             5
 #define RANGED_TYPE_SHURIKEN         6
 
-void ns_DelayCommand(uint32_t objid, float delay, uint32_t token){
+void ns_DelayCommand(uint32_t objid, float delay, uint32_t token)
+{
     CVirtualMachineScript *vms = NULL;
-    vms = (CVirtualMachineScript *) malloc(sizeof (CVirtualMachineScript));
+    vms = (CVirtualMachineScript *) malloc(sizeof(CVirtualMachineScript));
 
-    if (running_script == NULL){
+    if (running_script == NULL) {
         solstice.Log(3, "LUAJIT: WARNING running_script is null!\n");
     }
 
@@ -45,11 +46,12 @@ void ns_DelayCommand(uint32_t objid, float delay, uint32_t token){
 
 }
 
-void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token){
+void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token)
+{
     CVirtualMachineScript *vms = NULL;
-    vms = (CVirtualMachineScript *) malloc(sizeof (CVirtualMachineScript));
+    vms = (CVirtualMachineScript *) malloc(sizeof(CVirtualMachineScript));
 
-    if (running_script == NULL){
+    if (running_script == NULL) {
         solstice.Log(3, "LUAJIT: WARNING running_script is null!");
     }
 
@@ -74,12 +76,13 @@ void ns_RepeatCommand(uint32_t objid, float delay, uint32_t token){
                  vms->vms_name.text);
 }
 
-void ns_ActionDoCommand(CNWSObject * obj, uint32_t token){
-    if(obj->obj_type == OBJECT_TYPE_AREA || !obj->obj_is_commandable)
+void ns_ActionDoCommand(CNWSObject * obj, uint32_t token)
+{
+    if (obj->obj_type == OBJECT_TYPE_AREA || !obj->obj_is_commandable)
         return;
 
     CVirtualMachineScript *vms = NULL;
-    vms = (CVirtualMachineScript *) malloc(sizeof (CVirtualMachineScript));
+    vms = (CVirtualMachineScript *) malloc(sizeof(CVirtualMachineScript));
 
     // delay command: $
     char temp[17]; // = (char*) malloc(strlen(running_script)+1 * sizeof(char));
@@ -94,26 +97,27 @@ void ns_ActionDoCommand(CNWSObject * obj, uint32_t token){
     return;
 }
 
-int ns_BitScanFFS(uint32_t mask) {
+int ns_BitScanFFS(uint32_t mask)
+{
     return __builtin_ffs(mask) - 1;
 }
 
-const char** str_split(const char* s, const char* sep, bool isany) {
+const char** str_split(const char* s, const char* sep, bool isany)
+{
     static std::vector<std::string> res;
 
     res.empty();
 
-    if ( isany ) {
+    if (isany) {
         boost::split(res, s, boost::is_any_of(sep));
-    }
-    else {
+    } else {
         boost::iter_split(res, s, boost::first_finder(sep));
     }
 
     const char** array = (const char**)malloc(sizeof(const char*) * (res.size() + 1));
 
     size_t i = 0;
-    for ( const auto& s : res ) {
+    for (const auto & s : res) {
         array[i] = s.c_str();
         ++i;
     }
@@ -121,21 +125,24 @@ const char** str_split(const char* s, const char* sep, bool isany) {
     return array;
 }
 
-const char* str_rtrim(const char* str) {
+const char* str_rtrim(const char* str)
+{
     static std::string s;
     s = str;
     boost::trim_right(s);
     return s.c_str();
 }
 
-const char *str_ltrim(const char* str) {
+const char *str_ltrim(const char* str)
+{
     static std::string s;
     s = str;
     boost::trim_left(s);
     return s.c_str();
 }
 
-const char *str_trim(const char* str) {
+const char *str_trim(const char* str)
+{
     static std::string s;
     s = str;
     boost::trim(s);
@@ -146,27 +153,29 @@ void ns_AddOnHitSpells(CNWSCombatAttackData *data,
                        CNWSCreature *attacker,
                        CNWSObject *target,
                        CNWSItem *item,
-                       bool from_target) {
+                       bool from_target)
+{
 
     uint32_t item_id = item->obj.obj_id;
-    for ( size_t i = 0; i < item->it_active_ip_len; ++i ) {
+    for (size_t i = 0; i < item->it_active_ip_len; ++i) {
         CNWItemProperty& ip = item->it_active_ip[i];
-        if ( ip.ip_type != ITEM_PROPERTY_ONHITCASTSPELL ) {
+        if (ip.ip_type != ITEM_PROPERTY_ONHITCASTSPELL) {
             continue;
         }
         CNWSCreature__ApplyOnHitCastSpell(attacker, target, &ip, item);
     }
 
-    for ( size_t i = 0; i < item->it_passive_ip_len; ++i ) {
+    for (size_t i = 0; i < item->it_passive_ip_len; ++i) {
         CNWItemProperty& ip = item->it_passive_ip[i];
-        if ( ip.ip_type != ITEM_PROPERTY_ONHITCASTSPELL ) {
+        if (ip.ip_type != ITEM_PROPERTY_ONHITCASTSPELL) {
             continue;
         }
         CNWSCreature__ApplyOnHitCastSpell(attacker, target, &ip, item);
     }
 }
 
-uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, int32_t ranged_type, bool equip) {
+uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, int32_t ranged_type, bool equip)
+{
     CNWSItem *it;
     int32_t stacksize = 0;
     uint32_t basetype, equipslot;
@@ -176,47 +185,47 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
     // Determine if there is a weapon that has Unlimited Ammo item
     // property.
     it = nwn_GetItemInSlot(attacker, EQUIPMENT_SLOT_RIGHTHAND);
-    if ( it && CNWSItem__GetPropertyByTypeExists(it, 61, 0) ) {
+    if (it && CNWSItem__GetPropertyByTypeExists(it, 61, 0)) {
         return num_attacks;
     }
 
-    switch(ranged_type) {
-    default: return num_attacks;
-    case RANGED_TYPE_BOW:
-        equipslot = EQUIPMENT_SLOT_ARROWS;
-        basetype  = BASE_ITEM_ARROW;
-        break;
-    case RANGED_TYPE_SLING:
-        equipslot = EQUIPMENT_SLOT_BULLETS;
-        basetype  = BASE_ITEM_BULLET;
-        break;
-    case RANGED_TYPE_CROSSBOW:
-        equipslot = EQUIPMENT_SLOT_BOLTS;
-        basetype  = BASE_ITEM_BOLT;
-        break;
-    case RANGED_TYPE_SHURIKEN:
-        equipslot = EQUIPMENT_SLOT_RIGHTHAND;
-        basetype  = BASE_ITEM_SHURIKEN;
-        break;
-    case RANGED_TYPE_DART:
-        equipslot = EQUIPMENT_SLOT_RIGHTHAND;
-        basetype  = BASE_ITEM_DART;
-        break;
-    case RANGED_TYPE_THROWAXE:
-        equipslot = EQUIPMENT_SLOT_RIGHTHAND;
-        basetype  = BASE_ITEM_THROWINGAXE;
-        break;
+    switch (ranged_type) {
+        default: return num_attacks;
+        case RANGED_TYPE_BOW:
+            equipslot = EQUIPMENT_SLOT_ARROWS;
+            basetype  = BASE_ITEM_ARROW;
+            break;
+        case RANGED_TYPE_SLING:
+            equipslot = EQUIPMENT_SLOT_BULLETS;
+            basetype  = BASE_ITEM_BULLET;
+            break;
+        case RANGED_TYPE_CROSSBOW:
+            equipslot = EQUIPMENT_SLOT_BOLTS;
+            basetype  = BASE_ITEM_BOLT;
+            break;
+        case RANGED_TYPE_SHURIKEN:
+            equipslot = EQUIPMENT_SLOT_RIGHTHAND;
+            basetype  = BASE_ITEM_SHURIKEN;
+            break;
+        case RANGED_TYPE_DART:
+            equipslot = EQUIPMENT_SLOT_RIGHTHAND;
+            basetype  = BASE_ITEM_DART;
+            break;
+        case RANGED_TYPE_THROWAXE:
+            equipslot = EQUIPMENT_SLOT_RIGHTHAND;
+            basetype  = BASE_ITEM_THROWINGAXE;
+            break;
     }
 
     it = CNWSInventory__GetItemInSlot(attacker->cre_equipment, equipslot);
     CNWSItem *orig_it = it;
-    if(orig_it) {
+    if (orig_it) {
         int ss = orig_it->it_stacksize;
         stacksize = equip ? ss - num_attacks : ss;
     }
 
     // If num_attacks is zero, there is no item, so we'll have to find one.
-    if(stacksize <= 0){
+    if (stacksize <= 0) {
         // This is really moronic it seems like to me and should be changed.
         // This is how the default code is tho: traversing the list for each i
 
@@ -228,14 +237,14 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
             //combat.Log(3, "GetAmmunitionAvailable : Item to Equip: %X", id);
             ++i;
 
-            if ( (it = nwn_GetItemByID(id)) != NULL) {
+            if ((it = nwn_GetItemByID(id)) != NULL) {
                 canequip = CNWSCreature__CanEquipItem(attacker, it, &basetype, 1, 0, 0, 0);
                 CNWSCreature__RemoveItemFromRepository(attacker, it, 1);
-                if(it->it_possessor != attacker->obj.obj_id) {
+                if (it->it_possessor != attacker->obj.obj_id) {
                     CNWSItem__SetPossessor(it, attacker->obj.obj_id, 0, 0, 0);
                 }
 
-                if ( equip ) {
+                if (equip) {
                     CNWSCreature__UnequipItem(attacker, orig_it, 0);
                     CItemRepository__AddItem(attacker->cre_inventory, &orig_it, -1, -1, 0, 0);
                 }
@@ -247,8 +256,8 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
         } while (id != OBJECT_INVALID);
     }
 
-    if ( !equip ) {
-        if (stacksize < 20 && attacker->cre_last_ammo_warning >= stacksize + 5u ){
+    if (!equip) {
+        if (stacksize < 20 && attacker->cre_last_ammo_warning >= stacksize + 5u) {
             attacker->cre_last_ammo_warning = stacksize;
             CNWCCMessageData *msg = CNWCCMessageData_create();
             CExoArrayList_int32_add(&msg->integers, stacksize);
@@ -260,13 +269,12 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
     num_attacks = std::min(num_attacks, stacksize);
 
     // If we have nothing to attack with, send out the appropriate messages.
-    if ( !equip && num_attacks == 0 ){
-        if( attacker->cre_is_pc || CNWSCreature__GetIsPossessedFamiliar(attacker) ){
+    if (!equip && num_attacks == 0) {
+        if (attacker->cre_is_pc || CNWSCreature__GetIsPossessedFamiliar(attacker)) {
             CNWSCreature__SendFeedbackMessage(attacker, 0x19, 0, 0);
-        }
-        else if( attacker->cre_master_id != OBJECT_INVALID ){
+        } else if (attacker->cre_master_id != OBJECT_INVALID) {
             CNWSCreature *master = nwn_GetCreatureByID(attacker->cre_master_id);
-            if( master ) {
+            if (master) {
                 CNWCCMessageData *msg = CNWCCMessageData_create();
                 CExoArrayList_uint32_add(&msg->objects, attacker->obj.obj_id);
                 CNWSCreature__SendFeedbackMessage(master, 0xF1, msg, 0);
@@ -279,27 +287,27 @@ uint32_t ns_GetAmmunitionAvailable(CNWSCreature *attacker, int32_t num_attacks, 
     return num_attacks;
 }
 
-void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply) {
+void ns_PostPolymorph(CNWSCreature *cre, int32_t ignore_pos, bool is_apply)
+{
     CNWSCreature__UpdatePersonalSpace(cre);
     CNWSCreature__UpdateAppearanceDependantInfo(cre);
 
-    if ( is_apply ) {
+    if (is_apply) {
         cre->cre_is_poly = 1;
     }
 
-    if ( !ignore_pos ) {
+    if (!ignore_pos) {
         CNWSArea *area = CNWSObject__GetArea(&cre->obj);
-        if ( area ) {
+        if (area) {
             Vector new_pos = { 0.0f, 0.0f, 0.0f };
-            if ( CNWSArea__ComputeSafeLocation(area,
-                                               cre->obj.obj_position,
-                                               20.0,
-                                               cre->cre_blocked_pos,
-                                               1,
-                                               &new_pos) ) {
+            if (CNWSArea__ComputeSafeLocation(area,
+                                              cre->obj.obj_position,
+                                              20.0,
+                                              cre->cre_blocked_pos,
+                                              1,
+                                              &new_pos)) {
                 CNWSObject__SetPosition(&cre->obj, new_pos, 0);
-            }
-            else {
+            } else {
                 new_pos = cre->obj.obj_position;
             }
             cre->cre_is_polymorphing = 1;
@@ -314,7 +322,8 @@ const char* ns_GetCombatDamageString(
     const char *attacker,
     const char *target,
     const DamageResult *dmg,
-    bool simple) {
+    bool simple)
+{
 
     static char res[2048];
 
@@ -329,7 +338,7 @@ const char* ns_GetCombatDamageString(
     for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
         total += dmg->damages[i];
     }
-    if ( total <= 0 ) return "";
+    if (total <= 0) return "";
 
     // Resistance
     int res_total = 0;
@@ -343,7 +352,7 @@ const char* ns_GetCombatDamageString(
         imm_total += dmg->immunity[i];
     }
 
-    if ( dmg->reduction + imm_total + res_total <= 0 ) {
+    if (dmg->reduction + imm_total + res_total <= 0) {
         return "";
     }
 
@@ -352,40 +361,37 @@ const char* ns_GetCombatDamageString(
                      solstice.damage_colors[12].c_str(),
                      target);
         cur += cx;
-    }
-    else {
+    } else {
         cx = sprintf(s + cur, "%s%s Damage Modifications:",
                      solstice.damage_colors[12].c_str(),
                      target);
         cur += cx;
     }
 
-    if ( res_total > 0 ) {
+    if (res_total > 0) {
         if (simple) {
             cx = sprintf(s + cur, " Resistance: %d ( ", res_total);
             cur += cx;
-        }
-        else {
+        } else {
             cx = sprintf(s + cur, "\n  Resistance: %d ( ", res_total);
             cur += cx;
         }
 
-        if ( dmg->resist[12] > 0) {
+        if (dmg->resist[12] > 0) {
             cx = sprintf(s + cur, "%d Physical ", dmg->resist[12]);
             cur += cx;
         }
 
         for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
-            if ( i == 12 ) { continue; }
-            if ( dmg->resist[i] > 0 ) {
-                if ( dmg->resist_remaining[i] > 0 ) {
+            if (i == 12) { continue; }
+            if (dmg->resist[i] > 0) {
+                if (dmg->resist_remaining[i] > 0) {
                     cx = sprintf(s + cur, "%s%d (%d) %s</c> ",
                                  solstice.damage_colors[i].c_str(),
                                  dmg->resist[i],
                                  dmg->resist_remaining[i],
                                  solstice.damage_names[i].c_str());
-                }
-                else {
+                } else {
                     cx = sprintf(s + cur, "%s%d %s</c> ",
                                  solstice.damage_colors[i].c_str(),
                                  dmg->resist[i],
@@ -403,20 +409,19 @@ const char* ns_GetCombatDamageString(
         if (simple) {
             cx = sprintf(s + cur, " Immunity: %d ( ", imm_total);
             cur += cx;
-        }
-        else {
+        } else {
             cx = sprintf(s + cur, "\n  Immunity: %d ( ", imm_total);
             cur += cx;
         }
 
-        if ( dmg->immunity[12] > 0) {
+        if (dmg->immunity[12] > 0) {
             cx = sprintf(s + cur, "%d Physical ", dmg->immunity[12]);
             cur += cx;
         }
 
         for (int i = 0; i < DAMAGE_INDEX_NUM; ++i) {
-            if ( i == 12 ) { continue; }
-            if ( dmg->immunity[i] > 0 ) {
+            if (i == 12) { continue; }
+            if (dmg->immunity[i] > 0) {
                 cx = sprintf(s + cur, "%s%d %s</c> ",
                              solstice.damage_colors[i].c_str(),
                              dmg->immunity[i],
@@ -432,23 +437,20 @@ const char* ns_GetCombatDamageString(
     // Reduction
     if (dmg->reduction > 0) {
         if (simple) {
-            if ( dmg->reduction_remaining > 0 ) {
+            if (dmg->reduction_remaining > 0) {
                 cx = sprintf(s + cur, " Reduction: %d (%d)",
                              dmg->reduction,
                              dmg->reduction_remaining);
-            }
-            else {
+            } else {
                 cx = sprintf(s + cur, " Reduction: %d",
                              dmg->reduction);
             }
-        }
-        else {
-            if ( dmg->reduction_remaining > 0 ) {
+        } else {
+            if (dmg->reduction_remaining > 0) {
                 cx = sprintf(s + cur, "\n  Reduction: %d (%d)",
                              dmg->reduction,
                              dmg->reduction_remaining);
-            }
-            else {
+            } else {
                 cx = sprintf(s + cur, "\n  Reduction: %d",
                              dmg->reduction);
             }
@@ -459,7 +461,7 @@ const char* ns_GetCombatDamageString(
     //Parry
     if (dmg->parry > 0) {
         cx = sprintf(s + cur, "\n  Parry: %d%%",
-                      dmg->parry);
+                     dmg->parry);
         cur += cx;
     }
     cx = sprintf(s + cur, "</c>");

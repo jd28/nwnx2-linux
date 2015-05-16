@@ -6,7 +6,8 @@ extern CNWNXSolstice solstice;
 #define HOOK(orig, addr, hook, bytes) \
     *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
 
-int Handle_PluginsLoaded(WPARAM p, LPARAM a) {
+int Handle_PluginsLoaded(WPARAM p, LPARAM a)
+{
     if (!solstice.InitializeEventHandlers())
         solstice.Log(0, "ERROR: Unable to initialize NWNX event handlers!");
 

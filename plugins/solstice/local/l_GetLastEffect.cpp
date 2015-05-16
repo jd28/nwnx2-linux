@@ -21,6 +21,7 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-EffectData *Local_GetLastEffect() {
+EffectData *Local_GetLastEffect()
+{
     return &solstice.last_effect;
 }

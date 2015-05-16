@@ -20,7 +20,8 @@
 
 extern CNWNXSolstice solstice;
 
-void Hook_AddAttackOfOpportunity(CNWSCombatRound *cr, uint32_t target) {
+void Hook_AddAttackOfOpportunity(CNWSCombatRound *cr, uint32_t target)
+{
     int result = !!nwn_GetLocalInt(&cr->cr_original->obj.obj_vartable, "NWNX_NO_AOO");
 
     if (!result) {

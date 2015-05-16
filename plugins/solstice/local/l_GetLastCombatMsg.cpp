@@ -21,6 +21,7 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-CombatMessage *Local_GetLastCombatMessage() {
+CombatMessage *Local_GetLastCombatMessage()
+{
     return solstice.last_combat_msg;
 }

@@ -10,7 +10,7 @@ set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings -std=
 include_directories(
     .
     ../../talib
-    ${LUA_INCLUDE_DIR}
+    ${LUAJIT_INCLUDE_DIR}
     ${Boost_INCLUDE_DIR})
 
 set(SOLSTICE_FUNCS_SRC
@@ -31,7 +31,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     ${SOLSTICE_FUNCS_SRC}
     handles/hndl_ChatMessage
     handles/hndl_CombatMessage
-    handles/hndl_ConversationEvent
     handles/hndl_EffectEvent
     handles/hndl_ItemEvent
     handles/hndl_Event
@@ -45,7 +44,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_GetFeatRemainingUses
     hooks/h_GetFeatTotalUses
     hooks/h_GetMaxHitpoints
-    hooks/h_GetRunScriptReturnValue
     hooks/h_LoadModuleStart
     hooks/h_ResolveMeleeAttack
     hooks/h_ResolveRangedAttack

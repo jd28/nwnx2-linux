@@ -16,7 +16,8 @@
 
 #include "NWNXSolstice.h"
 
-static int dolibrary (lua_State *L, const char *name) {
+static int dolibrary(lua_State *L, const char *name)
+{
     lua_getglobal(L, "require");
     lua_pushstring(L, name);
     return lua_pcall(L, 1, 0, 0);
@@ -26,7 +27,8 @@ extern PLUGINLINK *pluginLink;
 
 lua_State *L = NULL;
 
-CNWNXSolstice::CNWNXSolstice(){
+CNWNXSolstice::CNWNXSolstice()
+{
     confKey = strdup("SOLSTICE");
     bHooked = 1;
     lua_last_return = -1;
@@ -35,11 +37,13 @@ CNWNXSolstice::CNWNXSolstice(){
     damage_colors.resize(DAMAGE_INDEX_NUM, "");
 }
 
-CNWNXSolstice::~CNWNXSolstice(){
+CNWNXSolstice::~CNWNXSolstice()
+{
     OnRelease();
 }
 
-std::string CNWNXSolstice::GetConf(const char* key) {
+std::string CNWNXSolstice::GetConf(const char* key)
+{
     return (*nwnxConfig)[confKey][key];
 }
 
@@ -50,16 +54,15 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
 
 
     // call the base class function
-    if (!CNWNXBase::OnCreate(config,log))
+    if (!CNWNXBase::OnCreate(config, log))
         return false;
 
     // Plugin Events
-    if(!pluginLink){
-        Log (0, "Plugin link not accessible\n");
+    if (!pluginLink) {
+        Log(0, "Plugin link not accessible\n");
         return false;
-    }
-    else {
-        Log (0, "Plugin link: %08lX\n", pluginLink);
+    } else {
+        Log(0, "Plugin link: %08lX\n", pluginLink);
     }
 
     last_effect.obj = nullptr;
@@ -71,8 +74,8 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
         return false;
     }
 
-    Log(0,"NWNX Solstice v0.2\n");
-    Log(0,"(c) by jmd (jmd2028 at gmail dot com, 2011-2012)\n");
+    Log(0, "NWNX Solstice v0.2\n");
+    Log(0, "(c) by jmd (jmd2028 at gmail dot com, 2011-2012)\n");
     hook_nonstacks = atoi(GetConf("hook_nonstack_effects").c_str());
     Log(0, "Hooking non-stacking effects: %d\n", hook_nonstacks);
 
@@ -80,16 +83,16 @@ bool CNWNXSolstice::OnCreate(gline *config, const char *LogDir)
     luaL_openlibs(L);
     bHooked = hook_functions();
 
-    Log(0,"* Module loaded successfully.\n");
+    Log(0, "* Module loaded successfully.\n");
     return true;
 }
 
-void CNWNXSolstice::Initialize() {
+void CNWNXSolstice::Initialize()
+{
     std::string dir = GetConf("script_dir");
-    if ( dir.empty() ) {
+    if (dir.empty()) {
         dir = "solstice/preload";
-    }
-    else {
+    } else {
         dir += "/preload";
     }
 
@@ -101,11 +104,12 @@ void CNWNXSolstice::Initialize() {
     }
 }
 
-char* CNWNXSolstice::OnRequest (char *gameObject, char* Request, char* Parameters) {
-    Log(2,"(S) Request: \"%s\"\n",Request);
-    Log(3,"(S) Params:  \"%s\"\n",Parameters);
+char* CNWNXSolstice::OnRequest(char *gameObject, char* Request, char* Parameters)
+{
+    Log(2, "(S) Request: \"%s\"\n", Request);
+    Log(3, "(S) Params:  \"%s\"\n", Parameters);
 
-    if ( !gameObject ) { return NULL; }
+    if (!gameObject) { return NULL; }
 
     HandleRequest(reinterpret_cast<CGameObject*>(gameObject),
                   Request, Parameters);
@@ -113,33 +117,34 @@ char* CNWNXSolstice::OnRequest (char *gameObject, char* Request, char* Parameter
     return NULL;
 }
 
-bool CNWNXSolstice::OnRelease ()
+bool CNWNXSolstice::OnRelease()
 {
-    if ( lua_attacks > 0 )
-        Log(0, "Average Lua Melee Attack Time: %d\n", lua_time/lua_attacks);
+    if (lua_attacks > 0)
+        Log(0, "Average Lua Melee Attack Time: %d\n", lua_time / lua_attacks);
 
-    if ( nwn_attacks > 0 )
-        Log(0, "Average NWN Melee Attack Time: %d\n", nwn_time/nwn_attacks);
+    if (nwn_attacks > 0)
+        Log(0, "Average NWN Melee Attack Time: %d\n", nwn_time / nwn_attacks);
 
-    if ( updates > 0 )
-        Log(0, "Average Update Time: %d\n", update_time/updates);
+    if (updates > 0)
+        Log(0, "Average Update Time: %d\n", update_time / updates);
 
     int nKBytes = lua_gc(L, LUA_GCCOUNT, 0);
-    Log (0, "o Shutdown.. Memory: %d Kb\n", nKBytes);
+    Log(0, "o Shutdown.. Memory: %d Kb\n", nKBytes);
 
     return true;
 }
 
-bool CNWNXSolstice::InitializeEventHandlers(){
+bool CNWNXSolstice::InitializeEventHandlers()
+{
     bool result = true;
 
-    HANDLE handleChatMessage = HookEvent("NWNX/Chat/ChatMessage", Handle_ChatMessage);
+    HANDLE handleChatMessage = HookEvent("Chat/Message", Handle_ChatMessage);
     if (!handleChatMessage) {
         Log(0, "Cannot hook NWNX/Chat/ChatMessage!\n");
         result = false;
     }
 
-    HANDLE handleCCMessage = HookEvent("NWNX/Chat/CCMessage", Handle_CombatMessage);
+    HANDLE handleCCMessage = HookEvent("Chat/CCMessage", Handle_CombatMessage);
     if (!handleCCMessage) {
         Log(0, "Cannot hook NWNX/Chat/CombatMessage!\n");
         result = false;
@@ -153,25 +158,19 @@ bool CNWNXSolstice::InitializeEventHandlers(){
 
 
     HANDLE handleItemEvent = HookEvent("NWNX/Items/Event", Handle_ItemEvent);
-    if (!handleItemEvent){
+    if (!handleItemEvent) {
         Log(0, "Cannot hook NWNX/Items/Event!\n");
         result = false;
     }
 
-    HANDLE handleConversationEvent = HookEvent("NWNX/Events/ConversationEvent", Handle_ConversationEvent);
-    if (!handleConversationEvent) {
-        Log(0, "Cannot hook NWNX/Events/ConversationEvent!\n");
-        result = false;
-    }
-
-    HANDLE handleEvent = HookEvent("NWNX/Events/Event", Handle_Event);
+    HANDLE handleEvent = HookEvent("Events/Event", Handle_Event);
     if (!handleEvent) {
-        Log(0, "Cannot hook NWNX/Events/Event!\n");
+        Log(0, "Cannot hook Events/Event!\n");
         result = false;
     }
 
     HANDLE handleItemPropEvent = HookEvent("NWNX/Items/ItemPropEvent", Handle_ItemPropEvent);
-    if (!handleItemPropEvent){
+    if (!handleItemPropEvent) {
         Log(0, "Cannot hook NWNX/Effects/ItemPropEvent!\n");
         result = false;
     }

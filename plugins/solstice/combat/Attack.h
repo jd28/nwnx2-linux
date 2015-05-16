@@ -3,7 +3,8 @@
 
 #include "NWNXSolstice.h"
 
-class Attack {
+class Attack
+{
 public:
     Attack(CNWSCreature *attacker, CNWSObject *target, bool ranged);
     ~Attack() { }
@@ -43,12 +44,14 @@ public:
     int32_t               effects_to_remove_len;
 };
 
-inline bool Attack::isHit() {
+inline bool Attack::isHit()
+{
     int r = attack->cad_attack_result;
     return r == 1 || r == 3 || r == 5 || r == 6 || r == 7 || r == 10;
 }
 
-inline bool Attack::isSpecialAttack() {
+inline bool Attack::isSpecialAttack()
+{
     return !!attack->cad_special_attack;
 }
 

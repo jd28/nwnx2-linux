@@ -22,29 +22,31 @@ extern CNWNXSolstice solstice;
 extern lua_State *L;
 
 // CNWSCombatRound::InitializeNumberOfAttacks()
-void Hook_InitializeNumberOfAttacks(CNWSCombatRound *cr) {
-    if(!nl_pushfunction(L, "__InitializeNumberOfAttacks"))
+void Hook_InitializeNumberOfAttacks(CNWSCombatRound *cr)
+{
+    if (!nl_pushfunction(L, "__InitializeNumberOfAttacks"))
         return;
 
     // Push object ID.
     lua_pushinteger(L, cr->cr_original->obj.obj_id);
 
-    if (lua_pcall(L, 1, 0, 0) != 0){
+    if (lua_pcall(L, 1, 0, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __InitializeNumberOfAttacks : %s\n", lua_tostring(L, -1));
         return;
     }
 }
 
 //-- CNWSCreatureStats::GetWeaponFinesse(CNWSItem *)
-int32_t Hook_GetWeaponFinesse(CNWSCreatureStats *stats, CNWSItem *item) {
-    if(!nl_pushfunction(L, "__GetWeaponFinesse"))
+int32_t Hook_GetWeaponFinesse(CNWSCreatureStats *stats, CNWSItem *item)
+{
+    if (!nl_pushfunction(L, "__GetWeaponFinesse"))
         return 0;
 
     // Push object ID.
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
     lua_pushinteger(L, item ? item->obj.obj_id : OBJECT_INVALID);
 
-    if (lua_pcall(L, 2, 1, 0) != 0){
+    if (lua_pcall(L, 2, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __GetWeaponFinesse : %s\n", lua_tostring(L, -1));
         return 0;
     }
@@ -57,15 +59,16 @@ int32_t Hook_GetWeaponFinesse(CNWSCreatureStats *stats, CNWSItem *item) {
 
 
 //-- CNWSCreatureStats::GetCriticalHitMultiplier(int)
-int32_t Hook_GetCriticalHitMultiplier(CNWSCreatureStats *stats, int32_t is_offhand) {
-    if(!nl_pushfunction(L, "__GetCriticalHitMultiplier"))
+int32_t Hook_GetCriticalHitMultiplier(CNWSCreatureStats *stats, int32_t is_offhand)
+{
+    if (!nl_pushfunction(L, "__GetCriticalHitMultiplier"))
         return 0;
 
     // Push object ID.
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
     lua_pushboolean(L, is_offhand);
 
-    if (lua_pcall(L, 2, 1, 0) != 0){
+    if (lua_pcall(L, 2, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __GetCriticalHitMultiplier : %s\n", lua_tostring(L, -1));
         return 0;
     }
@@ -76,15 +79,16 @@ int32_t Hook_GetCriticalHitMultiplier(CNWSCreatureStats *stats, int32_t is_offha
 }
 
 // CNWSCreatureStats::GetCriticalHitRoll(int)
-int32_t Hook_GetCriticalHitRoll(CNWSCreatureStats *stats, int32_t is_offhand) {
-    if(!nl_pushfunction(L, "__GetCriticalHitRoll"))
+int32_t Hook_GetCriticalHitRoll(CNWSCreatureStats *stats, int32_t is_offhand)
+{
+    if (!nl_pushfunction(L, "__GetCriticalHitRoll"))
         return 0;
 
     // Push object ID.
     lua_pushinteger(L, stats->cs_original->obj.obj_id);
     lua_pushboolean(L, is_offhand);
 
-    if (lua_pcall(L, 2, 1, 0) != 0){
+    if (lua_pcall(L, 2, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __GetCriticalHitRoll : %s\n", lua_tostring(L, -1));
         return 0;
     }
@@ -125,16 +129,17 @@ Hook.hook {
 */
 
 // CNWSCreature::ResolveDamageShields(CNWSCreature *)
-int32_t Hook_ResolveDamageShields(CNWSCreature *cre, CNWSCreature *attacker) {
+int32_t Hook_ResolveDamageShields(CNWSCreature *cre, CNWSCreature *attacker)
+{
     if (!cre || !attacker) return 0;
-    if(!nl_pushfunction(L, "__ResolveDamageShields"))
+    if (!nl_pushfunction(L, "__ResolveDamageShields"))
         return 0;
 
     // Push object ID.
     lua_pushinteger(L, cre->obj.obj_id);
     lua_pushinteger(L, attacker->obj.obj_id);
 
-    if (lua_pcall(L, 2, 0, 0) != 0){
+    if (lua_pcall(L, 2, 0, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __ResolveDamageShields : %s\n", lua_tostring(L, -1));
         return 0;
     }
@@ -142,11 +147,12 @@ int32_t Hook_ResolveDamageShields(CNWSCreature *cre, CNWSCreature *attacker) {
 }
 
 int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
-                              uint16_t flags, int32_t no_feedback, int32_t from_attack) {
+                              uint16_t flags, int32_t no_feedback, int32_t from_attack)
+{
 
-    if ( !obj || from_attack  ) { return amount; }
+    if (!obj || from_attack) { return amount; }
 
-    if(!nl_pushfunction(L, "__DoDamageImmunity"))
+    if (!nl_pushfunction(L, "__DoDamageImmunity"))
         return 0;
 
     lua_pushinteger(L, obj->obj_id);
@@ -155,7 +161,7 @@ int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
     lua_pushinteger(L, flags);
     lua_pushboolean(L, no_feedback);
 
-    if (lua_pcall(L, 5, 1, 0) != 0){
+    if (lua_pcall(L, 5, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __DoDamageImmunity : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;
@@ -167,11 +173,12 @@ int32_t Hook_DoDamageImmunity(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
 }
 
 int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
-                               uint8_t power, int32_t no_feedback, int32_t from_attack) {
+                               uint8_t power, int32_t no_feedback, int32_t from_attack)
+{
 
-    if ( !obj || from_attack  ) { return amount; }
+    if (!obj || from_attack) { return amount; }
 
-    if(!nl_pushfunction(L, "__DoDamageReduction"))
+    if (!nl_pushfunction(L, "__DoDamageReduction"))
         return 0;
 
     lua_pushinteger(L, obj->obj_id);
@@ -180,7 +187,7 @@ int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount
     lua_pushinteger(L, power);
     lua_pushboolean(L, no_feedback);
 
-    if (lua_pcall(L, 5, 1, 0) != 0){
+    if (lua_pcall(L, 5, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __DoDamageReduction : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;
@@ -193,11 +200,12 @@ int32_t Hook_DoDamageReduction(CNWSObject *obj, CNWSCreature *vs, int32_t amount
 
 int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amount,
                                 uint16_t flags, int32_t no_feedback, int32_t from_attack,
-                                int32_t a) {
+                                int32_t a)
+{
 
-   if ( !obj || from_attack ) { return amount; }
+    if (!obj || from_attack) { return amount; }
 
-    if(!nl_pushfunction(L, "__DoDamageResistance"))
+    if (!nl_pushfunction(L, "__DoDamageResistance"))
         return 0;
 
     lua_pushinteger(L, obj->obj_id);
@@ -206,7 +214,7 @@ int32_t Hook_DoDamageResistance(CNWSObject *obj, CNWSCreature *vs, int32_t amoun
     lua_pushinteger(L, flags);
     lua_pushboolean(L, no_feedback);
 
-    if (lua_pcall(L, 5, 1, 0) != 0){
+    if (lua_pcall(L, 5, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __DoDamageResistance : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;

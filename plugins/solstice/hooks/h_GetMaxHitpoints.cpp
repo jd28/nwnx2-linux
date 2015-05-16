@@ -21,16 +21,17 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-int Hook_GetMaxHitpoints (CNWSCreature  *cre, int32_t dunno) {
-    if(cre == NULL || cre->cre_stats == NULL)
+int Hook_GetMaxHitpoints(CNWSCreature  *cre, int32_t dunno)
+{
+    if (cre == NULL || cre->cre_stats == NULL)
         return 0;
 
-    if(!nl_pushfunction(L, "__GetMaxHitpoints"))
+    if (!nl_pushfunction(L, "__GetMaxHitpoints"))
         return 0;
 
     lua_pushinteger(L, cre->obj.obj_id);
 
-    if (lua_pcall(L, 1, 1, 0) != 0){
+    if (lua_pcall(L, 1, 1, 0) != 0) {
         solstice.Log(0, "SOLSTICE: __GetMaxHitpoints : %s\n", lua_tostring(L, -1));
         lua_pop(L, 1);
         return 0;

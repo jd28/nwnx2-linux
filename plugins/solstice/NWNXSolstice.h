@@ -92,8 +92,8 @@ public:
 
     std::string GetConf(const char* key);
     bool InitializeEventHandlers();
-    bool OnCreate(gline *nwnxConfig, const char *LogDir=NULL);
-    char* OnRequest (char* gameObject, char* Request, char* Parameters);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
+    char* OnRequest(char* gameObject, char* Request, char* Parameters);
     //unsigned long OnRequestObject (char *gameObject, char* Request);
     bool OnRelease();
     void Initialize();

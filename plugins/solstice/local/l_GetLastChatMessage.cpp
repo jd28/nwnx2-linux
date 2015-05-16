@@ -21,6 +21,7 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-ChatMessage *Local_GetLastChatMessage() {
+ChatMessage *Local_GetLastChatMessage()
+{
     return solstice.last_chat_msg;
 }

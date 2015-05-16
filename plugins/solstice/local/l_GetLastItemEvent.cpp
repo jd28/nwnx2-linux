@@ -20,6 +20,7 @@
 
 extern CNWNXSolstice solstice;
 
-ItemEvent *Local_GetLastItemEvent(){
+ItemEvent *Local_GetLastItemEvent()
+{
     return solstice.last_item_event;
 }

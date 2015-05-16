@@ -20,7 +20,8 @@
 
 extern CNWNXSolstice solstice;
 
-void Local_SetDamageInfo(int32_t index, const char* name, const char* color) {
+void Local_SetDamageInfo(int32_t index, const char* name, const char* color)
+{
     if (index < 0 || index >= DAMAGE_INDEX_NUM) { return; }
 
     solstice.damage_names[index] = name;

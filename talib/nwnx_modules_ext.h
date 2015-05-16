@@ -32,7 +32,6 @@ typedef struct {
     uint32_t item;
     Vector   loc;
     bool     bypass;
-    bool     use_result;
     int32_t  result;
 } Event;
 
