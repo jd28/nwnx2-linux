@@ -6,7 +6,36 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${NWNX_OUTPUT_DIR})
 
 # You can exclude plugins from being built here.
 set(dont_build_plugins
+        # Obsolete
+        functions
+        reset
+        tmi
+        tweaks
 
+        # Broken
+        resman    # ...
+        resources
+        areas
+        physfs
+
+        # Don't use.
+        mnx
+        spells
+        connect
+        extend
+        profiler
+        optimizations
+        ruby
+        jvm
+        lua
+        names
+        visibility
+        serverlist
+        vaultster
+        weapons
+        defenses
+        statsd
+        mhash
 )
 
 # Compatibility with cmake 2.8.9 and above.
