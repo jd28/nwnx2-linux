@@ -1,0 +1,33 @@
+/***************************************************************************
+    Copyright (C) 2011-2013 jmd (jmd2028 at gmail dot com)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+***************************************************************************/
+
+// Engine hardcode spell gain tables to 40 it seems.  At least thats
+// what seems to be indicated by Acaos' structs.
+// One might be able to hack in a work around allowing spell gain past 40.
+
+#include "NWNXLevels.h"
+
+int8_t Hook_GetSpellGain(CNWClass *cls, uint8_t level, uint8_t spell_level){
+    if(level > 39)
+        level = 39;
+
+    if(cls->cl_num_spell_levels[level] > spell_level)
+        return cls->cl_spellgain_table[level][spell_level];
+
+    return -1;
+}
