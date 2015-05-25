@@ -12,12 +12,6 @@ set(dont_build_plugins
         tmi
         tweaks
 
-        # Broken
-        resman    # ...
-        resources
-        areas
-        physfs
-
         # Don't use.
         mnx
         spells
@@ -34,7 +28,6 @@ set(dont_build_plugins
         vaultster
         weapons
         defenses
-        statsd
         mhash
 )
 
