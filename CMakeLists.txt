@@ -15,7 +15,6 @@ set(dont_build_plugins
         # Don't use.
         mnx
         spells
-        connect
         extend
         profiler
         optimizations
