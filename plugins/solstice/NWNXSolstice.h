@@ -26,6 +26,7 @@
 #include "consts.h"
 #include "combat/dice.h"
 #include "coreevents/pluginlink.h"
+#include "effects/pluginlink.h"
 
 struct EffectData {
     CNWSObject *obj;
@@ -61,7 +62,8 @@ char* HandleRequest(CGameObject *ob, const char *request, char *value);
 
 ChatMessageEvent *Local_GetLastChatMessage();
 ChatCCMessageEvent *Local_GetLastCombatMessage();
-EventEffect      *Local_GetLastEffectEvent();
+EffectsCustomApplyEvent *Local_GetLastEffectApplyEvent();
+EffectsCustomRemoveEvent *Local_GetLastEffectRemoveEvent();
 ItemsInfoEvent   *Local_GetLastItemEvent();
 ItemsPropertyEvent *Local_GetLastItemPropEvent();
 Event            *Local_GetLastNWNXEvent();
@@ -80,13 +82,14 @@ bool init_event_handles();
 int Handle_ChatMessage(uintptr_t p);
 int Handle_CombatMessage(uintptr_t p);
 int Handle_ConversationEvent(uintptr_t p);
-int Handle_CustomEffectEvent(uintptr_t p);
 int Handle_ItemEvent(uintptr_t p);
 int Handle_Event(uintptr_t p);
 int Handle_ItemPropEvent(uintptr_t p);
 int Handle_PluginsLoaded(uintptr_t p);
 int Handle_RunScript(uintptr_t p);
 int Handle_RunScriptSituation(uintptr_t p);
+int Handle_EffectsCustomRemoveEvent(uintptr_t p);
+int Handle_EffectsCustomApplyEvent(uintptr_t p);
 
 class CNWNXSolstice : public CNWNXBase
 {
@@ -110,7 +113,8 @@ public:
     ChatCCMessageEvent *last_combat_msg;
     ChatMessageEvent   *last_chat_msg;
     ItemsPropertyEvent *last_ip_event;
-    EventEffect   *last_effect_event;
+    EffectsCustomApplyEvent  *last_effect_apply_event;
+    EffectsCustomRemoveEvent *last_effect_remove_event;
     ItemsInfoEvent     *last_item_event;
     uint32_t       lua_attacks = 0;
     uint32_t       nwn_attacks = 0;

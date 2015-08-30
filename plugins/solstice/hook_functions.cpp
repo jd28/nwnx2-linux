@@ -30,7 +30,7 @@ int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t, CNWSOb
 void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *) = NULL;
-
+int (*CExoArrayList__CGameEffect_Add)(CExoArrayList_ptr *list, CGameEffect *eff) = NULL;
 bool hook_functions()
 {
     HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
@@ -101,6 +101,11 @@ bool hook_functions()
     HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
     HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
 
+    nx_hook_function((void*)0x081D65D8,
+                     (void*)Hook_CExoArrayList_CGameEffect_Insert, 5, NX_HOOK_DIRECT);
+    HOOK(CNWSCreature__RemoveBadEffects, 0x0812DFB8,
+         Hook_RemoveBadEffects, 5);
+
     /*
         nx_hook_function((void*)0x0812e19c,
                          (void*)Hook_GetArmorClass,
@@ -148,5 +153,7 @@ bool hook_functions()
                          5, NX_HOOK_DIRECT);
 
     */
+
+    *(int*)&CExoArrayList__CGameEffect_Add = 0x08061028;
     return true;
 }

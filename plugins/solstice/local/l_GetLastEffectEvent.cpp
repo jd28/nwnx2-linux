@@ -20,7 +20,12 @@
 
 extern CNWNXSolstice solstice;
 
-EventEffect *Local_GetLastEffectEvent()
+EffectsCustomApplyEvent *Local_GetLastEffectApplyEvent()
 {
-    return solstice.last_effect_event;
+    return solstice.last_effect_apply_event;
+}
+
+EffectsCustomRemoveEvent *Local_GetLastEffectRemoveEvent()
+{
+    return solstice.last_effect_remove_event;
 }

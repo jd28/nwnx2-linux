@@ -16,9 +16,11 @@ extern int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t,
 extern void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
 extern void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int);
 extern void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *);
+extern int (*CExoArrayList__CGameEffect_Add)(CExoArrayList_ptr *list, CGameEffect *eff);
 
 int32_t Hook_GetArmorClass(CNWSCreature *cre);
-
+void Hook_RemoveBadEffects(CNWSCreature *cre);
+void Hook_CExoArrayList_CGameEffect_Insert(CExoArrayList_ptr *list, CGameEffect *eff, int location);
 
 int32_t Hook_GetEffectImmunity(CNWSCreatureStats *stats, uint8_t immunity,
                                CNWSCreature *vs);

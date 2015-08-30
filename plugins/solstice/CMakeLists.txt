@@ -50,6 +50,8 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_ResolveRangedAttack
     hooks/h_SetCombatMode
     hooks/h_UpdateCombatInformation
+    hooks/h_RemoveBadEffects
+    hooks/h_CExoArrayList_CGameEffect_Insert
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg
     local/l_GetLastEffectEvent
