@@ -12,7 +12,7 @@ int Handle_RunScript(uintptr_t p)
         return 0;
 
     (*NWN_VirtualMachine)->vm_object_id[(*NWN_VirtualMachine)->vm_recursion_level] = s->objectId;
-    (*NWN_VirtualMachine)->vm_valid_obj[(*NWN_VirtualMachine)->vm_recursion_level] = s->validObject;
+    (*NWN_VirtualMachine)->vm_valid_obj[(*NWN_VirtualMachine)->vm_recursion_level] = s->recursionLevel;
     (*NWN_VirtualMachine)->vm_implementer->vmc_object_id = s->objectId;
 
     lua_pushstring(L, s->resref);

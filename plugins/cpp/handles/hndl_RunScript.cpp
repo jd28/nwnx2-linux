@@ -19,7 +19,7 @@ int Handle_RunScript(uintptr_t p)
     }
     int rec = g_pVirtualMachine->RecursionLevel;
     g_pVirtualMachine->ObjectID[rec] = s->objectId;
-    g_pVirtualMachine->m_bValidObjectRunScript[rec] = s->validObject;
+    g_pVirtualMachine->m_bValidObjectRunScript[rec] = s->recursionLevel;
     g_pVirtualMachine->m_pCmdImplementer->ObjectID = s->objectId;
 
     s->suppress = true;

@@ -7,7 +7,7 @@
 
 #include "NWNXBase.h"
 #include "ScriptManager.h"
-#include "../coreevents/pluginlink.h"
+#include "core/pluginlink.h"
 
 int Handle_PluginsLoaded(uintptr_t e);
 int Handle_RunScript(uintptr_t p);

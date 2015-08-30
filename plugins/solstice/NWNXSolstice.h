@@ -25,7 +25,7 @@
 #include "talib/nwn/all.h"
 #include "consts.h"
 #include "combat/dice.h"
-#include "coreevents/pluginlink.h"
+#include "core/pluginlink.h"
 #include "effects/pluginlink.h"
 
 struct EffectData {

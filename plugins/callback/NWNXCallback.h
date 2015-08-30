@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 #include "NWNXBase.h"
-#include "../coreevents/pluginlink.h"
+#include "core/pluginlink.h"
 #include "api/all.h"
 
 int Handle_PluginsLoaded(uintptr_t e);
