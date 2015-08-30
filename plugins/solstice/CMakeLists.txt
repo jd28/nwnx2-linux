@@ -49,7 +49,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_ResolveMeleeAttack
     hooks/h_ResolveRangedAttack
     hooks/h_SetCombatMode
-    hooks/h_ToggleMode
     hooks/h_UpdateCombatInformation
     local/l_GetLastChatMessage
     local/l_GetLastCombatMsg

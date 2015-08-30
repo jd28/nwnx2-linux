@@ -5,7 +5,6 @@ int8_t  Hook_GetFeatTotalUses(CNWSCreatureStats *stats, uint16_t feat);
 int     Hook_GetMaxHitpoints (CNWSCreature  *cre, int32_t dunno);
 int     Hook_GetRunScriptReturnValue(CVirtualMachine *vm, int* a, void** b);
 void    Hook_SetCombatMode(CNWSCreature *cre, int8_t mode, int32_t change);
-int32_t Hook_ToggleMode(CNWSCreature *cre, uint8_t mode);
 void    Hook_AddAttackOfOpportunity(CNWSCombatRound *cr, uint32_t target);
 int32_t Hook_LoadModuleStart(CNWSModule *mod, void *a2);
 void    Hook_ResolveRangedAttack(CNWSCreature *attacker, CNWSObject *obj, int attack_count, int a);
