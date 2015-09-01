@@ -12,3 +12,10 @@ void nwn_BootPCWithMessage(nwn_objid_t id, int32_t strref) {
                                     pl->pl_id, strref, 1);
     }
 }
+
+char *nwn_GetPCFileName(uint32_t id)
+{
+    const CNWSPlayer *pl = CServerExoApp__GetClientObjectByObjectId((*NWN_AppManager)->app_server,id);
+    if (pl == NULL) { return NULL; }
+    return strndup(pl->pl_bicfile, 16);
+}
