@@ -2,6 +2,7 @@
 #define NWNX_SCRIPT_LIB_H
 
 #include <stdint.h>
+#include "../typedef.h"
 
 #define ENGINE_NUM_STRUCTURES           5
 #define ENGINE_STRUCTURE_EFFECT         0
@@ -10,7 +11,6 @@
 #define ENGINE_STRUCTURE_TALENT         3
 #define ENGINE_STRUCTURE_ITEMPROPERTY   4
 
-typedef unsigned long nwobjid;
 class Vector;
 
 extern const nwobjid OBJECT_SELF;

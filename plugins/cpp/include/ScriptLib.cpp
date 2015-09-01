@@ -108,7 +108,7 @@ Vector *nwn_StackPopVector()
 
 nwobjid nwn_StackPopObject()
 {
-    nwobjid result;
+    unsigned long result;
     g_pVirtualMachine->StackPopObject(&result);
     return result;
 }
