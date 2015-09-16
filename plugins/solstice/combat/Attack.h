@@ -24,8 +24,6 @@ public:
     CNWSCreature         *attacker_nwn;
     CNWSObject           *target_nwn;
 
-    void                 *attacker_ci;
-    void                 *target_ci;
     CNWSCombatAttackData *attack;
     int32_t               weapon;
     int32_t               ranged_type = 0;
