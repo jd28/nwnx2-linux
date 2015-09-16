@@ -58,6 +58,7 @@ void talib_init() {
     SET(CNWSCombatRound__AddCleaveAttack,           0x080e2e4c);
     SET(CNWSCombatRound__AddParryAttack,            0x080E2BE4);
     SET(CNWSCombatRound__AddParryIndex,             0x080E2D40);
+    SET(CNWSCombatRound__AddSpecialAttack,          0x080E2494);
     SET(CNWSCombatRound__CalculateOffHandAttacks,   0x080E1D50);
     SET(CNWSCombatRound__GetAttack,                 0x080e522c);
     SET(CNWSCombatRound__GetTotalAttacks,           0x080e5534);
@@ -65,6 +66,7 @@ void talib_init() {
     SET(CNWSCombatRound__SetPauseTimer,             0x080E4E78);
     SET(CNWSCombatRound__SetRoundPaused,            0x080E4DF8);
 
+    SET(CNWSCreature__AddAttackActions,             0x081188D4);
     SET(CNWSCreature__AddToArea,                    0x08118D20);
     SET(CNWSCreature__ApplyOnHitDeathAttack,        0x080f34d8);
     SET(CNWSCreature__ApplyOnHitCastSpell,          0x080ECCF8);

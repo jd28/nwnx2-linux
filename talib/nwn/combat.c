@@ -112,3 +112,11 @@ void nwn_ResolveOnHitEffect(CNWSCreature *cre, CNWSObject* target, bool offhand,
 void nwn_ApplyOnHitDeathAttack(CNWSCreature *cre, CNWSObject *target, int32_t dc) {
     CNWSCreature__ApplyOnHitDeathAttack(cre, target, dc);
 }
+
+void nwn_AddSpecialAttack(CNWSCombatRound *cr, int16_t specattack) {
+    CNWSCombatRound__AddSpecialAttack(cr, specattack);
+}
+
+void nwn_AddAttackActions(CNWSCreature *cre, uint32_t target) {
+    CNWSCreature__AddAttackActions(cre, target, 0, 0, 0);
+}
