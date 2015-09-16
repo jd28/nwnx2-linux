@@ -52,30 +52,6 @@ void CNWNXItems::FireEvent(int32_t type, uint32_t obj_id, uint32_t item_id) {
     in_script = false;
 }
 
-bool CNWNXItems::ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, uint32_t slot) {
-    in_script = true;
-
-    ip_event.obj = obj;
-    ip_event.item = item;
-    ip_event.ip = ip;
-    ip_event.suppress = false;
-    ip_event.remove = removal;
-    ip_event.slot = slot;
-
-    int notifyRet = NotifyEventHooks(hOnItemPropertyEvent, (uintptr_t)&ip_event);
-
-    if ( !notifyRet                       &&
-         !ip_scripts[ip->ip_type].empty() &&
-         ip_scripts.find(ip->ip_type) != ip_scripts.end() ) {
-        nwn_ExecuteScript((char*)ip_scripts[ip->ip_type].c_str(), obj->obj.obj_id);
-    }
-
-    in_script = false;
-
-    return ip_event.suppress;
-}
-
-
 bool CNWNXItems::OnCreate (gline *config, const char* LogDir)
 {
     char log[128];
@@ -104,7 +80,6 @@ bool CNWNXItems::OnCreate (gline *config, const char* LogDir)
     }
 
     hItemEvent = CreateHookableEvent(EVENT_ITEMS_INFO);
-    hOnItemPropertyEvent = CreateHookableEvent(EVENT_ITEMS_PROPERTY);
 
     talib_init();
     hook_functions();

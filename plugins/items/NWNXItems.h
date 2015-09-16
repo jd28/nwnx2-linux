@@ -47,7 +47,6 @@ bool Local_GetIsHelmetHidden(CNWSCreature *cre);
 
 class CNWNXItems : public CNWNXBase {
     HANDLE hItemEvent;
-    HANDLE hOnItemPropertyEvent;
 
 public:
     CNWNXItems();
@@ -59,13 +58,10 @@ public:
     bool OnRelease();
 
     void FireEvent(int32_t type, uint32_t obj_id, uint32_t item_id);
-    bool ItempropEvent(CNWSCreature *obj, CNWSItem *item, CNWItemProperty *ip, bool removal, uint32_t slot);
 
     std::string event_scripts[ITEMS_EVENT_NUM];
     bool in_script;
-    ItemsPropertyEvent ip_event;
     ItemsInfoEvent event;
-    std::map<int, std::string> ip_scripts;
     bool override_proficiencies = false;
 };
 

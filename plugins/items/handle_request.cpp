@@ -17,7 +17,6 @@
 ***************************************************************************/
 
 #include "NWNXItems.h"
-#include "funcs.h"
 
 extern CNWNXItems items;
 
@@ -46,10 +45,7 @@ char * HandleRequest(CGameObject *ob, const char *request, char *value) {
 
     }
     else {
-        if ( M(request, "SETITEMPROPANDLER") ){
-            Func_SetItempropHandler(ob, value);
-        }
-        else if( M(request, "SET_ITEMS_HANDLER_") ) {
+        if( M(request, "SET_ITEMS_HANDLER_") ) {
             int ev_num = atoi(request + 18);
 	    
             if( ev_num < 0 || ev_num >= ITEMS_EVENT_NUM ) {

@@ -19,9 +19,6 @@
 #ifndef NWNX_ITEMS_HOOKS_H
 #define NWNX_ITEMS_HOOKS_H
 
-extern int (*CServerAIMaster__OnItemPropertyApplied_orig)(CServerAIMaster *, CNWSItem *, CNWItemProperty *, CNWSCreature *, uint32_t, int32_t);
-extern int (*CServerAIMaster__OnItemPropertyRemoved_orig)(CServerAIMaster *, CNWSItem *, CNWItemProperty *, CNWSCreature *, uint32_t);
-
 uint32_t Hook_CalculateBaseCosts (CNWSItem *item);
 int Hook_CanEquipItem(CNWSCreature *cre, CNWSItem *item, uint32_t *d, int a, int b, int c, CNWSPlayer *pc);
 int Hook_CanUnequipItem(CNWSCreature *cre, CNWSItem *item);
@@ -31,10 +28,6 @@ int32_t Hook_CanUseItem(CNWSCreature *cre, CNWSItem *item, int32_t a);
 void Hook_GetIsHelmetHidden1();
 void Hook_GetIsHelmetHidden2();
 int8_t Hook_GetMinEquipLevel (CNWSItem *item);
-int Hook_OnItemPropertyApplied(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip,
-                               CNWSCreature *cre, uint32_t slot, int b);
-int Hook_OnItemPropertyRemoved(CServerAIMaster *ai, CNWSItem *item, CNWItemProperty *ip,
-                               CNWSCreature *cre, uint32_t slot);
 uint32_t Hook_UpdateAppearanceForEquips(CNWSCreature *cre);
 
 #endif // NWNX_ITEMS_HOOKS_H

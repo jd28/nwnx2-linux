@@ -4,8 +4,6 @@ include_directories(. ../../talib)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 add_module(items NWNXItems plugin-items
-    funcs/f_SetItempropHandler
-
     handle_request
     hook_funcs
     hooks/h_CalculateBaseCosts
@@ -16,12 +14,10 @@ add_module(items NWNXItems plugin-items
     hooks/h_ComputeWeight
     hooks/h_GetIsHelmetHidden
     hooks/h_GetMinEquipLevel
-    hooks/h_OnItemPropertyApplied
-    hooks/h_OnItemPropertyRemoved
     hooks/h_UpdateAppearanceForEquips
 
     local/l_GetIsHelmetHidden
-
+    pluginlink.h
     ../../talib/nwn/all
 )
 
