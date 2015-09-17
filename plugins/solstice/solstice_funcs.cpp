@@ -22,7 +22,7 @@ void ns_DelayCommand(uint32_t objid, float delay, uint32_t token)
     // delay command: $
     // We only need to save the running script name for profiling
     // purposes.
-    vms->vms_name.text = strdup(COMMAND_MARKER_DELAY);
+    vms->vms_name.text = strdup("$solstice");
     vms->vms_stack = NULL;
     vms->vms_code = NULL;
     vms->vms_stack_size = token;
@@ -45,7 +45,7 @@ void ns_ActionDoCommand(CNWSObject * obj, uint32_t token)
     vms->vms_stack = NULL;
     vms->vms_code = NULL;
     vms->vms_stack_size = token;
-    vms->vms_name.text = strdup(COMMAND_MARKER_DO);
+    vms->vms_name.text = strdup("$solstice");
 
     nwn_DoCommand(obj, vms);
 

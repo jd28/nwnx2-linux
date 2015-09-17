@@ -26,13 +26,6 @@ extern "C" {
 #include "lualib.h"
 #include "lauxlib.h"
 
-#define COMMAND_TYPE_DELAY      0
-#define COMMAND_TYPE_DO         1
-#define COMMAND_TYPE_REPEAT     2
-#define COMMAND_MARKER_DELAY    "$"
-#define COMMAND_MARKER_DO       "&"
-#define COMMAND_MARKER_REPEAT   "*"
-
 void lua_stackdump(lua_State *stack);
 const char *lua_gettrace(lua_State *L);
 int nl_pushfunction(lua_State *L, const char* name);
