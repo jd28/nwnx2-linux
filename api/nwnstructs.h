@@ -114,7 +114,7 @@ struct CNWSObjectMethods {
     /* 0xC/12 */ unsigned long SetId;
     /* 0x10/16 */ unsigned long ResetUpdateTimes;
     /* 0x14/20 */ void *AsNWCObject;
-    /* 0x18/24 */ void *AsNWSObject;
+    /* 0x18/24 */ CNWSObject *(*AsNWSObject)(void*);
     /* 0x1C/28 */ unsigned long AsNWCDoor;
     /* 0x20/32 */ void *AsNWSDoor;
     /* 0x24/36 */ unsigned long AsNWCModule;

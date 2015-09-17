@@ -36,7 +36,7 @@ public:
     /* 0x4/4 */ unsigned long field_4;
     /* 0x8/8 */ unsigned short Type;
     /* 0xA/10 */ unsigned short SubType;
-    /* 0xC/12 */ unsigned long Duration;
+    /* 0xC/12 */ float Duration;
     /* 0x10/16 */ unsigned long ExpireDay;
     /* 0x14/20 */ unsigned long ExpireTime;
     /* 0x18/24 */ unsigned long CreatorId;
@@ -47,7 +47,7 @@ public:
     /* 0x2C/44 */ unsigned long LinkLeft;
     /* 0x30/48 */ unsigned long LinkRight;
     /* 0x34/52 */ unsigned long NumIntegers;
-    /* 0x38/56 */ unsigned long IntList;
+    /* 0x38/56 */ int32_t* IntList;
     /* 0x3C/60 */ float FloatList[4];
     /* 0x4C/76 */ CExoString StringList[6];
     /* 0x7C/124 */ unsigned long ObjectList[4];
