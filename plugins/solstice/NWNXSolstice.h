@@ -60,8 +60,6 @@ bool hook_functions();
 
 char* HandleRequest(CGameObject *ob, const char *request, char *value);
 
-ChatMessageEvent *Local_GetLastChatMessage();
-ChatCCMessageEvent *Local_GetLastCombatMessage();
 EffectsCustomApplyEvent *Local_GetLastEffectApplyEvent();
 EffectsCustomRemoveEvent *Local_GetLastEffectRemoveEvent();
 ItemsInfoEvent   *Local_GetLastItemEvent();
@@ -79,15 +77,12 @@ EffectData       *Local_GetLastEffect();
 
 bool init_event_handles();
 
-int Handle_ChatMessage(uintptr_t p);
-int Handle_CombatMessage(uintptr_t p);
 int Handle_ConversationEvent(uintptr_t p);
 int Handle_ItemEvent(uintptr_t p);
 int Handle_Event(uintptr_t p);
 int Handle_ItemPropEvent(uintptr_t p);
 int Handle_PluginsLoaded(uintptr_t p);
 int Handle_RunScript(uintptr_t p);
-int Handle_RunScriptSituation(uintptr_t p);
 int Handle_EffectsCustomRemoveEvent(uintptr_t p);
 int Handle_EffectsCustomApplyEvent(uintptr_t p);
 
@@ -110,8 +105,6 @@ public:
     int            in_conditional_script;
     int            lua_last_return;
     Event         *last_event;
-    ChatCCMessageEvent *last_combat_msg;
-    ChatMessageEvent   *last_chat_msg;
     ItemsPropertyEvent *last_ip_event;
     EffectsCustomApplyEvent  *last_effect_apply_event;
     EffectsCustomRemoveEvent *last_effect_remove_event;

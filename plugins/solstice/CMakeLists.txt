@@ -29,14 +29,11 @@ add_module(solstice NWNXSolstice plugin-solstice
     solstice_funcs
     ${SOLSTICE_LUAFUNCS_SRC}
     ${SOLSTICE_FUNCS_SRC}
-    handles/hndl_ChatMessage
-    handles/hndl_CombatMessage
     handles/hndl_EffectEvent
     handles/hndl_ItemEvent
     handles/hndl_Event
     handles/hndl_ItemPropEvent
     handles/hndl_RunScript
-    handles/hndl_RunScriptSituation
     handles/hndl_PluginsLoaded
     hooks/h_Effects
     hooks/h_Combat
@@ -52,8 +49,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_UpdateCombatInformation
     hooks/h_RemoveBadEffects
     hooks/h_CExoArrayList_CGameEffect_Insert
-    local/l_GetLastChatMessage
-    local/l_GetLastCombatMsg
     local/l_GetLastEffectEvent
     local/l_GetLastItemEvent
     local/l_GetLastItemPropEvent

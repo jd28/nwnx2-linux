@@ -149,23 +149,6 @@ bool CNWNXSolstice::InitializeEventHandlers()
         result = false;
     }
 
-    if (!HookEvent(EVENT_CORE_RUNSCRIPT_SITUATION, Handle_RunScriptSituation)) {
-        Log(0, "Cannot hook EVENT_CORE_RUNSCRIPT_SITUATION!\n");
-        result = false;
-    }
-
-    HANDLE handleChatMessage = HookEvent(EVENT_CHAT_MESSAGE, Handle_ChatMessage);
-    if (!handleChatMessage) {
-        Log(0, "Cannot hook EVENT_CHAT_MESSAGE!\n");
-        result = false;
-    }
-
-    HANDLE handleCCMessage = HookEvent(EVENT_CHAT_CCMESSAGE, Handle_CombatMessage);
-    if (!handleCCMessage) {
-        Log(0, "Cannot hook EVENT_CHAT_CCMESSAGE!\n");
-        result = false;
-    }
-
     HANDLE handleCustomEffectApplyEvent = HookEvent(EVENT_EFFECTS_CUSTOM_APPLY, Handle_EffectsCustomApplyEvent);
     if (!handleCustomEffectApplyEvent) {
         Log(0, "Cannot hook %s!\n", EVENT_EFFECTS_CUSTOM_APPLY);
