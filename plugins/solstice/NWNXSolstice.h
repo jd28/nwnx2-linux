@@ -59,8 +59,6 @@ bool hook_functions();
 
 char* HandleRequest(CGameObject *ob, const char *request, char *value);
 
-ItemsInfoEvent   *Local_GetLastItemEvent();
-Event            *Local_GetLastNWNXEvent();
 void              Local_NWNXLog(int level, const char* log);
 void              Local_SetDamageInfo(int32_t index, const char* name, const char* color);
 void              Local_SetCombatEngineActive(bool active);
@@ -73,9 +71,6 @@ EffectData       *Local_GetLastEffect();
 
 bool init_event_handles();
 
-int Handle_ConversationEvent(uintptr_t p);
-int Handle_ItemEvent(uintptr_t p);
-int Handle_Event(uintptr_t p);
 int Handle_PluginsLoaded(uintptr_t p);
 int Handle_RunScript(uintptr_t p);
 
@@ -97,8 +92,6 @@ public:
     bool combat_engine_active = false;
     int            in_conditional_script;
     int            lua_last_return;
-    Event         *last_event;
-    ItemsInfoEvent     *last_item_event;
     uint32_t       lua_attacks = 0;
     uint32_t       nwn_attacks = 0;
     uint64_t       lua_time = 0;

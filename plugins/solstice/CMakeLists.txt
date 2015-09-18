@@ -29,8 +29,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     solstice_funcs
     ${SOLSTICE_LUAFUNCS_SRC}
     ${SOLSTICE_FUNCS_SRC}
-    handles/hndl_ItemEvent
-    handles/hndl_Event
     handles/hndl_RunScript
     handles/hndl_PluginsLoaded
     hooks/h_Effects
@@ -47,8 +45,6 @@ add_module(solstice NWNXSolstice plugin-solstice
     hooks/h_UpdateCombatInformation
     hooks/h_RemoveBadEffects
     hooks/h_CExoArrayList_CGameEffect_Insert
-    local/l_GetLastItemEvent
-    local/l_GetLastNWNXEvent
     local/l_NWNXLog
     local/l_SetDamageInfo
     local/l_SetCombatEngineActive

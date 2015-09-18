@@ -147,17 +147,5 @@ bool CNWNXSolstice::InitializeEventHandlers()
         result = false;
     }
 
-    HANDLE handleItemEvent = HookEvent(EVENT_ITEMS_INFO, Handle_ItemEvent);
-    if (!handleItemEvent) {
-        Log(0, "Cannot hook EVENT_ITEMS_INFO!\n");
-        result = false;
-    }
-
-    HANDLE handleEvent = HookEvent(NWNX_EVENTS_EVENT, Handle_Event);
-    if (!handleEvent) {
-        Log(0, "Cannot hook Events/Event!\n");
-        result = false;
-    }
-
     return result;
 }
