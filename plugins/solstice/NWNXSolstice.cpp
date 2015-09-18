@@ -39,8 +39,6 @@ CNWNXSolstice::CNWNXSolstice()
     talib_init();
     damage_names.resize(DAMAGE_INDEX_NUM, "");
     damage_colors.resize(DAMAGE_INDEX_NUM, "");
-    last_effect_remove_event = nullptr;
-    last_effect_apply_event = nullptr;
 }
 
 CNWNXSolstice::~CNWNXSolstice()
@@ -149,21 +147,6 @@ bool CNWNXSolstice::InitializeEventHandlers()
         result = false;
     }
 
-    HANDLE handleCustomEffectApplyEvent = HookEvent(EVENT_EFFECTS_CUSTOM_APPLY, Handle_EffectsCustomApplyEvent);
-    if (!handleCustomEffectApplyEvent) {
-        Log(0, "Cannot hook %s!\n", EVENT_EFFECTS_CUSTOM_APPLY);
-        result = false;
-    }
-
-
-    HANDLE handleCustomEffectRemoveEvent = HookEvent(EVENT_EFFECTS_CUSTOM_REMOVE, Handle_EffectsCustomRemoveEvent);
-    if (!handleCustomEffectRemoveEvent) {
-        Log(0, "Cannot hook %s!\n", EVENT_EFFECTS_CUSTOM_REMOVE);
-        result = false;
-    }
-
-
-
     HANDLE handleItemEvent = HookEvent(EVENT_ITEMS_INFO, Handle_ItemEvent);
     if (!handleItemEvent) {
         Log(0, "Cannot hook EVENT_ITEMS_INFO!\n");
@@ -173,12 +156,6 @@ bool CNWNXSolstice::InitializeEventHandlers()
     HANDLE handleEvent = HookEvent(NWNX_EVENTS_EVENT, Handle_Event);
     if (!handleEvent) {
         Log(0, "Cannot hook Events/Event!\n");
-        result = false;
-    }
-
-    HANDLE handleItemPropEvent = HookEvent(EVENT_ITEMS_PROPERTY, Handle_ItemPropEvent);
-    if (!handleItemPropEvent) {
-        Log(0, "Cannot hook EVENT_ITEMS_PROPERTY\n");
         result = false;
     }
 

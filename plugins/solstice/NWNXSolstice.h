@@ -26,7 +26,6 @@
 #include "consts.h"
 #include "combat/dice.h"
 #include "core/pluginlink.h"
-#include "effects/pluginlink.h"
 
 struct EffectData {
     CNWSObject *obj;
@@ -60,10 +59,7 @@ bool hook_functions();
 
 char* HandleRequest(CGameObject *ob, const char *request, char *value);
 
-EffectsCustomApplyEvent *Local_GetLastEffectApplyEvent();
-EffectsCustomRemoveEvent *Local_GetLastEffectRemoveEvent();
 ItemsInfoEvent   *Local_GetLastItemEvent();
-ItemsPropertyEvent *Local_GetLastItemPropEvent();
 Event            *Local_GetLastNWNXEvent();
 void              Local_NWNXLog(int level, const char* log);
 void              Local_SetDamageInfo(int32_t index, const char* name, const char* color);
@@ -80,11 +76,8 @@ bool init_event_handles();
 int Handle_ConversationEvent(uintptr_t p);
 int Handle_ItemEvent(uintptr_t p);
 int Handle_Event(uintptr_t p);
-int Handle_ItemPropEvent(uintptr_t p);
 int Handle_PluginsLoaded(uintptr_t p);
 int Handle_RunScript(uintptr_t p);
-int Handle_EffectsCustomRemoveEvent(uintptr_t p);
-int Handle_EffectsCustomApplyEvent(uintptr_t p);
 
 class CNWNXSolstice : public CNWNXBase
 {
@@ -105,9 +98,6 @@ public:
     int            in_conditional_script;
     int            lua_last_return;
     Event         *last_event;
-    ItemsPropertyEvent *last_ip_event;
-    EffectsCustomApplyEvent  *last_effect_apply_event;
-    EffectsCustomRemoveEvent *last_effect_remove_event;
     ItemsInfoEvent     *last_item_event;
     uint32_t       lua_attacks = 0;
     uint32_t       nwn_attacks = 0;
