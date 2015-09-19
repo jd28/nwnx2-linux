@@ -169,6 +169,9 @@ void talib_init() {
 
     SET(CServerExoApp__GetClientObjectByPlayerId,   0x080B24D0);
     SET(CServerExoApp__GetNWSMessage,               0x080B1F54);
+
+    SET(CTlkTable__GetSimpleString, 0x082B4AF8);
+
     SET(CTwoDimArrays__GetEpicFortSaveBonus,        0x080B9A04);
     SET(CTwoDimArrays__GetEpicRefSaveBonus,         0x080B9A24);
     SET(CTwoDimArrays__GetEpicWillSaveBonus,        0x080B9A48);

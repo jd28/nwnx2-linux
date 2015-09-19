@@ -4476,7 +4476,7 @@ extern int (*CTlkTable__CloseFile)(CTlkTable *, CTlkFile **);
 extern int (*CTlkTable__CloseFileAlternate)(CTlkTable *);
 extern int (*CTlkTable__ExoIsDBCSLeadByte)(CTlkTable *, uint8_t);
 extern int (*CTlkTable__GetLanguageVersion)(CTlkTable *);
-extern int (*CTlkTable__GetSimpleString)(CTlkTable *, uint32_t);
+extern CExoString (*CTlkTable__GetSimpleString)(CTlkTable *, uint32_t);
 extern int (*CTlkTable__GetTokenValue)(CTlkTable *, CTlkTableToken const *, CExoString *);
 extern int (*CTlkTable__OpenFile_1)(CTlkTable *, CExoString const *, CTlkFile **);
 extern int (*CTlkTable__OpenFile_2)(CTlkTable *, CExoString);
