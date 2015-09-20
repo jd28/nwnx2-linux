@@ -44,7 +44,7 @@ struct CNWSModule_s {
     uint32_t                    field_44;                                                               /* 0x0044 */
     uint32_t                    field_48;                                                               /* 0x0048 */
     CExoLinkedList              mod_PlayerTURDList;                                             /* 0x004C-50 */
-    
+
     CExoLocString               *mod_description;                                               /* 0x0050-54 */
     CExoString                  mod_custom_tlk;                                                 /* 0x0058-5C */
 
@@ -58,12 +58,12 @@ struct CNWSModule_s {
     uint32_t                    mod_1;                                                          /* 0x0080 */
     CExoLocString               mod_name;                                                       /* 0x0084 */
     CExoStringList              mod_haks;                                                               /* 0x008C */
-    CResRef                     mod_dunno;                              /* 0x0098 */ 
+    CResRef                     mod_dunno;                              /* 0x0098 */
     CNWSScriptVarTable          mod_vartable;                           /* 0x00A8 */
-    uint32_t                    field_B0;                               /* 0x00B0 */    
+    uint32_t                    field_B0;                               /* 0x00B0 */
     uint32_t                    field_B4;                               /* 0x00B4 */
     CExoString                  mod_scripts[18];                        /* 0x00B8 */
-    uint32_t                    field_144;                              /* 0x0144 */    
+    uint32_t                    field_144;                              /* 0x0144 */
     uint32_t                    field_148;                              /* 0x0148 */
     uint32_t                    field_14C;                              /* 0x014C */
     uint32_t                    field_150;                              /* 0x0150 */
@@ -74,13 +74,13 @@ struct CNWSModule_s {
     uint32_t                    field_160;                              /* 0x0160 */
     uint32_t                    field_164;                              /* 0x0164 */
     nwn_objid_t                 mod_last_enter;                                 /* 0x016C */
-    nwn_objid_t                 mod_last_exit;                                  /* 0x0170 */    
-    nwn_objid_t                 mod_last_item_aquired;                          /* 0x0174 */    
-    nwn_objid_t                 mod_last_item_aquired_from;                     /* 0x0178 */    
-    nwn_objid_t                 mod_last_item_aquired_by;                       /* 0x017C */    
-    uint32_t                    field_180;                                      /* 0x0180 */    
+    nwn_objid_t                 mod_last_exit;                                  /* 0x0170 */
+    nwn_objid_t                 mod_last_item_aquired;                          /* 0x0174 */
+    nwn_objid_t                 mod_last_item_aquired_from;                     /* 0x0178 */
+    nwn_objid_t                 mod_last_item_aquired_by;                       /* 0x017C */
+    uint32_t                    field_180;                                      /* 0x0180 */
     uint32_t                    field_184;                                      /* 0x0184 */
-    uint32_t                    mod_last_item_aquired_stack_size;               /* 0x0188 */    
+    uint32_t                    mod_last_item_aquired_stack_size;               /* 0x0188 */
     uint32_t                    field_18C;                                      /* 0x018C */
     uint32_t                    field_190;                                      /* 0x0190 */
     uint32_t                    field_194;                                      /* 0x0194 */
@@ -99,26 +99,29 @@ struct CNWSModule_s {
     uint32_t                    mod_date_day;                                                   /* 0x01C8 */
     uint32_t                    mod_time_hour;                                                  /* 0x01CC */
     uint32_t                    field_1D0;                                      /* 0x01D0 */
-    uint32_t                    field_1D4;                                      /* 0x01D4 */    
+    uint32_t                    field_1D4;                                      /* 0x01D4 */
     uint8_t                     mod_min_per_hour;                               /* 0x01D8 */
     uint8_t                     mod_dawnhour;                                   /* 0x01D9 */
     uint8_t                     mod_duskhour;                                   /* 0x01DA */
     uint8_t                     mod_start_month;                                /* 0x01DB */
     uint8_t                     mod_start_day;                                                  /* 0x01DC */
-    uint8_t                     mod_start_hour;                                                 /* 0x01DD */    
-    uint8_t                     mod_xp_scale;                                                   /* 0x01DE */    
+    uint8_t                     mod_start_hour;                                                 /* 0x01DD */
+    uint8_t                     mod_xp_scale;                                                   /* 0x01DE */
     uint8_t                     field_1DF;                                                              /* 0x01DF */
     uint32_t                    mod_start_year;                                 /* 0x01E0 */
     uint32_t                    field_1E4;                                      /* 0x01E4 */
     uint32_t                    field_1E8;                                      /* 0x01E8 */
     uint32_t                    field_1EC;                                      /* 0x01EC */
     uint32_t                    field_1F0;                                      /* 0x01F0 */
-    uint32_t                    field_1F4;                                      /* 0x01F4 */
+    uint8_t                     mod_time_of_day;                                /* 0x01F4 */
+    uint8_t                     field_1F5;                                      /* 0x01F5 */
+    uint8_t                     field_1F6;                                      /* 0x01F6 */
+    uint8_t                     field_1F7;                                      /* 0x01F7 */
     uint32_t                    field_1F8;                                      /* 0x01F8 */
     uint32_t                    field_1FC;                                      /* 0x01FC */
     uint32_t                    field_200;                                      /* 0x0200 */
     CExoArrayList_ptr           mod_world_journal_entry;                                /* 0x0204 */
-    uint8_t                     field_210;                                                              /* 0x0210 */    
+    uint8_t                     field_210;                                                              /* 0x0210 */
     uint32_t                    mod_max_henchmen;                               /* 0x0214 */
     nwn_objid_t                 *mod_limbo_list;                                                /* 0x0218 */
     uint32_t                    mod_limbo_list_len;                                             /* 0x021C */
@@ -135,7 +138,7 @@ struct CNWSModule_s {
     uint8_t                     mod_pc_pathfind_rule;                           /* 0x024C */
     uint8_t                     mod_enable_script_debugger;                     /* 0x024D */
     uint8_t                     field_24E;                                              /* 0x024E */
-    uint8_t                     field_24F;                                              /* 0x024F */    
+    uint8_t                     field_24F;                                              /* 0x024F */
     nwn_objid_t                 mod_last_pc_chat_obj;                           /* 0x0250 */
     CExoString                  mod_last_pc_chat;                               /* 0x0254 */
     uint32_t                    mod_last_pc_chat_type;                          /* 0x025C */
