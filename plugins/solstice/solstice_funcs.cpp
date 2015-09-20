@@ -49,7 +49,9 @@ void ns_ActionDoCommand(CNWSObject * obj, uint32_t token)
 
     nwn_DoCommand(obj, vms);
 
-    return;
+    solstice.Log(3, "DoCommand: id: %x, token: %d, scriptsit: %s\n",
+                 obj->obj_id, vms->vms_stack_size, vms->vms_name.text);
+
 }
 
 int ns_BitScanFFS(uint32_t mask)

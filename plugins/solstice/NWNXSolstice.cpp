@@ -15,10 +15,6 @@
 ***************************************************************************/
 
 #include "NWNXSolstice.h"
-#include "chat/pluginlink.h"
-#include "items/pluginlink.h"
-#include "events/pluginlink.h"
-#include "effects/pluginlink.h"
 
 static int dolibrary(lua_State *L, const char *name)
 {
@@ -142,10 +138,15 @@ bool CNWNXSolstice::InitializeEventHandlers()
 {
     bool result = true;
 
-    if (!HookEvent(EVENT_CORE_RUNSCRIPT, Handle_RunScript)) {
-        Log(0, "Cannot hook EVENT_CORE_RUNSCRIPT!\n");
-        result = false;
+#define EVENT(name, func) \
+    if (!HookEvent(name, func)) { \
+        Log(0, "Cannot hook %s!\n", name); \
+        result = false; \
     }
 
+    EVENT(EVENT_CORE_RUNSCRIPT, Handle_RunScript);
+    EVENT(EVENT_CORE_RUNSCRIPT_SITUATION, Handle_RunScriptSituation);
+
     return result;
+#undef EVENT
 }

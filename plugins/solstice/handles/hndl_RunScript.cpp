@@ -22,6 +22,7 @@ int Handle_RunScript(uintptr_t p)
         solstice.Log(0, "ERROR: %s on %x %s\n",
                      s->resref, s->objectId,
                      lua_tostring(L, -1));
+        lua_pop(L, 1);
         return 0;
     }
 
@@ -35,4 +36,38 @@ int Handle_RunScript(uintptr_t p)
     lua_pop(L, 2);
 
     return res;
+}
+
+int Handle_RunScriptSituation(uintptr_t p)
+{
+    CoreRunScriptSituationEvent *s = reinterpret_cast<CoreRunScriptSituationEvent *>(p);
+
+    if(!s || !s->marker) {
+        return 0;
+    }
+
+    if (strcmp(s->marker, "$solstice") != 0) {
+        return 0;
+    }
+
+    uint32_t temp = (*NWN_VirtualMachine)->vm_implementer->vmc_object_id;
+    (*NWN_VirtualMachine)->vm_implementer->vmc_object_id = s->objectId;
+
+    if (!nl_pushfunction(L, "_RUN_COMMAND"))
+        return 0;
+
+    lua_pushinteger(L, s->token);
+    lua_pushinteger(L, s->objectId);
+
+    if (lua_pcall(L, 2, 0, 0) != 0) {
+        solstice.Log(0, "Error: _RUN_COMMAND : %s\n", lua_tostring(L, -1));
+        lua_pop(L, 1);
+        return 0;
+    }
+
+    s->suppress = 1;
+
+    (*NWN_VirtualMachine)->vm_implementer->vmc_object_id = temp;
+
+    return 1;
 }

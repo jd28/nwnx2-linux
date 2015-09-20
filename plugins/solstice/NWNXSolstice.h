@@ -52,8 +52,6 @@ extern "C" {
 #include "nwnx_modules_ext.h"
 #include "lua_funcs.h"
 #include "solstice_funcs.h"
-#include "chat/pluginlink.h"
-#include "items/pluginlink.h"
 
 bool hook_functions();
 
@@ -63,6 +61,7 @@ void              Local_NWNXLog(int level, const char* log);
 void              Local_SetDamageInfo(int32_t index, const char* name, const char* color);
 void              Local_SetCombatEngineActive(bool active);
 EffectData       *Local_GetLastEffect();
+
 #ifdef __cplusplus
 }
 
@@ -73,6 +72,7 @@ bool init_event_handles();
 
 int Handle_PluginsLoaded(uintptr_t p);
 int Handle_RunScript(uintptr_t p);
+int Handle_RunScriptSituation(uintptr_t p);
 
 class CNWNXSolstice : public CNWNXBase
 {
