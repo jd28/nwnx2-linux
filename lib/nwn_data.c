@@ -4218,7 +4218,7 @@ int (*CServerExoApp__GSClientUpdateConnectionPhase)(CServerExoApp *, uint8_t, CE
 int (*CServerExoApp__GSClientUpdateServer)(CServerExoApp *, void *, char *, char *, int32_t, int32_t, int32_t, int32_t, char *, int32_t, int32_t, char *, int32_t, int32_t, int32_t, char *, char *, int32_t, int32_t, int32_t, int32_t, int32_t, bool) = NULL;
 int (*CServerExoApp__GetActiveExclusionList)(CServerExoApp *) = NULL;
 int (*CServerExoApp__GetActivePauseState)(CServerExoApp *) = NULL;
-int (*CServerExoApp__GetActiveTimer)(CServerExoApp *, uint32_t) = NULL;
+CWorldTimer *(*CServerExoApp__GetActiveTimer)(CServerExoApp *, uint32_t) = NULL;
 int (*CServerExoApp__GetApplicationId)(CServerExoApp *) = NULL;
 CNWSArea *(*CServerExoApp__GetAreaByGameObjectID)(CServerExoApp *, uint32_t) = NULL;
 int (*CServerExoApp__GetAreaOfEffectByGameObjectID)(CServerExoApp *, uint32_t) = NULL;
