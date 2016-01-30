@@ -2,11 +2,12 @@ find_path(LUAJIT_INCLUDE_DIR luajit.h
             NAMES luajit.h
             PATH_SUFFIXES luajit-2.0)
 
-find_library(LUAJIT_LIBRARIES luajit NAMES luajit-5.1.a)
+find_library(LUAJIT_LIBRARIES luajit NAMES libluajit-5.1.a)
 
 # Add the user's chosen flags to the build for this directory.
 set(CMAKE_CXX_FLAGS "-mtune=i386 -m32 -Wall -Wno-unused -Wno-write-strings -std=c++11 -O3")
 
+if(LUAJIT_LIBRARIES)
 include_directories(
     .
     ../../talib
@@ -59,3 +60,5 @@ CACHE STRING "Flags used by the linker during the creation.")
 target_link_libraries(solstice
   rt
   libluajit-5.1.a)
+
+endif(LUAJIT_LIBRARIES)
