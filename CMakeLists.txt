@@ -10,7 +10,7 @@ set(dont_build_plugins
         functions
         reset
         tmi
-        tweaks
+        mono
 
         # Don't use.
         mnx
