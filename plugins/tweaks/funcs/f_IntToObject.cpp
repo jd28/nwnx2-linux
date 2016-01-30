@@ -21,7 +21,7 @@
 #include "NWNXTweaks.h"
 
 
-nwn_objid_t Func_IntToObject(CGameObject *ob)
+nwobjid Func_IntToObject(CGameObject *ob)
 {
     return OBJECT_INVALID;
 }

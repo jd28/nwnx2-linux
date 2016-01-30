@@ -21,10 +21,10 @@
 #ifndef NWNX_TWEAKS_H
 #define NWNX_TWEAKS_H
 
-#include "NWNXLib.h"
+#include "NWNXApi.h"
 
 
-#define NWNX_TWEAKS_OPTIONS_TABLE_SIZE                   64
+static const uint32_t NWNX_TWEAKS_OPTIONS_TABLE_SIZE = 64;
 
 
 #ifdef __cplusplus
@@ -34,7 +34,7 @@ extern "C" {
 void Func_GetTweakOption(CGameObject *ob, char *value);
 void Func_SetTweakOption(CGameObject *ob, char *value);
 
-nwn_objid_t Func_IntToObject(CGameObject *ob);
+nwobjid Func_IntToObject(CGameObject *ob);
 
 void Hook_FixSendFeedbackMessage(void);
 
@@ -49,16 +49,14 @@ class CNWNXTweaks: public CNWNXBase
 {
 public:
     CNWNXTweaks();
-    virtual ~ CNWNXTweaks();
+    virtual ~CNWNXTweaks();
 
-    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL);
-    char *OnRequest(char *gameObject, char *Request, char *Parameters);
-    unsigned long OnRequestObject(char *gameObject, char *Request);
+    bool OnCreate(gline *nwnxConfig, const char *LogDir = NULL) override;
+    char *OnRequest(char *gameObject, char *Request, char *Parameters) override;
+    unsigned long OnRequestObject(char *gameObject, char *Request) override;
 
     // bool OnRelease  ();
 };
 #endif
 
 #endif /* NWNX_TWEAKS_H */
-
-/* vim: set sw=4: */

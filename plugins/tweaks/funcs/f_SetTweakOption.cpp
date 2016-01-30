@@ -21,14 +21,23 @@
 #include "NWNXTweaks.h"
 
 
-void Func_GetTweakOption(CGameObject *ob, char *value)
+void Func_SetTweakOption(CGameObject *ob, char *value)
 {
-    int opt, val = -1;
+    int opt, val;
 
-    opt = atoi(value);
-    if (opt >= 0 && opt < NWNX_TWEAKS_OPTIONS_TABLE_SIZE)
-        val = Table_TweakOptions[opt];
+    if (sscanf(value, "%d %d", &opt, &val) != 2 ||
+            val > UINT16_MAX                    ||
+            opt < 0                             ||
+            opt >= NWNX_TWEAKS_OPTIONS_TABLE_SIZE) {
 
+        snprintf(value, strlen(value), "-1");
+        return;
+    }
+
+    if (val < 0)
+        val = 0;
+
+    Table_TweakOptions[opt] = val;
     snprintf(value, strlen(value), "%d", val);
 }
 

@@ -29,6 +29,8 @@
 
 #define NWNX_TWEAKS_SIG(NAME, SIG) { #NAME, &NAME, SIG }
 
+static int (*CNWSCreature__SendFeedbackMessage)(CNWSCreature *, uint16_t, CNWCCMessageData *, CNWSPlayer *) =
+        reinterpret_cast<int (*)(CNWSCreature *, uint16_t, CNWCCMessageData *, CNWSPlayer *)>(0x0813533C);
 
 /* define references her e*/
 
@@ -65,7 +67,6 @@ static void TweaksSearchSignatures(void)
     nx_sig_search_run(sig);
     nx_sig_search_destroy(sig);
 
-
     for (i = 1; Table_TweakSignatures[i].sig != NULL; i++) {
         if (*(void **)Table_TweakSignatures[i].ref == NULL)
             nx_log(NX_LOG_NOTICE, 0, "%s (%d) not found", Table_TweakSignatures[i].name, i);
@@ -85,7 +86,6 @@ CNWNXTweaks::CNWNXTweaks()
 CNWNXTweaks::~CNWNXTweaks()
 {
 }
-
 
 char *CNWNXTweaks::OnRequest(char *gameObject, char *Request, char *Parameters)
 {

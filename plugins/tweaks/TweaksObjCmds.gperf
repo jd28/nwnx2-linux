@@ -28,8 +28,8 @@ extern "C" {
 %}
 
 struct TweaksObjCommand_s {
-    const char          *name;
-    nwn_objid_t        (*func)(CGameObject *);
+    const char      *name;
+    nwobjid        (*func)(CGameObject *);
 };
 
 %%
