@@ -18,6 +18,7 @@ add_module(tweaks
     funcs/f_IntToObject
     funcs/f_SetTweakOption
     hooks/h_FixSendFeedbackMessage
+    hooks/h_EvaluateOverlappingTargets
     tables/t_TweakOptions
 )
 

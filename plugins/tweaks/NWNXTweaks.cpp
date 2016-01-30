@@ -145,6 +145,8 @@ bool CNWNXTweaks::OnCreate(gline *config, const char *LogDir)
         nx_hook_function((void *)(p + 25), (void *)Hook_FixSendFeedbackMessage, 5, NX_HOOK_DIRECT);
     }
 
+    HookEvaluateOverlappingTargets();
+
     return true;
 }
 

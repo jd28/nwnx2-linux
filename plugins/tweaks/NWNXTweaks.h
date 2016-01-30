@@ -26,6 +26,7 @@
 
 static const uint32_t NWNX_TWEAKS_OPTIONS_TABLE_SIZE = 64;
 
+void HookEvaluateOverlappingTargets();
 
 #ifdef __cplusplus
 extern "C" {
