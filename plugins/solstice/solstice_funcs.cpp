@@ -429,3 +429,25 @@ const char* ns_GetCombatDamageString(
 
     return res;
 }
+
+int ns_SendMessagePopupToPlayer(CNWSCreature *to, CNWSPlaceable *from, const char* message) {
+    if(!to || !from || !message) { return 0; }
+    CNWSMessage* msg = CServerExoApp__GetNWSMessage((*NWN_AppManager)->app_server);
+    CNWSPlayer *pl = nwn_GetPlayerByID(to->obj.obj_id);
+    if(!pl) { return 0; }
+    CNWMessage__CreateWriteMessage(reinterpret_cast<CNWMessage*>(msg), 0x80u, pl->pl_id, 1);
+    CNWMessage__WriteBOOL(reinterpret_cast<CNWMessage*>(msg), 1);
+    char *s = strdup(message);
+    CNWMessage__WriteCExoString(reinterpret_cast<CNWMessage*>(msg), &s, 0x20);
+
+    int result = 0;
+    uint8_t *a = NULL;
+    uint32_t b = 0;
+    if(CNWMessage__GetWriteMessage(reinterpret_cast<CNWMessage*>(msg), &a, &b)) {
+        result = CNWSMessage__SendServerToPlayerMessage(msg, pl->pl_id, 27, 4, a, b);
+    }
+    else {
+        result = 0;
+    }
+    return result;
+}

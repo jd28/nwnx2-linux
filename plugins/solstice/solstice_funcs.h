@@ -34,5 +34,7 @@ extern "C" {
         const char *target,
         const DamageResult *dmg,
         bool simple);
+
+    int ns_SendMessagePopupToPlayer(CNWSCreature *to, CNWSPlaceable *from, const char* message);
 }
 #endif
