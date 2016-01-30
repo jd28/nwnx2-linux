@@ -22,88 +22,87 @@
 extern CNWNXSolstice solstice;
 extern lua_State *L;
 
-#define HOOK(orig, addr, hook, bytes) \
-    *(void**)&orig = nx_hook_function((void*)addr, (void*)hook, bytes, NX_HOOK_DIRECT | NX_HOOK_RETCODE)
-
 int (*CNWSModule__LoadModuleStartNext)(CNWSModule *mod, void *a2) = NULL;
 int (*CNWSCreatureStats__GetSkillRank_orig)(CNWSCreatureStats *, uint8_t, CNWSObject *, int32_t) = NULL;
 void (*CNWSCreature__ResolveRangedAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreature__ResolveMeleeAttack_orig)(CNWSCreature *, CNWSObject *, int, int) = NULL;
 void (*CNWSCreatureStats__UpdateCombatInformation_orig)(CNWSCreatureStats *) = NULL;
-int (*CExoArrayList__CGameEffect_Add)(CExoArrayList_ptr *list, CGameEffect *eff) = NULL;
+int (*CExoArrayList__CGameEffect_Add)(CExoArrayList_ptr *list, CGameEffect *eff) =
+        reinterpret_cast<int (*)(CExoArrayList_ptr*, CGameEffect*)>(0x08061028);
+
 bool hook_functions()
 {
-    HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
+    NX_HOOK(CNWSCombatRound__AddAttackOfOpportunity, 0x080E31E0, Hook_AddAttackOfOpportunity, 5);
 
     nx_hook_function((void *)0x0815479c,
                      (void *)Hook_GetFeatTotalUses, 5, NX_HOOK_DIRECT);
     nx_hook_function((void *)0x08153E00,
                      (void *)Hook_GetFeatRemainingUses, 5, NX_HOOK_DIRECT);
 
-    HOOK(CNWSModule__LoadModuleStartNext,
+    NX_HOOK(CNWSModule__LoadModuleStartNext,
          0x081B4A4C,
          Hook_LoadModuleStart, 5);
 
     nx_hook_function((void *)0x080F982C,
                      (void *)Hook_SetCombatMode, 5, NX_HOOK_DIRECT);
 
-    HOOK(CNWSCreature__ResolveMeleeAttack_orig, 0x080E9930, Hook_ResolveMeleeAttack, 5);
-    HOOK(CNWSCreature__ResolveRangedAttack_orig, 0x080E6FE4, Hook_ResolveRangedAttack, 5);
+    NX_HOOK(CNWSCreature__ResolveMeleeAttack_orig, 0x080E9930, Hook_ResolveMeleeAttack, 5);
+    NX_HOOK(CNWSCreature__ResolveRangedAttack_orig, 0x080E6FE4, Hook_ResolveRangedAttack, 5);
 
-    HOOK(CNWSCreatureStats__UpdateCombatInformation_orig,
+    NX_HOOK(CNWSCreatureStats__UpdateCombatInformation_orig,
          0x08142134,
          Hook_UpdateCombatInformation,
          5);
 
-    HOOK(CNWSCreature__UpdateAttributesOnEffect,
+    NX_HOOK(CNWSCreature__UpdateAttributesOnEffect,
          0x0811E0A8,
          Hook_UpdateAttributesOnEffect,
          5);
 
-    HOOK(CNWSCreatureStats__GetEffectImmunity,
+    NX_HOOK(CNWSCreatureStats__GetEffectImmunity,
          0x0815FF10,
          Hook_GetEffectImmunity,
          5);
 
-    HOOK(CNWSCreature__GetTotalEffectBonus,
+    NX_HOOK(CNWSCreature__GetTotalEffectBonus,
          0x08132298,
          Hook_GetTotalEffectBonus,
          5);
 
-    HOOK(CNWSCombatRound__InitializeNumberOfAttacks,
+    NX_HOOK(CNWSCombatRound__InitializeNumberOfAttacks,
          0x080E2260,
          Hook_InitializeNumberOfAttacks,
          5);
 
-    HOOK(CNWSCreatureStats__GetWeaponFinesse,
+    NX_HOOK(CNWSCreatureStats__GetWeaponFinesse,
          0x08155CF4,
          Hook_GetWeaponFinesse,
          5);
 
 
-    HOOK(CNWSCreatureStats__GetCriticalHitMultiplier,
+    NX_HOOK(CNWSCreatureStats__GetCriticalHitMultiplier,
          0x0814C4A0,
          Hook_GetCriticalHitMultiplier,
          5);
 
-    HOOK(CNWSCreatureStats__GetCriticalHitRoll,
+    NX_HOOK(CNWSCreatureStats__GetCriticalHitRoll,
          0x0814C31C,
          Hook_GetCriticalHitRoll,
          5);
 
 
-    HOOK(CNWSCreature__ResolveDamageShields,
+    NX_HOOK(CNWSCreature__ResolveDamageShields,
          0x080EFCAC,
          Hook_ResolveDamageShields,
          5);
 
-    HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
-    HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
-    HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
+    NX_HOOK(CNWSObject__DoDamageImmunity, 0x081CDC4C, Hook_DoDamageImmunity, 5);
+    NX_HOOK(CNWSObject__DoDamageReduction, 0x081CBD74, Hook_DoDamageReduction, 5);
+    NX_HOOK(CNWSObject__DoDamageResistance, 0x081CC7BC, Hook_DoDamageResistance, 5);
 
     nx_hook_function((void*)0x081D65D8,
                      (void*)Hook_CExoArrayList_CGameEffect_Insert, 5, NX_HOOK_DIRECT);
-    HOOK(CNWSCreature__RemoveBadEffects, 0x0812DFB8,
+    NX_HOOK(CNWSCreature__RemoveBadEffects, 0x0812DFB8,
          Hook_RemoveBadEffects, 5);
 
     /*
@@ -154,6 +153,5 @@ bool hook_functions()
 
     */
 
-    *(int*)&CExoArrayList__CGameEffect_Add = 0x08061028;
     return true;
 }
