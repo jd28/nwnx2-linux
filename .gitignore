@@ -15,3 +15,5 @@ config.status
 *.user*
 *.cbp
 build
+.idea
+.vagrant
