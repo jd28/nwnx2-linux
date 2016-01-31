@@ -3,11 +3,13 @@
 #include "nwndef.h"
 #include "CExoString.h"
 #include "CResRef.h"
+#include "CResIFO.h"
 #include "CExoLocString.h"
 #include "CExoArrayList.h"
 #include "CGameObject.h"
 #include "CExoLinkedList.h"
 #include "CNWSPlayerTURD.h"
+#include "CNWSScriptVarTable.h"
 
 class CNWSModule : public CResHelper<CResIFO>, CGameObject
 {
@@ -165,70 +167,103 @@ public:
     ~CNWSModule();
     CNWSModule(CExoString, int, int);
 
-    /* 0x2C/44 */ unsigned long field_2C;
-    /* 0x30/48 */ unsigned long field_30;
-    /* 0x34/52 */ unsigned long field_34;
-    /* 0x38/56 */ unsigned long field_38;
-    /* 0x3C/60 */ unsigned long field_3C;
-    /* 0x40/64 */ unsigned long field_40;
-    /* 0x44/68 */ unsigned long field_44;
-    /* 0x48/72 */ unsigned long field_48;
+    /* 0x2C/44 */ CExoLinkedList<NWModuleExpansion_st> field_2C;
+    /* 0x30/48 */ CExoLinkedList<NWModuleCutScene_st> field_30;
+    /* 0x34/52 */ CExoLinkedList<CResRef> field_34;
+    /* (mtype:CExoArrayList<unsigned long>) */
+    /* 0x38/56 */ CExoArrayList<unsigned long> Areas;
+    /* 0x44/68 */ unsigned long CurrentAreaIndex;
+    /* 0x48/72 */ CExoLinkedList<NWPlayerListItem_st> field_48;
     /* (mtype:CExoLinkedList<CNWSPlayerTURD>) */
     /* 0x4C/76 */ CExoLinkedList<CNWSPlayerTURD> TURDList;
-    /* 0x58/88 */ char rsvd1[8];
+    /* 0x/ */ CExoLocString Description;
     /* 0x58/88 */ CExoString m_sCustomTLK;
-    /* 0x80/128 */ char rsvd2[32];
+    /* 0x60/ */ unsigned long field_60;
+    /* 0x64/ */ unsigned long ModuleEntryInfo;
+    /* 0x68/ */ CExoString CurrentGame;
+    /* 0x70/128 */ char rsvd2[12];
+    /* 0x7C/ */ unsigned long IsDemo;
     /* 0x80/128 */ unsigned long field_80;
-    /* 0x84/132 */ unsigned long field_84;
-    /* 0x88/136 */ unsigned long field_88;
+    /* 0x84/132 */ CExoLocString Name;
     /* (mtype:CExoArrayList<CExoString>) */
     /* 0x8C/140 */ CExoArrayList<CExoString> HakList;
-    /* 0xB8/184 */ char rsvd3[32];
-    /* 0xB8/184 */ CExoString OnHeartbeat;
-    /* 0xD4/212 */ char rsvd4[20];
-    /* 0xD4/212 */ CExoString field_F0;
-    /* 0xDC/220 */ CExoString field_F8;
-    /* 0xE4/228 */ CExoString OnPlayerDeath;
-    /* 0xEC/236 */ CExoString OnPlayerDying;
-    /* 0xF4/244 */ CExoString field_110;
-    /* 0x1CC/460 */ char rsvd5[208];
-    /* 0x1CC/460 */ unsigned long field_1CC;
-    /* 0x1D0/464 */ unsigned long field_1D0;
-    /* 0x1D4/468 */ unsigned long field_1D4;
-    /* 0x1D8/472 */ unsigned long field_1D8;
-    /* 0x1DC/476 */ unsigned long field_1DC;
-    /* 0x1E0/480 */ unsigned long field_1E0;
-    /* 0x1E4/484 */ unsigned long field_1E4;
-    /* 0x1E8/488 */ unsigned long field_1E8;
-    /* 0x1EC/492 */ unsigned long field_1EC;
-    /* 0x1F0/496 */ unsigned long field_1F0;
-    /* 0x1F4/500 */ unsigned long field_1F4;
-    /* 0x1F8/504 */ unsigned long field_1F8;
-    /* 0x1FC/508 */ unsigned long field_1FC;
-    /* 0x200/512 */ unsigned long field_200;
-    /* 0x204/516 */ unsigned long field_204;
-    /* 0x208/520 */ unsigned long field_208;
-    /* 0x20C/524 */ unsigned long field_20C;
-    /* 0x210/528 */ unsigned long field_210;
-    /* 0x214/532 */ unsigned long field_214;
-    /* 0x218/536 */ unsigned long field_218;
-    /* 0x21C/540 */ unsigned long field_21C;
-    /* 0x220/544 */ unsigned long field_220;
-    /* 0x224/548 */ unsigned long SaveGameERF;
-    /* 0x228/552 */ unsigned long field_228;
-    /* 0x22C/556 */ unsigned long field_22C;
-    /* 0x230/560 */ unsigned long field_230;
-    /* 0x234/564 */ unsigned long field_234;
-    /* 0x238/568 */ unsigned long field_238;
-    /* 0x23C/572 */ unsigned long field_23C;
-    /* 0x240/576 */ unsigned long field_240;
-    /* 0x244/580 */ unsigned long field_244;
-    /* 0x248/584 */ unsigned long field_248;
-    /* 0x24C/588 */ unsigned long field_24C;
-    /* 0x250/592 */ unsigned long field_250;
-    /* 0x254/596 */ unsigned long field_254;
-    /* 0x258/600 */ unsigned long field_258;
-    /* 0x25C/604 */ unsigned long field_25C;
+    /* 0x98/ */ CResRef SomeResref;
+    /* 0xA8/ */ CNWSScriptVarTable VarTable;
+    /* 0xB8/184 */ char rsvd3[12];
+    /* 0xBC/188 */ CExoString Scripts[18];
+    /* 0x14C/ */ unsigned long field_14C;
+    /* 0x150/ */ CExoArrayList<CNWSTagNode> TagList;
+    /* 0x15C/ */ CExoArrayList<unsigned long> InvisibleCreaturesList;
+    /* 0x168/ */ unsigned long CustomScriptEventId;
+    /* 0x16C/ */ unsigned long LastEntered;
+    /* 0x170/ */ unsigned long LastExited;
+    /* 0x174/ */ unsigned long LastItemAcquired;
+    /* 0x178/ */ unsigned long LastItemAcquiredFrom;
+    /* 0x17C/ */ unsigned long LastItemAcquiredBy;
+    /* 0x180/ */ unsigned long LastItemLost;
+    /* 0x184/ */ unsigned long LastItemLoser;
+    /* 0x188/ */ unsigned long LastItemAcquiredStackSize;
+    /* 0x18C/ */ unsigned long LastItemLostStackSize;
+    /* 0x190/ */ nwobjid PCItemLastEquipped;
+    /* 0x194/ */ nwobjid PCItemLastEquippedBy;
+    /* 0x198/ */ nwobjid PCItemLastUnequipped;
+    /* 0x19C/ */ nwobjid PCItemLastUnequippedBy;
+    /* 0x1A0/ */ unsigned long LastRested;
+    /* 0x1A4/ */ unsigned long LastRestedType;
+    /* 0x1A8/ */ unsigned long LastPlayerDied;
+    /* 0x1AC/ */ unsigned long LastPlayerDying;
+    /* 0x1B0/ */ unsigned long LastRespawner;
+    /* 0x1B4/ */ unsigned long LastItemActivated;
+    /* 0x1B8/ */ unsigned long LastItemActivatedActivator;
+    /* 0x1BC/ */ unsigned long LastItemActivatedArea;
+    /* 0x1C0/ */ unsigned long LastItemActivatedTarget;
+    /* 0x1C4/ */ unsigned long DateYear;
+    /* 0x1C8/ */ unsigned long DateMonth;
+    /* 0x1CC/ */ unsigned long DateDay;
+    /* 0x1D0/ */ unsigned long TimeHour;
+    /* 0x1D4/ */ nwobjid LastPCCancelCutscene;
+    /* 0x1D8/ */ uint8_t MinutesPerHour;
+    /* 0x1D9/ */ uint8_t DawnHour;
+    /* 0x1DA/ */ uint8_t DuskHour;
+    /* 0x1DB/ */ uint8_t StartMonth;
+    /* 0x1DC/ */ uint8_t StartDay;
+    /* 0x1DD/ */ uint8_t StartHour;
+    /* 0x1DE/ */ uint8_t XPScale;
+    /* 0x1DF/ */ uint8_t field_1DF;
+    /* 0x1E0/ */ unsigned long StaryYear;
+    /* 0x1E4/ */ unsigned long field_1E4;
+    /* 0x1E8/ */ unsigned long field_1E8;
+    /* 0x1EC/ */ unsigned long field_1EC;
+    /* 0x1F0/ */ unsigned long field_1F0;
+    /* 0x1F4/ */ uint8_t TimeOfDayState;
+    /* 0x1F5/ */ uint8_t field_1F5;
+    /* 0x1F6/ */ uint8_t field_1F6;
+    /* 0x1F7/ */ uint8_t field_1F7;
+    /* 0x1F8/ */ unsigned long field_1F8;
+    /* 0x1FC/ */ unsigned long field_1FC;
+    /* 0x200/ */ unsigned long IsSaveGame;
+    /* 0x204/ */ CExoArrayList<void*> WorldJournalEntries;
+    /* 0x210/ */ uint8_t field_210;
+    /* 0x211/ */ uint8_t field_211;
+    /* 0x212/ */ uint8_t field_212;
+    /* 0x213/ */ uint8_t field_213;
+    /* 0x214/ */ unsigned long MaxHenchmen;
+    /* 0x218/ */ CExoArrayList<unsigned long> LimboObjects;
+    /* 0x224/ */ unsigned long SaveGameERF;
+    /* 0x228/ */ unsigned long field_228;
+    /* 0x22C/ */ unsigned long field_22C;
+    /* 0x230/ */ unsigned long field_230;
+    /* 0x234/ */ CExoString Tag;
+    /* 0x23C/ */ unsigned long IsNWMFile;
+    /* 0x240/ */ CExoString NWMResName;
+    /* 0x248/ */ unsigned long CExoTableCount;
+    /* 0x24C/ */ uint8_t PCPathFindRule;
+    /* 0x24D/ */ uint8_t EnableScriptDebugger;
+    /* 0x24E/ */ uint8_t field_24E;
+    /* 0x24F/ */ uint8_t field_24F;
+    /* 0x250/ */ unsigned long LastPCChatObject;
+    /* 0x254/ */ CExoString LastPCChatMessage;
+    /* 0x25C/ */ unsigned long LastPCChatType;
 };
 
 static_assert_size(CNWSModule, 0x260);
