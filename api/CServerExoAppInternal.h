@@ -144,7 +144,7 @@ public:
     /* 0x10000/65536 */ unsigned long UseNetworking;
     /* 0x10004/65540 */ unsigned long UseGameSpy;
     /* 0x10008/65544 */ unsigned long field_10008;
-    /* 0x1000C/65548 */ CServerExoAppConfig *config;
+    /* 0x1000C/65548 */ CServerInfo *config;
     /* 0x10010/65552 */ unsigned short State;
     /* 0x10014/65556 */ char rsvd1[2];
     /* 0x10014/65556 */ unsigned long field_10014;
