@@ -60,7 +60,6 @@
 #include "CScriptCompiler.cpp"
 #include "CNetLayerWindow.cpp"
 #include "CVirtualMachineStack.cpp"
-#include "CExoArrayList.cpp"
 #include "CWorldTimer.cpp"
 #include "CExoAliasList.cpp"
 #include "CExoRandInternal.cpp"
