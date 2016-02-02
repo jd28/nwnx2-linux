@@ -16,8 +16,6 @@
 #include "CNWSStore.cpp"
 #include "CNWSCombatRound.cpp"
 #include "CNWSMessage.cpp"
-#include "CExoLinkedListInternal.cpp"
-#include "CExoLinkedList.cpp"
 #include "CExoBaseInternal.cpp"
 #include "CNWSPlayer.cpp"
 #include "CExoResFile.cpp"
