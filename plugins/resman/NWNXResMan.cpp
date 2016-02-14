@@ -1,6 +1,7 @@
 #include "NWNXResMan.h"
 #include "pluginlink.h"
 #include <stdio.h>
+#include "core/profiler/Profiler.h"
 
 CNWNXResMan::CNWNXResMan()
 {
@@ -63,6 +64,10 @@ void* CNWNXResMan::DemandRes(CExoResMan *pResMan, CRes *cRes, const CResRef &res
     strncat(resrefWithExt, resRef.m_resRef, 16);
     strcat(resrefWithExt, ".");
     strcat(resrefWithExt, resExt);
+
+   Profiler::ScopedTimer("nwnx.resman.DemandRes", {
+                             { "resref", resrefWithExt }
+                         });
 
     // Insert entry, or lookup old one...
     std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));
@@ -208,6 +213,9 @@ void CNWNXResMan::DumpResStruct(CRes *cRes)
     Log(4, "  - m_pKeyEntry = %08lx\n", cRes->m_pKeyEntry);
 }
 
+static Profiler::time_point last_exists_sample;
+static const Profiler::MS exists_sample_period{10000};
+
 bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKeyTableEntry **original)
 {
     const char* resExt = NwnGetResTypeExtension(resType);
@@ -220,6 +228,10 @@ bool CNWNXResMan::ResourceExists(const CResRef &resRef, NwnResType resType, CKey
     strncat(resrefWithExt, resRef.m_resRef, 16);
     strcat(resrefWithExt, ".");
     strcat(resrefWithExt, resExt);
+
+    NWNX_PROFILE("nwnx.resman.ResourceExists", last_exists_sample, exists_sample_period, {
+                     { "resref", resrefWithExt }
+                 });
 
     // Insert entry, or lookup old one...
     std::pair<ResourceMap::iterator, bool> lookup = resFiles.insert(ResourceMap::value_type(resrefWithExt, CResFileInfo()));

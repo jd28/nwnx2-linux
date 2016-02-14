@@ -224,14 +224,22 @@ StringPayLoad(const char **ppname, const char **ppvalue)
     if (Libraries.find(library) != Libraries.end()) {
         pBase = Libraries[library];
     }
-    *function = '!';
 
     if (pBase != NULL) {
         Log(3, "* Library %s found: %08lX\n", library, pBase);
         Log(4, "* OnRequest address: %08lX\n", &CNWNXBase::OnRequest);
         // library found, handle the request
         iValueLength = strlen(value);
-        char* pRes = pBase->OnRequest(gameObject, function + 1, value);
+        char* pRes = NULL;
+        {
+            Profiler::Timer{ "nwnx.StringPayload", {
+                    { "library", library },
+                    { "function", function + 1 },
+                    { "object",  (int32_t)(gameObject+4) } }
+            }.measure([&]() {
+                pRes = pBase->OnRequest(gameObject, function + 1, value);
+            });
+        }
         if (pRes != NULL && pRes != value) {
             if (strncmp(library, "LETO", 4) != 0 &&
                     strncmp(library, "HASHSET", 7) != 0) {
@@ -264,6 +272,7 @@ StringPayLoad(const char **ppname, const char **ppvalue)
     } else {
         Log(0, "* Library %s does not exist.\n", library);
     }
+    *function = '!';
 }
 
 static void
@@ -336,18 +345,28 @@ ObjectPayLoad(const char **ppname)
     if (Libraries.find(library) != Libraries.end()) {
         pBase = Libraries[library];
     }
-    *function = '!';
 
     if (pBase != NULL) {
         Log(3, "* Library %s found: %08lX\n", library, pBase);
         Log(4, "* OnRequest address: %08lX\n", &CNWNXBase::OnRequestObject);
+
+
+        Profiler::Timer trace("nwnx.ObjectPayload", {
+                        { "library", library },
+                        { "function", function + 1 },
+                        { "object",  (uint32_t)(gameObject+4) },
+                    });
+
         // library found, handle the request
+        trace.start();
         oRes = pBase->OnRequestObject(gameObject, function + 1);
+        trace.stop();
         ObjRet = 1;
-        return;
+        trace.fields({{"return_object", (uint32_t)oRes}});
     } else {
         Log(0, "* Library %s does not exist.\n", library);
     }
+    *function = '!';
 }
 
 void
@@ -691,11 +710,17 @@ public:
     ~startstop();
 };
 
+#include "core/profiler/example_sinks/FileSink.h" // Temporary
+#include "core/profiler/example_sinks/ChromeTracerSink.h" // Temporary
+
 startstop::startstop()
 {
     nwnxConfig.open("nwnx2.ini");
 #ifdef NWNX_PROFILER_ENABLED
     profiler.reset(new Profiler::Profiler);
+    profiler->AddSink(new FileSink); // Temporary
+    profiler->AddSink(new ChromeTracerSink); // Temporary
+    profiler->start(); // Temporary
 #endif
 
     printf("\n");

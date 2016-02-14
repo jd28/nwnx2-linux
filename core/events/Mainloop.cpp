@@ -1,5 +1,5 @@
 #include "../core.h"
-
+#include "core/profiler/Profiler.h"
 #include "NWNXApi.h"
 
 static HANDLE hMainLoopInnerBefore, hMainLoopInnerAfter;
@@ -10,6 +10,7 @@ void ThreadUtil_Mainloop_After();
 
 static int Hook_MainLoopInner(void *pServer)
 {
+    NWNX_PROFILE("nwnx.mainloop");
     NotifyEventHooksNotAbortable(hMainLoopInnerBefore, 0);
 
     int ret = CServerExoApp__MainLoopInner(pServer);

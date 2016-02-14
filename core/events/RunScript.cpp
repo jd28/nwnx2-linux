@@ -1,7 +1,7 @@
 #include "../core.h"
 
 #include "NWNXApi.h"
-
+#include "core/profiler/Profiler.h"
 #include <cstring>
 
 static HANDLE hRunScript, hRunScriptAfter;
@@ -22,6 +22,10 @@ static int Hook_RunScript(
         s->Text, objectId, validObject, false, -1
     };
 
+    NWNX_PROFILE("nwnx.RunScript", {
+                     { "script", s->Text, },
+                     { "object", objectId }
+                 });
     NotifyEventHooksNotAbortable(hRunScript, (uintptr_t)&info);
 
     if (!info.suppress)
@@ -54,6 +58,12 @@ static void Hook_RunScriptSituation(
         obj,
         false,
     };
+
+
+    NWNX_PROFILE("nwnx.RunScriptSituation", {
+                     { "script", script->Name.Text, },
+                     { "object", obj }
+                 });
 
     NotifyEventHooksNotAbortable(hRunScriptSituation, (uintptr_t)&info);
 
