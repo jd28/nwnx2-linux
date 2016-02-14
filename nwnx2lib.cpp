@@ -29,7 +29,7 @@
 #include <dlfcn.h>
 #include <dirent.h>
 #include <errno.h>
-
+#include "core/profiler/Profiler.h"
 using namespace std;
 #include <string>
 #include <map>
@@ -694,6 +694,9 @@ public:
 startstop::startstop()
 {
     nwnxConfig.open("nwnx2.ini");
+#ifdef NWNX_PROFILER_ENABLED
+    profiler.reset(new Profiler::Profiler);
+#endif
 
     printf("\n");
     printf("NWNX2lib: Init\n");
