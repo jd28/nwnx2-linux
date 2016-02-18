@@ -1,28 +1,14 @@
 #pragma once
 
-/**
- * Event: EVENT_RESMAN_DEMAND
- * Param: ResManDemandEvent
- */
-#define EVENT_RESMAN_DEMAND "ResMan/Demand"
+typedef struct {
+    const char* file;
+} ResManAddContainerEvent;
+
+#define EVENT_RESMAN_ADD_CONTAINER "ResMan/AddContainer"
 
 typedef struct {
-    const char* resRefWithExt; // "whatever.uti"
-    unsigned int restype;
-    unsigned char *pData;
-    int size;
-    time_t mtime;
-    const time_t minimum_mtime;
-} ResManDemandEvent;
+    void *container;
+    bool is_static;
+} ResManAddContainerService;
 
-/**
- * Event: EVENT_RESMAN_EXISTS
- * Param: ResManExistsEvent
- */
-#define EVENT_RESMAN_EXISTS "ResMan/Exists"
-
-typedef struct {
-    const char* resRefWithExt;
-    time_t mtime;
-    bool exists;
-} ResManExistsEvent;
+#define SERVICE_RESMAN_ADD_CONTAINER "ResMan/AddContainer()"

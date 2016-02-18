@@ -1,14 +1,11 @@
 #include "nx_devel.h"
 #include "nx_hook.h"
 #include "NWNXResMan.h"
-
+#include "minizip/unzip.h"
 // For backtrace.
 #include <execinfo.h>
 
 extern CNWNXResMan resman;
-
-static NwnResType lastResType;
-static CResRef lastResRef;
 static CExoKeyTable keytable;
 
 int (*CExoResMan__GetKeyEntry)(CExoResMan *, CResRef const &, unsigned short, CExoKeyTable **, CKeyTableEntry **);
@@ -64,27 +61,42 @@ void CRes__ctor2_hook(CRes *res, uint32_t something)
     }
 }
 
+static std::string resref;
+
 int CExoResMan__GetKeyEntry_hook(CExoResMan *pthis, CResRef const &resRef, unsigned short resType, CExoKeyTable **v1, CKeyTableEntry **v2)
 {
+    CKeyTableEntry* key = nullptr;
+    CExoKeyTable *table = nullptr;
+    resman.resources.GetKeyEntry(resRef, resType, &table, &key);
 
-    lastResRef = resRef;
-    lastResType = (NwnResType)resType;
-    int result = CExoResMan__GetKeyEntry(pthis, lastResRef, lastResType, v1, v2);
-    if (resman.ResourceExists(resRef, (NwnResType) resType, v2)) {
+    int result = 0;
+    if(key) {
+        *v1 = table;
+        *v2 = key;
         result = 1;
-        *v1 = &keytable;
     }
+
+    if(result == 0) {
+        result = CExoResMan__GetKeyEntry(pthis, resRef, resType, v1, v2);
+    }
+
+    resman.Log(4, "GetKeyEntry: Resref: %.*s, Type: %d\n", 16, resRef.m_resRef, resType);
+
     return result;
 }
 
 void* CExoResMan__Demand_hook(CExoResMan *pthis, CRes *cRes)
 {
-    void *lastRet = resman.DemandRes(pthis, cRes, lastResRef, lastResType);
-    if (lastRet) {
-        return lastRet;
-    } else {
-        return CExoResMan__Demand(pthis, cRes);
+    if(!cRes) { return nullptr; }
+
+    char *res = nullptr;
+    res = resman.resources.Demand(cRes);
+
+    if(!res) { res = CExoResMan__Demand(pthis, cRes);
     }
+    cRes->m_pResource = res;
+    resman.DumpResStruct(cRes);
+    return res;
 }
 
 int HookFunctions()
@@ -99,6 +111,5 @@ int HookFunctions()
     }
 
     keytable.TableID = 0;
-    lastResRef.m_resRef[0] = 0;
     return 1;
 }
