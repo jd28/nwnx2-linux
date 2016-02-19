@@ -21,7 +21,7 @@ public:
     /* 0x0/0 */ unsigned long field_0;
     /* 0x4/4 */ unsigned long CExoTimers;
     /* 0x8/8 */ unsigned long CExoDebug;
-    /* 0xC/12 */ unsigned long CExoAliasList;
+    /* 0xC/12 */ CExoAliasList* AliasList;
     /* 0x10/16 */ unsigned long field_10;
     /* 0x14/20 */ unsigned long field_14;
     /* 0x18/24 */ unsigned long field_18;
