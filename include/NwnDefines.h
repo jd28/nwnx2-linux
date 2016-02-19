@@ -112,6 +112,7 @@ enum NwnResType {
     NwnResType_NDB      = 0x0810,
     NwnResType_PTM      = 0x0811,
     NwnResType_PTT      = 0x0812,
+    NwnResType_1DA      = 0x270C,
     NwnResType_ERF      = 0x270D,
     NwnResType_BIF      = 0x270E,
     NwnResType_KEY      = 0x270F,

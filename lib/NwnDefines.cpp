@@ -127,6 +127,7 @@ const char *NwnGetResTypeExtension(NwnResType nType)
         case NwnResType_KEY: return "key";
         case NwnResType_PTM: return "ptm";
         case NwnResType_PTT: return "ptt";
+        case NwnResType_1DA: return "1da";
         default: return NULL;
     }
 }
@@ -281,6 +282,8 @@ NwnResType NwnGetResTypeFromExtension(const char *pszExtension)
         return NwnResType_BIK;
     if (strcasecmp(pszExtension, "ndb") == 0)
         return NwnResType_NDB;
+    if (strcasecmp(pszExtension, "1da") == 0)
+        return NwnResType_1DA;
     if (strcasecmp(pszExtension, "erf") == 0)
         return NwnResType_ERF;
     if (strcasecmp(pszExtension, "bif") == 0)
