@@ -302,7 +302,7 @@ struct CRes_vtbl {
     /* 0xC/12 */ unsigned long GetFixedResourceSize;
     /* 0x10/16 */ unsigned long GetFixedResourceDataOffset;
     /* 0x14/20 */ void *OnResourceFreed;
-    /* 0x18/24 */ void *OnResourceServiced;
+    /* 0x18/24 */ int (*OnResourceServiced)(CRes *);
 };
 struct CExoPackedFile_vtbl {
     /* 0x0/0 */ unsigned long field_0;
