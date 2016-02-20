@@ -4,6 +4,12 @@ add_module(
     Hooks
     NWNXResMan
     plugin-resman
+    pluginlink.h
+    util.h
+
+    resources/ResourceLocator
+    resources/ResourceManager
+
     containers/Bif
     containers/Container
     containers/Directory
@@ -11,13 +17,9 @@ add_module(
     containers/Key
     containers/ResmanDirectory
     containers/Zip
-    pluginlink.h
-    resources
-
-    minizip/ioapi
-    minizip/miniunz
-    minizip/mztools
-    minizip/unzip
+    containers/minizip/ioapi
+    containers/minizip/mztools
+    containers/minizip/unzip
 )
 
 target_link_libraries(resman z)

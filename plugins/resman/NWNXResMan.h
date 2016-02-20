@@ -5,7 +5,7 @@
 #include "NwnDefines.h"
 #include "api/all.h"
 
-#include "resources.h"
+#include "resources/ResourceManager.h"
 
 constexpr size_t MAXPATH = 512;
 

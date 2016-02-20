@@ -1,10 +1,15 @@
 #include "NWNXResMan.h"
 #include "pluginlink.h"
-#include <stdio.h>
-#include <boost/algorithm/string/predicate.hpp>
+
+#include "containers/Erf.h"
+#include "containers/Key.h"
 #include "containers/ResmanDirectory.h"
 #include "containers/Zip.h"
+
 #include <boost/algorithm/string.hpp>
+#include <sys/stat.h>
+#include <stdio.h>
+#include <boost/algorithm/string/predicate.hpp>
 
 extern CNWNXResMan resman;
 

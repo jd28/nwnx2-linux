@@ -1,7 +1,6 @@
 #include "nx_devel.h"
 #include "nx_hook.h"
 #include "NWNXResMan.h"
-#include "minizip/unzip.h"
 // For backtrace.
 #include <execinfo.h>
 
