@@ -37,7 +37,6 @@ private:
     bool warnMissing;
     HANDLE hAddContainer;
     HANDLE hAddContainerService;
-    std::string m_sourcePath;
 };
 
 #endif // NWNX_RESMAN_H

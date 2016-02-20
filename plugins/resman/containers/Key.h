@@ -38,7 +38,7 @@ public:
     std::unique_ptr<CExoKeyTable> table;
     void load();
 
-    Key(std::string filename);
+    Key(std::string filename, const char* name);
     Key(const Key&) = delete;
     Key& operator=(const Key&) = delete;
 

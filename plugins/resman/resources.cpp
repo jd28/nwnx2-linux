@@ -3,17 +3,18 @@
 
 extern CNWNXResMan resman;
 
-static std::string resref_cache;
+std::string ResourceLocator::resref_cache{};
+
 void ResourceLocator::AddStatic(Container *cont) {
     auto it = std::find_if(statics.cbegin(), statics.cend(),
                            [cont](const Container* c) -> bool {
-        return strcmp(c->GetName(), cont->GetName()) == 0;
+        return strcmp(c->name(), cont->name()) == 0;
     });
     if(it != statics.cend()) {
         return;
     }
     statics.push_back(cont);
-    resman.Log(0, "Adding static: %s\n", cont->GetName());
+    resman.Log(0, "Adding static: %s\n", cont->name());
     for(size_t i = 0; i < cont->size(); ++i) {
 
         CKeyTableEntry *key = nullptr;
@@ -42,7 +43,7 @@ ResourceEntry ResourceLocator::INVALID_ENTRY{};
 void ResourceLocator::AddDynamic(Container *cont) {
     auto it = std::find_if(dynamics.cbegin(), dynamics.cend(),
                            [cont](const Container* c) -> bool {
-        return strcmp(c->GetName(), cont->GetName()) == 0;
+        return strcmp(c->name(), cont->name()) == 0;
     });
     if(it != dynamics.cend()) {
         return;
@@ -50,7 +51,7 @@ void ResourceLocator::AddDynamic(Container *cont) {
     dynamics.push_back(cont);
 }
 
-ResourceEntry& ResourceLocator::GetCached(const std::string &resref) {
+ResourceEntry& ResourceLocator::Get(const std::string &resref) {
     auto it = resources.find(resref);
     if(it != resources.end()) {
         return it->second;
@@ -58,12 +59,30 @@ ResourceEntry& ResourceLocator::GetCached(const std::string &resref) {
     return INVALID_ENTRY;
 }
 
-ResourceEntry& ResourceLocator::Get(const CResRef &resref, uint16_t type, CExoKeyTable **v1)
+bool ResourceLocator::HasContainer(const char *name) const
+{
+    auto dit = std::find_if(dynamics.cbegin(), dynamics.cend(),
+                           [name](const Container* c) -> bool {
+        return strcasecmp(c->name(), name) == 0;
+    });
+    if(dit != dynamics.cend()) { return true; }
+
+    auto sit = std::find_if(statics.cbegin(), statics.cend(),
+                           [name](const Container* c) -> bool {
+        return strcasecmp(c->name(), name) == 0;
+    });
+    if(sit != statics.cend()) { return true; }
+
+
+    return false;
+}
+
+ResourceEntry& ResourceLocator::Query(const CResRef &resref, uint16_t type, CExoKeyTable **v1)
 {
     resref_cache = resref_to_fname(resref, type);
     auto it = resources.find(resref_cache);
     ContainerElement dynres;
-    Container *cont;
+    Container *cont = nullptr;
     CKeyTableEntry *key = nullptr;
     bool insert = false;
 
@@ -108,6 +127,8 @@ ResourceEntry& ResourceLocator::Get(const CResRef &resref, uint16_t type, CExoKe
     return INVALID_ENTRY;
 }
 
+std::string ResourceManager::resref_cache;
+
 char* ResourceManager::Allocate(size_t size, bool flag1, bool flag2) {
     size_t final = size;
     char *data = nullptr;
@@ -132,24 +153,6 @@ void ResourceManager::Deallocate(char *data, bool flag1, bool flag2) {
     delete[] data;
 }
 
-bool ResourceManager::HasContainer(const char *name)
-{
-    auto dit = std::find_if(locator.dynamics.cbegin(), locator.dynamics.cend(),
-                           [name](const Container* c) -> bool {
-        return strcasecmp(c->GetName(), name) == 0;
-    });
-    if(dit != locator.dynamics.cend()) { return true; }
-
-    auto sit = std::find_if(locator.statics.cbegin(), locator.statics.cend(),
-                           [name](const Container* c) -> bool {
-        return strcasecmp(c->GetName(), name) == 0;
-    });
-    if(sit != locator.statics.cend()) { return true; }
-
-
-    return false;
-}
-
 void ResourceManager::SetCachedTypes(std::vector<NwnResType> cache_rtypes)
 {
     cache = std::move(cache_rtypes);
@@ -168,7 +171,7 @@ char* ResourceManager::Demand(CRes *cRes)
     char *data = nullptr;
     size_t size = 0;
     resref_cache = resref_to_fname(cRes->m_pKeyEntry->m_cResRef, cRes->m_pKeyEntry->m_nType);
-    ResourceEntry& loc = locator.GetCached(resref_cache);
+    ResourceEntry& loc = locator.Get(resref_cache);
 
     if(!loc.valid()) {
         resman.Log(4, "     Not in Cache Demand: resref: %.*s, type: %d\n", 16,
@@ -225,7 +228,7 @@ char* ResourceManager::Demand(CRes *cRes)
     }
 
     resman.Log(4, "     Demand Last: Container: %s, resref: %.*s, type: %d, size: %d, Cached: %d\n",
-               loc.container->GetName(),
+               loc.container->name(),
                16,
                loc.key->m_cResRef.m_resRef,
                loc.key->m_nType,
@@ -262,4 +265,11 @@ char* ResourceManager::Demand(CRes *cRes)
     }
 
     return data;
+}
+
+int ResourceManager::GetKeyEntry(const CResRef &resref, uint16_t type, CExoKeyTable **table, CKeyTableEntry **v2)
+{
+    const ResourceEntry& e = locator.Query(resref, type, table);
+    *v2 = e.key;
+    return e.valid() ? 1 : 0;
 }

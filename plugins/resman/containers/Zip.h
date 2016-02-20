@@ -15,8 +15,9 @@ class ZipContainer : public Container {
 
     void load();
 public:
-    ZipContainer(std::string path)
-        : path{std::move(path)}
+    ZipContainer(std::string path, const char* name)
+        : Container(name)
+        , path{std::move(path)}
     {
         load();
     }

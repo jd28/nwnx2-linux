@@ -4,8 +4,9 @@ class DirectoryContainer : public Container {
     std::string path;
 public:
 
-    DirectoryContainer(std::string path)
-        : path{std::move(path)}
+    DirectoryContainer(std::string path, const char* name)
+        : Container(name)
+        , path{std::move(path)}
     {}
     virtual ContainerElement get(size_t index, CKeyTableEntry **) override;
     virtual ContainerElement get(const std::string &resref, CKeyTableEntry **) override;

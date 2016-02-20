@@ -82,8 +82,9 @@ void Key::load() {
 }
 
 
-Key::Key(std::string filename)
-    : fname(filename)
+Key::Key(std::string filename, const char *name)
+    : Container(name)
+    , fname(filename)
     , table(new CExoKeyTable)
 {
     table->TableType = 1;

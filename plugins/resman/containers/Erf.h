@@ -46,7 +46,7 @@ public:
     std::string fname;
     std::unique_ptr<CExoKeyTable> table;
     void load();
-    Erf(std::string filename);
+    Erf(std::string filename, const char* name);
     Erf(const Erf&) = delete;
     Erf& operator=(const Erf&) = delete;
     Erf(Erf&& other)

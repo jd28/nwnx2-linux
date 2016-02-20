@@ -38,8 +38,9 @@ void Erf::load()
     }
 }
 
-Erf::Erf(std::string filename)
-    : fname(filename)
+Erf::Erf(std::string filename, const char *name)
+    : Container(name)
+    , fname(filename)
     , table(new CExoKeyTable)
 {
     table->TableType = 3;

@@ -115,21 +115,20 @@ bool CNWNXResMan::AddContainer(const char *path, const char* name)
             std::string p = path;
             p += ".zip";
             if (stat(p.c_str(), &info) == 0) {
-                c = new ZipContainer(p.c_str());
+                c = new ZipContainer(p.c_str(), name);
             } else {
-                c = new Erf(path);
+                c = new Erf(path, name);
             }
         } else if(boost::algorithm::ends_with(path, "key")) {
             std::string p = path;
             p += ".zip";
             if (stat(p.c_str(), &info) == 0) {
-                c = new ZipContainer(p.c_str());
+                c = new ZipContainer(p.c_str(), name);
             } else {
-                c = new Key(path);
+                c = new Key(path, name);
             }
         }
         if(c) {
-            c->SetName(name);
             resources.AddStatic(c);
         }
     }
@@ -157,12 +156,19 @@ void CNWNXResMan::LoadConfiguration()
         debugCRes = atoi(conf[confKey]["debug_cres"].c_str());
         Log(0, "o Debugging CRes construction and destruction: %d\n", debugCRes);
 
-        m_sourcePath = conf[confKey]["SourcePath"];
-        if (m_sourcePath.length() > 0) {
-            auto c = new ResmanDirectoryContainer(m_sourcePath.c_str());
-            c->SetName("RESMAN");
-            resman.resources.AddDynamic(c);
+        std::string sourcePath = conf[confKey]["SourcePath"];
+        if (sourcePath.length() > 0) {
+            auto c = new ResmanDirectoryContainer(sourcePath, "RESMAN");
+            resources.AddDynamic(c);
         }
+
+        std::string cache_size = conf[confKey]["memory_usage_limit"];
+        size_t csize = 0;
+        if(cache_size.size() > 0) {
+            csize = std::atoi(cache_size.c_str());
+            Log(0, "o Setting memory usage limit: %d\n", csize);
+        }
+        resources.SetMemoryUsageLimit(csize);
 
         std::string cache_types = conf[confKey]["cache"];
         if(cache_types.size() > 0) {
@@ -173,7 +179,7 @@ void CNWNXResMan::LoadConfiguration()
             for(auto& e : exts) {
                 NwnResType rtype = NwnGetResTypeFromExtension(e.c_str());
                 if(rtype != NwnResType_Unknown) {
-                    Log(0, "o Caching %d resources.\n", rtype);
+                    Log(0, "o Caching %s resources.\n", e.c_str());
                     cache_rtypes.push_back(rtype);
                 }
             }

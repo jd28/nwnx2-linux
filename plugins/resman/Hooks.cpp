@@ -78,8 +78,7 @@ int CExoResMan__AddResourceDirectory_hook(CExoResMan* rm, CExoString const &dir)
         if (strcmp("OVERRIDE:", dir.Text) == 0) {
             CExoString alias = g_pExoBase->AliasList->ResolveFileName(dir.Text, 0xFFFF);
             resman.Log(0, "Attempting to add directory: %s\n", alias.Text);
-            DirectoryContainer *c = new DirectoryContainer(alias.Text);
-            c->SetName(dir.Text);
+            DirectoryContainer *c = new DirectoryContainer(alias.Text, dir.Text);
             resman.resources.AddDynamic(c);
             return 1;
         }

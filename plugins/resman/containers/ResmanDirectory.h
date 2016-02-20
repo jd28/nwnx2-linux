@@ -5,8 +5,9 @@ class ResmanDirectoryContainer : public Container {
 public:
     static time_t GetLastModTime(const char *file);
 
-    ResmanDirectoryContainer(const char* path)
-        : path_{path}
+    ResmanDirectoryContainer(std::string path, const char* name)
+        : Container(name)
+        , path_{std::move(path)}
     {}
     virtual ContainerElement get(size_t index, CKeyTableEntry **) override;
     virtual ContainerElement get(const std::string &resref, CKeyTableEntry **) override;
