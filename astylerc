@@ -1,0 +1,16 @@
+style=kr
+lineend=linux
+indent=spaces=4
+indent-switches
+#max-code-length=100
+pad-header
+pad-oper
+unpad-paren
+keep-one-line-blocks
+keep-one-line-statements
+
+exclude=lib/nwn_data.c
+exclude=include/nwn_funcs.h
+exclude=override
+exclude=include/structs
+ignore-exclude-errors
