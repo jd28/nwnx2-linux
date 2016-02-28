@@ -1,7 +1,10 @@
 #ifndef TYPEDEF_H
 #define TYPEDEF_H
 
+#ifndef NWNX_DUMP_STRUCTS
 #include <stdint.h>
+#endif
+
 typedef void * HANDLE;
 #define FALSE 0
 #define TRUE 1

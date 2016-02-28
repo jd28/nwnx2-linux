@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef NWNX_DUMP_STRUCTS
+
 template <typename G>
 struct Base_vtbl {
     unsigned long           field_0;
@@ -183,3 +185,5 @@ struct CExoPackedFile_vtbl : public Base_vtbl<CExoPackedFile> {
     unsigned long           UnloadHeader;
     unsigned long           GetResource;
 };
+
+#endif // NWNX_DUMP_STRUCTS
