@@ -123,7 +123,7 @@ public:
     /* 0x75/117 */ CResRef       BicFile;
     /* 0x88/136 */ unsigned long CommunityNameAuthorized;
     /* 0x8C/140 */ unsigned long ModuleInfoSucceeded;
-    /* 0x90/144 */ unsigned long field_90;
+    /* 0x90/144 */ unsigned long IFOCharacterIndex;
     /* 0x94/148 */ unsigned long CutsceneState;
 };
 
