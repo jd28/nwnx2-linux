@@ -26,8 +26,8 @@ public:
     /* 0xC/12 */ unsigned long field_C;
     /* 0x10/16 */ unsigned long field_10;
     /* 0x14/20 */ CAppManager_ModuleInfo *some_struct;
-    /* 0x18/24 */ unsigned long field_18;
-    /* 0x1C/28 */ unsigned long field_1C;
+    /* 0x18/24 */ unsigned long DungeonMasterEXERunning;
+    /* 0x1C/28 */ unsigned long ApplicationId;
     /* 0x20/32 */ unsigned long MultiplayerEnabled;
     /* 0x24/36 */ unsigned long field_24;
     /* 0x28/40 */ unsigned long field_28;
