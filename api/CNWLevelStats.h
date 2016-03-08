@@ -13,18 +13,19 @@ public:
     ~CNWLevelStats();
     CNWLevelStats();
 
-    CExoArrayList<unsigned long> SpellsKnown[10];
-    CExoArrayList<unsigned long> SpellsRemoved[10];
-    CExoArrayList<unsigned short> FeatList;
-    uint8_t *Skills;
-    /* 0100 */ uint16_t Skillpoints;
-    uint8_t Ability;
-    uint8_t HP;
-    /* 0104 */ uint8_t Class;
-    /* 0105 */ uint8_t rsvd1[3];
-    /* 0108 */ uint8_t EpicLevel;
-    /* 0109 */ uint8_t rsvd2[3];
+    /* / */ CExoArrayList<unsigned long> SpellsKnown[10];
+    /* / */ CExoArrayList<unsigned long> SpellsRemoved[10];
+    /* / */ CExoArrayList<unsigned short> FeatList;
+    /* / */ unsigned char *Skills;
+    /* 0x100 */ unsigned short Skillpoints;
+    /* 0x102/ */ unsigned char Ability;
+    /* 0x103/ */ unsigned char HP;
+    /* 0x104 */ unsigned char Class;
+    /* 0x105 */ unsigned char rsvd1[3];
+    /* 0x108 */ unsigned char EpicLevel;
+    /* 0x109 */ unsigned char rsvd2[3];
 };
 
-static_assert(sizeof(CNWLevelStats) == 0x10C, "CNWLevelStats has an incorrect size");
+static_assert_size(CNWLevelStats, 0x10C);
+
 #endif
